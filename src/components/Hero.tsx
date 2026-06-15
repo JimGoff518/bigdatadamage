@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { site } from "@/lib/site";
 import { Icon } from "@/components/Icons";
 import { FenceLine } from "@/components/FenceLine";
 
@@ -75,13 +74,6 @@ export function Hero() {
             See what&apos;s happening near you
             <Icon name="arrow" width={18} height={18} />
           </Link>
-          <a
-            href={site.phoneHref}
-            className="inline-flex items-center gap-2 rounded-sm border border-fg/25 px-5 py-3 font-bold text-fg transition-colors hover:border-orange hover:text-orange"
-          >
-            <Icon name="phone" width={16} height={16} />
-            {site.phone}
-          </a>
         </motion.div>
       </div>
 
