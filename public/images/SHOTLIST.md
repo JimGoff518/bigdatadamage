@@ -13,6 +13,14 @@ to pick them up automatically (dark gradient overlays keep headline text readabl
   visual-direction decision; generate B&W-friendly compositions either way.)
 - **Format:** landscape, high-res. No text baked in (we overlay type in code).
 
+## Filenames the site auto-detects (drop files here with these exact names)
+- `hero-fenceline.jpg` — homepage hero background
+- `harm-water.jpg`, `harm-air.jpg`, `harm-property.jpg` — the three Damage hub headers
+- `location-granbury.jpg`, `location-red-oak.jpg`, `location-midlothian.jpg`, `location-corsicana.jpg`, `location-abilene.jpg` — each location hub header
+- `pillar-grid.jpg` — for the future Eminent Domain / Grid pillar (not wired yet)
+
+Missing files fail silently (the dark fallback shows), so add them whenever you're ready.
+
 ## Shots
 
 ### 1. `hero-fenceline.jpg` — Home hero  (2400×1400, landscape)
@@ -26,7 +34,7 @@ to pick them up automatically (dark gradient overlays keep headline text readabl
 > ranchland, cutting through a farmer's field, surveyor stakes in the foreground. Overcast,
 > desaturated, foreboding. Sense of land being taken.
 
-### 3. `pillar-water.jpg` — Aquifer Squeeze pillar (1920×1080)
+### 3. `harm-water.jpg` — Water / Aquifer Squeeze hub (1920×1080)
 > A cracked-dry Texas stock tank / empty cattle pond with a windmill, next to a giant industrial
 > data center with cooling infrastructure and water pipes. Drought, dust, desaturated. The water
 > is gone.

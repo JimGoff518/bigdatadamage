@@ -32,7 +32,12 @@ export default async function TopicHub(props: PageProps<"/damage/[harm]">) {
 
   return (
     <>
-      <PageHeader eyebrow={topic.name} title={topic.headline} intro={topic.intro} />
+      <PageHeader
+        eyebrow={topic.name}
+        title={topic.headline}
+        intro={topic.intro}
+        image={`/images/harm-${topic.slug}.jpg`}
+      />
 
       <section className="mx-auto max-w-6xl px-4 py-16">
         <Reveal>

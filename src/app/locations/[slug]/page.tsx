@@ -37,6 +37,7 @@ export default async function LocationHub(props: PageProps<"/locations/[slug]">)
         eyebrow={`${loc.county} · ${loc.region}`}
         title={`Data Centers in ${loc.city}, Texas`}
         intro={loc.intro}
+        image={`/images/location-${loc.slug}.jpg`}
       />
 
       <section className="mx-auto max-w-6xl px-4 py-16">

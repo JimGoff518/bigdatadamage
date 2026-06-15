@@ -3,10 +3,18 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
 import { PageHeader } from "@/components/PageHeader";
-import { HarmTag, formatDate } from "@/components/cards";
+import { ArticleCard, HarmTag, formatDate } from "@/components/cards";
 import { LeadForm } from "@/components/LeadForm";
-import { getAllArticles, getArticle } from "@/lib/articles";
+import { Icon } from "@/components/Icons";
+import {
+  getAllArticles,
+  getArticle,
+  getRelatedArticles,
+  readingMinutes,
+  extractToc,
+} from "@/lib/articles";
 import { getLocation } from "@/content/locations";
 import { site } from "@/lib/site";
 
@@ -36,6 +44,9 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
   if (!article) notFound();
 
   const location = article.location ? getLocation(article.location) : undefined;
+  const minutes = readingMinutes(article.content);
+  const toc = extractToc(article.content);
+  const related = getRelatedArticles(article);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -56,7 +67,8 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
       <PageHeader title={article.title} />
 
       <article className="mx-auto max-w-3xl px-4 py-14">
-        <div className="flex flex-wrap items-center gap-3 text-sm text-fg-dim">
+        {/* Byline */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-fg-dim">
           <HarmTag harm={article.harm} />
           {location && (
             <Link href={`/locations/${location.slug}`} className="font-semibold text-teal hover:underline">
@@ -64,10 +76,36 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
             </Link>
           )}
           <time>{formatDate(article.date)}</time>
+          <span aria-hidden>·</span>
+          <span>{minutes} min read</span>
         </div>
 
+        {/* Table of contents */}
+        {toc.length >= 3 && (
+          <nav
+            aria-label="In this report"
+            className="mt-8 rounded-md border border-line bg-panel p-5 shadow-card"
+          >
+            <p className="eyebrow text-[11px] text-hazard">In this report</p>
+            <ul className="mt-3 space-y-1.5">
+              {toc.map((item) => (
+                <li key={item.id} className={item.depth === 3 ? "ml-4" : ""}>
+                  <a
+                    href={`#${item.id}`}
+                    className="text-sm text-fg/80 transition-colors hover:text-orange"
+                  >
+                    {item.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+
         <div className="prose prose-invert prose-lg mt-8 max-w-none prose-headings:font-display prose-headings:text-fg prose-a:text-orange prose-strong:text-fg">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{article.content}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+            {article.content}
+          </ReactMarkdown>
         </div>
 
         <div className="mt-12 rounded-md border border-line bg-panel p-6 text-sm text-fg-dim shadow-card">
@@ -75,6 +113,24 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
         </div>
       </article>
 
+      {/* Related coverage */}
+      {related.length > 0 && (
+        <section className="border-t border-line">
+          <div className="mx-auto max-w-5xl px-4 py-14">
+            <h2 className="flex items-center gap-2 text-2xl font-bold text-fg">
+              <Icon name="shield" width={22} height={22} className="text-orange" />
+              Related coverage
+            </h2>
+            <div className="mt-6 grid gap-6 md:grid-cols-3">
+              {related.map((a) => (
+                <ArticleCard key={a.slug} article={a} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Lead capture */}
       <section className="border-t border-line bg-panel/40">
         <div className="mx-auto max-w-3xl px-4 py-16">
           <h2 className="text-2xl font-bold text-fg">

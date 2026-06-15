@@ -8,7 +8,12 @@ import { FenceLine } from "@/components/FenceLine";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-night text-fg">
+    <section
+      className="relative overflow-hidden bg-night bg-cover bg-center text-fg"
+      style={{ backgroundImage: "url('/images/hero-fenceline.jpg')" }}
+    >
+      {/* Darkening overlay so text stays readable over the photo (and harmless if no photo is present yet) */}
+      <div className="pointer-events-none absolute inset-0 bg-night/60" />
       <div className="pointer-events-none absolute inset-0 grid-texture opacity-60" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-night" />
       <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-orange/20 blur-3xl" />

@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { Reveal } from "@/components/Reveal";
 import { ArticleCard, HarmCard, LocationCard } from "@/components/cards";
 import { LeadForm } from "@/components/LeadForm";
+import { ByTheNumbers } from "@/components/ByTheNumbers";
 import { Icon } from "@/components/Icons";
 import { topics } from "@/content/topics";
 import { locations } from "@/content/locations";
@@ -34,6 +35,9 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* By the numbers */}
+      <ByTheNumbers />
 
       {/* Latest articles */}
       <section className="border-y border-line bg-panel/40">

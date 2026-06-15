@@ -4,6 +4,7 @@ import "./globals.css";
 import { site } from "@/lib/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { MobileCTABar } from "@/components/MobileCTABar";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -39,11 +40,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${oswald.variable} ${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${oswald.variable} ${inter.variable} h-full scroll-smooth antialiased`}>
       <body className="flex min-h-full flex-col">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <MobileCTABar />
       </body>
     </html>
   );

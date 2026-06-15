@@ -4,13 +4,27 @@ export function PageHeader({
   eyebrow,
   title,
   intro,
+  image,
 }: {
   eyebrow?: string;
   title: string;
   intro?: string;
+  // Optional background photo. Uses CSS background so a missing file fails
+  // silently (no broken-image icon) and falls back to the dark treatment.
+  image?: string;
 }) {
   return (
     <section className="relative overflow-hidden border-b border-line bg-night text-fg">
+      {image && (
+        <div className="absolute inset-0">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url('${image}')` }}
+          />
+          <div className="absolute inset-0 bg-night/70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-night via-night/65 to-night/30" />
+        </div>
+      )}
       <div className="pointer-events-none absolute inset-0 grid-texture opacity-50" />
       <div className="relative mx-auto max-w-6xl px-4 pt-14 pb-20 sm:pt-16 sm:pb-24">
         {eyebrow && (
