@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Icon } from "@/components/Icons";
-import { FenceLine } from "@/components/FenceLine";
 
 export function Hero() {
   return (
@@ -47,9 +46,9 @@ export function Hero() {
           className="mt-5 max-w-3xl text-balance text-4xl font-bold leading-[1.03] sm:text-6xl"
         >
           They&apos;re draining Texas dry.
-          <span className="block text-orange">
-            It&apos;s your water. It&apos;s your air. It&apos;s your land.
-          </span>
+          <span className="block text-orange">It&apos;s your water.</span>
+          <span className="block text-orange">It&apos;s your air.</span>
+          <span className="block text-orange">It&apos;s your land.</span>
           <span className="block text-orange">Fight to keep it.</span>
         </motion.h1>
 
@@ -79,9 +78,6 @@ export function Hero() {
           </Link>
         </motion.div>
       </div>
-
-      {/* Midnight Fence Line horizon */}
-      <FenceLine className="absolute bottom-0 left-0 h-28 w-full text-black/70 sm:h-36" />
     </section>
   );
 }

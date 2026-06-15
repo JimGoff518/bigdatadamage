@@ -1,5 +1,3 @@
-import { FenceLine } from "@/components/FenceLine";
-
 export function PageHeader({
   eyebrow,
   title,
@@ -35,7 +33,6 @@ export function PageHeader({
         </h1>
         {intro && <p className="mt-4 max-w-2xl text-lg text-fg/75">{intro}</p>}
       </div>
-      <FenceLine className="absolute bottom-0 left-0 h-16 w-full text-black/60" />
     </section>
   );
 }
