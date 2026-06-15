@@ -2,7 +2,7 @@ export const site = {
   name: "Big Data Damage",
   tagline: "Texas Landowners vs. The Data Center Boom",
   domain: "bigdatadamage.com",
-  url: "https://bigdatadamage.com",
+  url: "https://www.bigdatadamage.com",
   phone: "972-928-0085",
   phoneHref: "tel:+19729280085",
   description:
