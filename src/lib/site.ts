@@ -3,8 +3,8 @@ export const site = {
   tagline: "Texas Landowners vs. The Data Center Boom",
   domain: "bigdatadamage.com",
   url: "https://www.bigdatadamage.com",
-  phone: "972-928-0085",
-  phoneHref: "tel:+19729280085",
+  phone: "214-206-3377",
+  phoneHref: "tel:+12142063377",
   description:
     "A Texas information resource on how data centers are draining our water, fouling our air, and crushing property values — and what landowners can do about it.",
   // Texas Bar advertising compliance
