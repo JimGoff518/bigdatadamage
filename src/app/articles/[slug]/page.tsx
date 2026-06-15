@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import { PageHeader } from "@/components/PageHeader";
 import { ArticleCard, HarmTag, formatDate } from "@/components/cards";
 import { LeadForm } from "@/components/LeadForm";
+import { VideoEmbed } from "@/components/VideoEmbed";
 import { Icon } from "@/components/Icons";
+import { parseYouTubeId } from "@/lib/youtube";
 import {
   getAllArticles,
   getArticle,
@@ -48,6 +50,22 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
   const toc = extractToc(article.content);
   const related = getRelatedArticles(article);
 
+  // Turn a paragraph that is just a bare YouTube link into a lazy video embed.
+  const markdownComponents: Components = {
+    p({ node, children, ...props }) {
+      const kids = (node?.children ?? []).filter(
+        (c) => !(c.type === "text" && c.value.trim() === ""),
+      );
+      const only = kids.length === 1 ? kids[0] : undefined;
+      if (only && only.type === "element" && only.tagName === "a") {
+        const href = only.properties?.href;
+        const vid = typeof href === "string" ? parseYouTubeId(href) : null;
+        if (vid) return <VideoEmbed id={vid} title={article.title} />;
+      }
+      return <p {...props}>{children}</p>;
+    },
+  };
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -80,6 +98,11 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
           <span>{minutes} min read</span>
         </div>
 
+        {/* Featured video */}
+        {article.video && (
+          <VideoEmbed url={article.video} title={article.title} />
+        )}
+
         {/* Table of contents */}
         {toc.length >= 3 && (
           <nav
@@ -103,7 +126,11 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
         )}
 
         <div className="prose prose-invert prose-lg mt-8 max-w-none prose-headings:font-display prose-headings:text-fg prose-a:text-orange prose-strong:text-fg">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]}>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeSlug]}
+            components={markdownComponents}
+          >
             {article.content}
           </ReactMarkdown>
         </div>

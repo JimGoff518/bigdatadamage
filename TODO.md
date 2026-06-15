@@ -4,6 +4,19 @@ Running backlog of features and ideas not yet built. Newest decisions at top.
 
 ## Backlog
 
+### YouTube video embeds — DONE, awaiting content (2026-06-14)
+Reusable lazy `VideoEmbed` component is built & verified (typecheck/lint/build green). Works on
+any page; cookie-less youtube-nocookie, click-to-load facade (SEO/Core-Web-Vitals friendly).
+- Files: `src/components/VideoEmbed.tsx`, `src/lib/youtube.ts`; wired into `next.config.ts`,
+  `src/lib/articles.ts` (new `video:` frontmatter field), and `articles/[slug]/page.tsx`
+  (featured video + inline auto-embed of bare YouTube URLs).
+- Usage: any page → `<VideoEmbed url="https://youtu.be/ID" title="..." />`; article top →
+  `video: "..."` in frontmatter; article body → paste a YouTube URL on its own line.
+- **Pending:** user is sourcing YouTube URLs. When ready, decide which pages get videos
+  (e.g. homepage hero explainer, per-county video on location pages) and supply URLs.
+- **Optional follow-up:** add a `video` field to location/topic data so location pages auto-show
+  their own video when one exists.
+
 ### Realtime "Breaking Data Center News" ticker (deferred 2026-06-14)
 Live "Recent Updates" feed of breaking Texas data-center news (eventually filterable by county).
 
