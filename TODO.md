@@ -2,6 +2,16 @@
 
 Running backlog of features and ideas not yet built. Newest decisions at top.
 
+## Launch tasks (owner action)
+
+- [ ] **Lead email (most important):** in Vercel → Settings → Environment Variables, set
+  `RESEND_API_KEY` (from resend.com), `LEAD_EMAIL=jim@gofflawdfw.com`, and
+  `LEAD_FROM=Big Data Damage <onboarding@resend.dev>`, then redeploy and submit a test form to
+  confirm the email arrives. Until done, form leads are not captured (tap-to-call still works).
+- [ ] **SEO kickoff:** in Google Search Console, submit `sitemap.xml` and use URL Inspection to
+  request indexing on the top ~10 pages.
+- [ ] **Upgrade Vercel Hobby → Pro** (~$20/mo) for commercial-use compliance.
+
 ## Backlog
 
 ### YouTube video embeds — DONE, awaiting content (2026-06-14)
