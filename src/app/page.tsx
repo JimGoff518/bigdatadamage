@@ -2,13 +2,11 @@ import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { Reveal } from "@/components/Reveal";
 import { ArticleCard, HarmCard, LocationCard } from "@/components/cards";
-import { LeadForm } from "@/components/LeadForm";
 import { ByTheNumbers } from "@/components/ByTheNumbers";
 import { Icon } from "@/components/Icons";
 import { topics } from "@/content/topics";
 import { locations } from "@/content/locations";
 import { getAllArticles, getFeaturedArticle } from "@/lib/articles";
-import { site } from "@/lib/site";
 
 export default function Home() {
   const articles = getAllArticles();
@@ -103,40 +101,21 @@ export default function Home() {
           </p>
         </Reveal>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {locations.map((loc, i) => (
+          {locations.slice(0, 6).map((loc, i) => (
             <Reveal key={loc.slug} delay={i * 0.05}>
               <LocationCard location={loc} />
             </Reveal>
           ))}
         </div>
-      </section>
-
-      {/* Lead capture */}
-      <section className="border-t border-line bg-panel/40">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 md:grid-cols-2 md:items-center">
-          <Reveal>
-            <p className="eyebrow border-l-4 border-orange pl-3 text-xs text-hazard">
-              Tell us what&apos;s happening
-            </p>
-            <h2 className="mt-3 text-3xl font-bold text-fg sm:text-4xl">
-              They didn&apos;t hit your car. They came for your water, your air, and your home.
-            </h2>
-            <p className="mt-4 text-fg/70">
-              If a data center is affecting your property in Texas, you may have legal options.
-              Tell us what you&apos;re seeing near you and we&apos;ll review it — free and confidential.
-            </p>
-            <a
-              href={site.phoneHref}
-              className="mt-6 inline-flex items-center gap-2 rounded-sm bg-orange px-5 py-3 font-bold text-night transition-colors hover:bg-orange-bright"
-            >
-              <Icon name="phone" width={16} height={16} />
-              Prefer to call? {site.phone}
-            </a>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <LeadForm />
-          </Reveal>
-        </div>
+        <Reveal className="mt-8">
+          <Link
+            href="/locations"
+            className="inline-flex items-center gap-2 rounded-sm border border-line px-5 py-3 font-semibold text-fg transition-colors hover:border-orange hover:text-orange"
+          >
+            See all {locations.length} Texas communities we&apos;re tracking
+            <Icon name="arrow" width={18} height={18} />
+          </Link>
+        </Reveal>
       </section>
     </>
   );

@@ -47,13 +47,6 @@ export function Header() {
               {item.label}
             </Link>
           ))}
-          <a
-            href={site.phoneHref}
-            className="inline-flex items-center gap-2 rounded-sm bg-orange px-4 py-2 text-sm font-bold text-night transition-colors hover:bg-orange-bright"
-          >
-            <Icon name="phone" width={16} height={16} />
-            Call Now
-          </a>
         </nav>
 
         <button aria-label="Toggle menu" className="lg:hidden" onClick={() => setOpen((v) => !v)}>

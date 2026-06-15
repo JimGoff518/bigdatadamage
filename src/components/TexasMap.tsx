@@ -2,11 +2,21 @@ import { locations } from "@/content/locations";
 
 // Approximate plot positions (stylized, not survey-accurate) within the viewBox.
 const COORDS: Record<string, { x: number; y: number }> = {
+  amarillo: { x: 360, y: 150 },
   abilene: { x: 320, y: 395 },
-  granbury: { x: 432, y: 362 },
-  "red-oak": { x: 478, y: 360 },
-  midlothian: { x: 458, y: 378 },
-  corsicana: { x: 508, y: 415 },
+  sweetwater: { x: 280, y: 392 },
+  odessa: { x: 210, y: 470 },
+  granbury: { x: 432, y: 360 },
+  "red-oak": { x: 486, y: 352 },
+  midlothian: { x: 452, y: 378 },
+  "sulphur-springs": { x: 548, y: 330 },
+  corsicana: { x: 512, y: 408 },
+  hillsboro: { x: 470, y: 420 },
+  "waco-lacy-lakeview": { x: 492, y: 452 },
+  temple: { x: 470, y: 492 },
+  "san-marcos": { x: 452, y: 560 },
+  "corpus-christi": { x: 520, y: 700 },
+  harlingen: { x: 478, y: 800 },
 };
 
 const TX_PATH =
