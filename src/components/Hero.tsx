@@ -12,7 +12,20 @@ export function Hero() {
       className="relative overflow-hidden bg-night bg-cover bg-center text-fg"
       style={{ backgroundImage: "url('/images/hero-fenceline.jpg')" }}
     >
-      {/* Darkening overlay so text stays readable over the photo (and harmless if no photo is present yet) */}
+      {/* Background video; falls back to the hero photo (poster) if it can't play */}
+      <video
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/images/hero-fenceline.jpg"
+        aria-hidden
+      >
+        <source src="/videos/hero.mp4" type="video/mp4" />
+      </video>
+      {/* Darkening overlay so text stays readable over the video/photo */}
       <div className="pointer-events-none absolute inset-0 bg-night/60" />
       <div className="pointer-events-none absolute inset-0 grid-texture opacity-60" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-night" />
