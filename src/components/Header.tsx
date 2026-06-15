@@ -10,7 +10,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-night/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-line bg-panel/95 backdrop-blur">
       {/* Investigation banner */}
       <div className="bg-orange text-night">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em]">

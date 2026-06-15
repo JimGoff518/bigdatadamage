@@ -12,7 +12,7 @@ export function PageHeader({
   image?: string;
 }) {
   return (
-    <section className="relative overflow-hidden border-b border-line bg-night text-fg">
+    <section className="relative overflow-hidden border-b border-line bg-night text-paper">
       {image && (
         <div className="absolute inset-0">
           <div
@@ -31,7 +31,7 @@ export function PageHeader({
         <h1 className="mt-3 max-w-3xl text-balance text-4xl font-bold leading-tight sm:text-5xl">
           {title}
         </h1>
-        {intro && <p className="mt-4 max-w-2xl text-lg text-fg/75">{intro}</p>}
+        {intro && <p className="mt-4 max-w-2xl text-lg text-paper/80">{intro}</p>}
       </div>
     </section>
   );

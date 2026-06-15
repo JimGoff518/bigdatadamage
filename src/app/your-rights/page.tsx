@@ -69,7 +69,7 @@ export default function YourRightsPage() {
             we&apos;ll help you understand your options, free and confidential.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
-            <Link href="/contact" className="rounded-sm bg-night px-5 py-3 font-bold text-fg hover:bg-panel">
+            <Link href="/contact" className="rounded-sm bg-night px-5 py-3 font-bold text-paper hover:bg-night/80">
               Get a free review
             </Link>
             <a

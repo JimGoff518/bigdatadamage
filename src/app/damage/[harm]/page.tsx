@@ -83,7 +83,7 @@ export default async function TopicHub(props: PageProps<"/damage/[harm]">) {
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/contact" className="rounded-sm bg-night px-5 py-3 font-bold text-fg hover:bg-panel">
+            <Link href="/contact" className="rounded-sm bg-night px-5 py-3 font-bold text-paper hover:bg-night/80">
               Tell us what&apos;s happening
             </Link>
             <a

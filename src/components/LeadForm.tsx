@@ -62,7 +62,7 @@ export function LeadForm() {
         <span className="text-sm font-semibold text-fg">What are you experiencing?</span>
         <select
           name="concern"
-          className="mt-1 w-full rounded-sm border border-line bg-night px-3 py-2.5 text-sm text-fg outline-none focus:border-orange"
+          className="mt-1 w-full rounded-sm border border-line bg-paper px-3 py-2.5 text-sm text-fg outline-none focus:border-orange"
           defaultValue=""
         >
           <option value="" disabled>Select what fits best…</option>
@@ -78,7 +78,7 @@ export function LeadForm() {
           name="message"
           rows={4}
           placeholder="When did it start? What have you noticed near your property?"
-          className="mt-1 w-full rounded-sm border border-line bg-night px-3 py-2.5 text-sm text-fg outline-none focus:border-orange"
+          className="mt-1 w-full rounded-sm border border-line bg-paper px-3 py-2.5 text-sm text-fg outline-none focus:border-orange"
         />
       </label>
 
@@ -127,7 +127,7 @@ function Field({
         type={type}
         required={required}
         placeholder={placeholder}
-        className="mt-1 w-full rounded-sm border border-line bg-night px-3 py-2.5 text-sm text-fg outline-none focus:border-orange"
+        className="mt-1 w-full rounded-sm border border-line bg-paper px-3 py-2.5 text-sm text-fg outline-none focus:border-orange"
       />
     </label>
   );

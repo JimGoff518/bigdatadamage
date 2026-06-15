@@ -92,7 +92,7 @@ export default async function LocationHub(props: PageProps<"/locations/[slug]">)
         <div className="cta-band mt-14 flex flex-col items-start gap-4 rounded-md p-8 text-night sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-2xl font-bold">Affected in {loc.city}? Let&apos;s talk.</h2>
           <div className="flex flex-wrap gap-3">
-            <Link href="/contact" className="rounded-sm bg-night px-5 py-3 font-bold text-fg hover:bg-panel">
+            <Link href="/contact" className="rounded-sm bg-night px-5 py-3 font-bold text-paper hover:bg-night/80">
               Free case review
             </Link>
             <a

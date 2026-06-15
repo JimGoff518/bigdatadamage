@@ -74,7 +74,7 @@ export default function Home() {
                     Read the report <Icon name="arrow" width={18} height={18} />
                   </span>
                 </div>
-                <div className="hidden h-full min-h-44 items-center justify-center rounded-md border border-line bg-night md:flex">
+                <div className="hidden h-full min-h-44 items-center justify-center rounded-md border border-line bg-panel-2 md:flex">
                   <Icon name="water" width={96} height={96} className="text-teal/40" />
                 </div>
               </Link>

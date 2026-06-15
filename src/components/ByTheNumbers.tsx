@@ -6,7 +6,7 @@ export function ByTheNumbers() {
   const total = regions.reduce((s, r) => s + r.value, 0);
 
   return (
-    <section className="border-y border-line bg-night">
+    <section className="border-y border-line bg-panel/40">
       <div className="mx-auto max-w-6xl px-4 py-20">
         <Reveal>
           <p className="eyebrow border-l-4 border-orange pl-3 text-xs text-hazard">By the numbers</p>
@@ -40,7 +40,7 @@ export function ByTheNumbers() {
                     <span className="font-semibold text-fg">{r.name}</span>
                     <span className="font-display font-bold text-hazard">{r.value}</span>
                   </div>
-                  <div className="h-3 w-full overflow-hidden rounded-sm bg-night">
+                  <div className="h-3 w-full overflow-hidden rounded-sm bg-line">
                     <div
                       className="h-full rounded-sm bg-gradient-to-r from-orange to-hazard"
                       style={{ width: `${(r.value / max) * 100}%` }}

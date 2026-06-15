@@ -2,33 +2,36 @@
 @plugin "@tailwindcss/typography";
 
 /*
-  THE TEXAS DATA CENTER WATCHDOG — "Midnight Fence Line" theme
-  Investigative-journalism aesthetic (ProPublica / Texas Tribune / Texas Monthly).
-  Midnight base, iron-gray panels, burnt-orange + hazard-yellow CTAs only.
+  THE TEXAS DATA CENTER WATCHDOG — "Golden-Hour Ranch" theme
+  Sun-washed Texas hill-country aesthetic on a warm, daylit base.
+  Wheat/paper backgrounds, saddle-leather ink, burnt-orange + goldenrod accents.
+  --color-night is retained as a warm espresso ink for dramatic surfaces
+  (the hero, page mastheads) and as readable text on orange CTAs.
 */
 
 @theme {
-  --color-night: #121212;       /* midnight black — page base */
-  --color-panel: #1c1c1e;      /* iron gray — cards, sections */
-  --color-panel-2: #26262a;    /* elevated panels */
-  --color-line: #343438;       /* hairlines, borders */
-  --color-fg: #ededed;         /* primary text */
-  --color-fg-dim: #9a9aa2;     /* muted text */
+  --color-night: #241d14;       /* warm espresso — hero/masthead surfaces + text on orange */
+  --color-panel: #f3ecdb;      /* aged paper — cards, sections */
+  --color-panel-2: #e9ddc3;    /* deeper paper — chips, insets */
+  --color-line: #d6c4a0;       /* warm tan hairlines, borders */
+  --color-fg: #2a2218;         /* dark saddle-leather — primary text */
+  --color-fg-dim: #6f6450;     /* muted clay — secondary text */
 
   --color-orange: #bf5700;     /* Texas burnt orange — primary CTA */
-  --color-orange-bright: #e06b12; /* hover */
-  --color-hazard: #f4c20d;     /* hazard yellow — alerts / secondary accent */
-  --color-teal: #38bdf8;       /* water-tag accent */
-  --color-paper: #f4f1ea;      /* rare light inset */
+  --color-orange-bright: #d96a13; /* hover */
+  --color-hazard: #9a6612;     /* deep goldenrod — eyebrows, labels, accent bars */
+  --color-teal: #3f7da6;       /* faded denim / Texas-sky blue — water accent */
+  --color-sand: #e8ddc7;       /* wheat — page background */
+  --color-paper: #fbf7ee;      /* near-white — form fields, bright insets */
 
   --font-display: var(--font-oswald);
   --font-sans: var(--font-inter);
 
-  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 12px 30px rgba(0, 0, 0, 0.45);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 10px 26px rgba(74, 54, 28, 0.10);
 }
 
 :root {
-  --background: var(--color-night);
+  --background: var(--color-sand);
   --foreground: var(--color-fg);
 }
 

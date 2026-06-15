@@ -7,7 +7,7 @@ import { Icon } from "@/components/Icons";
 export function Hero() {
   return (
     <section
-      className="relative overflow-hidden bg-night bg-cover bg-center text-fg"
+      className="relative overflow-hidden bg-night bg-cover bg-center text-paper"
       style={{ backgroundImage: "url('/images/hero-fenceline.jpg')" }}
     >
       {/* Background video; falls back to the hero photo (poster) if it can't play */}
@@ -24,9 +24,11 @@ export function Hero() {
         <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
       {/* Darkening overlay so text stays readable over the video/photo */}
-      <div className="pointer-events-none absolute inset-0 bg-night/60" />
-      <div className="pointer-events-none absolute inset-0 grid-texture opacity-60" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-night" />
+      <div className="pointer-events-none absolute inset-0 bg-night/55" />
+      {/* warm golden-hour wash */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-orange/15 via-transparent to-night/30" />
+      <div className="pointer-events-none absolute inset-0 grid-texture opacity-50" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-sand" />
       <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-orange/20 blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-40 sm:pt-28 sm:pb-48">
@@ -56,7 +58,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.12 }}
-          className="mt-6 max-w-2xl text-lg leading-relaxed text-fg/75"
+          className="mt-6 max-w-2xl text-lg leading-relaxed text-paper/85"
         >
           Billion-dollar data centers are pumping Texas aquifers dry, fouling the air with diesel
           exhaust, and crushing property values with round-the-clock noise. We document who&apos;s
