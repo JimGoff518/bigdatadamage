@@ -47,7 +47,10 @@ export function Hero() {
           className="mt-5 max-w-3xl text-balance text-4xl font-bold leading-[1.03] sm:text-6xl"
         >
           They&apos;re draining Texas dry.
-          <span className="block text-orange">It&apos;s your water. Fight to keep it.</span>
+          <span className="block text-orange">
+            It&apos;s your water. It&apos;s your air. It&apos;s your land.
+          </span>
+          <span className="block text-orange">Fight to keep it.</span>
         </motion.h1>
 
         <motion.p
