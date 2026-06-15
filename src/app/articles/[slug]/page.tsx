@@ -125,7 +125,7 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
           </nav>
         )}
 
-        <div className="prose prose-invert prose-lg mt-8 max-w-none prose-headings:font-display prose-headings:text-fg prose-a:text-orange prose-strong:text-fg">
+        <div className="prose prose-lg mt-8 max-w-none prose-headings:font-display prose-headings:text-fg prose-p:text-fg/90 prose-li:text-fg/90 prose-blockquote:text-fg/80 prose-a:text-orange prose-strong:text-fg">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeSlug]}
