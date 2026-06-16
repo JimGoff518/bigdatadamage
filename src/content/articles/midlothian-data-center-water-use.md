@@ -19,7 +19,7 @@ Big data centers run thousands of servers that generate intense heat. To keep th
 
 The catch is that evaporated water does not return to the local system the way wastewater from a home or office might. It leaves as vapor. That makes large cooling operations a form of **consumptive water use**, where the water is effectively gone from the local balance.
 
-If you want a deeper breakdown of these numbers, see our overview of [how much water data centers use](/articles/how-much-water-do-data-centers-use). The short version: a single hyperscale campus can consume volumes comparable to thousands of households.
+If you want a deeper breakdown of these numbers, see our overview of [how much water data centers use](/articles/data-center-water-cooling-projections-2026). The short version: a single hyperscale campus can consume volumes comparable to thousands of households.
 
 ## Midlothian's Corridor Was Built for Heavy Use
 

@@ -46,7 +46,7 @@ are striking: a proposed San Marcos facility was projected to use **over 25 mill
 year**, and an Abilene project required an **8-million-gallon initial fill.** Texas does not
 mandate water-efficient cooling, so some operators choose cheaper **evaporative cooling** that
 consumes water continuously. We break down why that matters for your well in
-[how much water data centers use](/articles/how-much-water-do-data-centers-use) and across our
+[how much water data centers use](/articles/data-center-water-cooling-projections-2026) and across our
 [water coverage](/damage/water).
 
 ## Communities are pushing back — but it's uneven

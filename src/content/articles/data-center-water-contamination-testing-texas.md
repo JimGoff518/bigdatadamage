@@ -23,7 +23,7 @@ Large construction and industrial operations can change what ends up in the grou
 
 None of this means your well is contaminated. It means there are now possible sources nearby that did not exist before, which is exactly why testing and documentation become more useful.
 
-For more on how these facilities draw on local water, see our piece on [how much water data centers use](/articles/how-much-water-do-data-centers-use) and our overview of [water-related harms](/damage/water).
+For more on how these facilities draw on local water, see our piece on [how much water data centers use](/articles/data-center-water-cooling-projections-2026) and our overview of [water-related harms](/damage/water).
 
 ## Warning Signs to Watch For
 
