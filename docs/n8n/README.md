@@ -35,6 +35,15 @@ Find/replace `REPLACE_WITH_APPROVE_SECRET` with your real `APPROVE_SECRET` in:
    Expect: a new `draft/<slug>` branch + PR in the repo, and a review email.
 3. In the email, click **Approve & publish** → the PR merges → Vercel deploys.
 
+## Code-node scripts (kept as readable files)
+
+The two Code nodes' scripts also live as standalone `.js` files for readability/version control;
+the JSON embeds copies of them:
+- `parse-and-validate.js` — the "Parse & validate" node (handles Gemini's ```yaml-fenced output)
+
+Model note: the live build uses **`gemini-2.5-flash`** (free tier). Pro (`gemini-pro-latest`)
+needs API billing enabled. `thinkingLevel` is Gemini-3-only — not used on 2.5.
+
 ## If a node errors
 
 Open the **Executions** tab, click the failed run, copy the red node's error, and send it over.

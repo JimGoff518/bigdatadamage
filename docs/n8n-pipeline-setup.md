@@ -50,10 +50,12 @@ queued | Amarillo Data Centers and the Ogallala Aquifer: What Potter County Land
 
 ### Node 3 — HTTP Request: Gemini (grounded draft)
 - Method: **POST**
-- URL: `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-latest:generateContent`
-  - `gemini-pro-latest` is an alias that tracks the current Pro model. Grounding = the
-    `google_search` tool (confirmed available). Add `generationConfig.thinkingConfig.thinkingLevel: "HIGH"`
-    for accuracy.
+- URL: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`
+  - **Live build uses `gemini-2.5-flash`** (free tier). The Pro alias `gemini-pro-latest` returns
+    `limit: 0` unless the API key has **billing enabled** — Jim's consumer Gemini subscription is
+    separate from API billing. To upgrade: enable billing, then swap the model in the URL.
+  - Grounding = the `google_search` tool. Do **not** add `thinkingConfig.thinkingLevel` on 2.5
+    models (Gemini-3 only — 2.5-flash rejects it).
 - Auth: header `x-goog-api-key: {{ your Gemini credential }}`.
 - Body (JSON):
 

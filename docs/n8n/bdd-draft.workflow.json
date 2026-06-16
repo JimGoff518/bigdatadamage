@@ -5,7 +5,10 @@
       "parameters": {
         "rule": {
           "interval": [
-            { "field": "cronExpression", "expression": "0 13 * * 2,5" }
+            {
+              "field": "cronExpression",
+              "expression": "0 13 * * 2,5"
+            }
           ]
         }
       },
@@ -13,7 +16,10 @@
       "name": "Schedule (Tue & Fri)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [-360, 120]
+      "position": [
+        -360,
+        120
+      ]
     },
     {
       "parameters": {},
@@ -21,44 +27,78 @@
       "name": "Run now (manual)",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [-360, 320]
+      "position": [
+        -360,
+        320
+      ]
     },
     {
       "parameters": {
-        "documentId": { "__rl": true, "value": "1V-anSvUJt1bCTFEP0OYcmJRUMw11PXi5Z-jXA5n7G2Q", "mode": "id" },
-        "sheetName": { "__rl": true, "value": "1271705953", "mode": "id" },
-        "filtersUI": { "values": [ { "lookupColumn": "status", "lookupValue": "queued" } ] },
+        "documentId": {
+          "__rl": true,
+          "value": "1V-anSvUJt1bCTFEP0OYcmJRUMw11PXi5Z-jXA5n7G2Q",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "1271705953",
+          "mode": "id"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "status",
+              "lookupValue": "queued"
+            }
+          ]
+        },
         "options": {}
       },
       "id": "11111111-1111-1111-1111-111111111103",
       "name": "Get queued row",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
-      "position": [-120, 220],
-      "credentials": { "googleSheetsOAuth2Api": { "id": "REPLACE_ME", "name": "Google Sheets account" } }
+      "position": [
+        -120,
+        220
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_ME",
+          "name": "Google Sheets account"
+        }
+      }
     },
     {
-      "parameters": { "maxItems": 1 },
+      "parameters": {
+        "maxItems": 1
+      },
       "id": "11111111-1111-1111-1111-111111111104",
       "name": "Take first",
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
-      "position": [120, 220]
+      "position": [
+        120,
+        220
+      ]
     },
     {
       "parameters": {
-        "jsCode": "const r = $json;\nconst existing = [\"How to Protest a Data Center's Groundwater Permit in Texas\",\"The Rule of Capture, Explained\",\"The Trinity Aquifer Under Threat: data center boom\",\"When the Ground Sinks: data center pumping and subsidence\",\"Is Your Well Water Safe? Contamination Testing\",\"Projecting Data Center Water Usage and Cooling Demands for 2026\",\"Texas Moves to Rein In the Data Center Boom\",\"Data Center Air Pollution in Texas: A Landowner's Guide\",\"Diesel Generators and Neighborhood Air: The Midlothian Question\",\"Crypto Mine vs. Data Center in Texas\",\"Data Center Noise and Texas Nuisance Law\",\"Proving a Data Center Lowered Your Property Value\",\"Is There a Texas Data Center Lawsuit\",\"What to Do If Your Well Runs Dry\",\"Abilene Data Center Water Use\",\"Corsicana Data Center Property Value\",\"Granbury Data Center Noise\",\"Granbury Data Center Water\",\"Midlothian Data Center Water Use\",\"Red Oak Data Center Property Value\",\"Trinity Aquifer water loss in Ellis County\"];\nconst sys = 'You are a staff writer for BigDataDamage.com, a Texas public-interest site that helps rural landowners understand the harms of data centers (water, air, property). Audience: worried, non-expert landowners. Voice: calm, plain, authoritative, specific, never hypey or salesy. OUTPUT: a single Markdown document with YAML frontmatter and NOTHING else (no code fences, no preamble). Frontmatter keys in order: title, excerpt, date, author (Big Data Damage), harm, location (omit if none), seoTitle, seoDescription. RULES: Markdown only; GFM tables allowed; NO raw HTML, NO style or iframe tags, NO inline CSS. To embed a video put a bare YouTube link on its own line. Cite real sources inline as Markdown links, prefer grounded results, use ranges not false precision, never invent statistics, case names, statutes, or quotes. Structure: 2-3 short intro paragraphs, then 3-5 H2 sections, then an H2 Frequently Asked Questions with 4-6 H3 Q&As, then a short closing H2. About 900-1300 words. Add the internal links from the brief using root-relative paths like /damage/water. No tool-attribution footer. This is a YMYL legal-adjacent topic: be accurate and measured, and note when something is general information, not legal advice about a specific property.';\nconst brief = 'Write a complete article for this brief.\\nTitle: ' + r.title + '\\nTarget keyword: ' + r.keyword + '\\nHarm: ' + r.harm + '\\nLocation: ' + (r.location || 'none') + '\\nInternal links to include: ' + (r.internal_links || 'none') + '\\nAngle/notes: ' + (r.notes || 'none') + '\\n\\nDo NOT duplicate the angle or core stats of these existing articles: ' + existing.join('; ');\nconst body = { systemInstruction: { parts: [{ text: sys }] }, contents: [{ role: 'user', parts: [{ text: brief }] }], tools: [{ googleSearch: {} }], generationConfig: { thinkingConfig: { thinkingLevel: 'HIGH' } } };\nreturn [{ json: { body: body, row_number: r.row_number, title: r.title } }];"
+        "jsCode": "const r = $json;\nconst existing = [\"How to Protest a Data Center's Groundwater Permit in Texas\",\"The Rule of Capture, Explained\",\"The Trinity Aquifer Under Threat: data center boom\",\"When the Ground Sinks: data center pumping and subsidence\",\"Is Your Well Water Safe? Contamination Testing\",\"Projecting Data Center Water Usage and Cooling Demands for 2026\",\"Texas Moves to Rein In the Data Center Boom\",\"Data Center Air Pollution in Texas: A Landowner's Guide\",\"Diesel Generators and Neighborhood Air: The Midlothian Question\",\"Crypto Mine vs. Data Center in Texas\",\"Data Center Noise and Texas Nuisance Law\",\"Proving a Data Center Lowered Your Property Value\",\"Is There a Texas Data Center Lawsuit\",\"What to Do If Your Well Runs Dry\",\"Abilene Data Center Water Use\",\"Corsicana Data Center Property Value\",\"Granbury Data Center Noise\",\"Granbury Data Center Water\",\"Midlothian Data Center Water Use\",\"Red Oak Data Center Property Value\",\"Trinity Aquifer water loss in Ellis County\"];\nconst sys = 'You are a staff writer for BigDataDamage.com, a Texas public-interest site that helps rural landowners understand the harms of data centers (water, air, property). Audience: worried, non-expert landowners. Voice: calm, plain, authoritative, specific, never hypey or salesy. OUTPUT: a single Markdown document with YAML frontmatter and NOTHING else (no code fences, no preamble). Frontmatter keys in order: title, excerpt, date, author (Big Data Damage), harm, location (omit if none), seoTitle, seoDescription. RULES: Markdown only; GFM tables allowed; NO raw HTML, NO style or iframe tags, NO inline CSS. To embed a video put a bare YouTube link on its own line. Cite real sources inline as Markdown links, prefer grounded results, use ranges not false precision, never invent statistics, case names, statutes, or quotes. Structure: 2-3 short intro paragraphs, then 3-5 H2 sections, then an H2 Frequently Asked Questions with 4-6 H3 Q&As, then a short closing H2. About 900-1300 words. Add the internal links from the brief using root-relative paths like /damage/water. No tool-attribution footer. This is a YMYL legal-adjacent topic: be accurate and measured, and note when something is general information, not legal advice about a specific property.';\nconst brief = 'Write a complete article for this brief.\\nTitle: ' + r.title + '\\nTarget keyword: ' + r.keyword + '\\nHarm: ' + r.harm + '\\nLocation: ' + (r.location || 'none') + '\\nInternal links to include: ' + (r.internal_links || 'none') + '\\nAngle/notes: ' + (r.notes || 'none') + '\\n\\nDo NOT duplicate the angle or core stats of these existing articles: ' + existing.join('; ');\nconst body = { systemInstruction: { parts: [{ text: sys }] }, contents: [{ role: 'user', parts: [{ text: brief }] }], tools: [{ googleSearch: {} }] };\nreturn [{ json: { body: body, row_number: r.row_number, title: r.title } }];"
       },
       "id": "11111111-1111-1111-1111-111111111105",
       "name": "Build Gemini request",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [360, 220]
+      "position": [
+        360,
+        220
+      ]
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-latest:generateContent",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "googlePalmApi",
         "sendBody": true,
@@ -70,18 +110,29 @@
       "name": "Gemini draft",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [600, 220],
-      "credentials": { "googlePalmApi": { "id": "REPLACE_ME", "name": "Google Gemini(PaLM) account" } }
+      "position": [
+        600,
+        220
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "REPLACE_ME",
+          "name": "Google Gemini(PaLM) account"
+        }
+      }
     },
     {
       "parameters": {
-        "jsCode": "const parts = $json.candidates && $json.candidates[0] && $json.candidates[0].content && $json.candidates[0].content.parts ? $json.candidates[0].content.parts : [];\nlet text = parts.map(function(p){ return p.text || ''; }).join('');\ntext = text.replace(/^```[a-z]*\\n?/i, '').replace(/```\\s*$/, '').trim();\nconst m = text.match(/^---\\n([\\s\\S]*?)\\n---\\n([\\s\\S]*)$/);\nif (!m) { throw new Error('No frontmatter found in draft'); }\nconst fm = m[1]; const bodyText = m[2];\nconst tt = fm.match(/title:\\s*\"?(.+?)\"?\\s*$/m);\nconst title = tt ? tt[1] : ($('Build Gemini request').item.json.title || 'untitled');\nconst slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);\nconst stripped = bodyText.replace(/^\\s*https?:\\/\\/\\S+\\s*$/gim, '');\nif (/<\\/?[a-z][\\s\\S]*?>/i.test(stripped)) { throw new Error('Raw HTML detected in body'); }\nif (bodyText.trim().split(/\\s+/).length < 600) { throw new Error('Draft too short'); }\nconst contentB64 = Buffer.from(text, 'utf8').toString('base64');\nreturn [{ json: { slug: slug, path: 'src/content/articles/' + slug + '.md', title: title, contentB64: contentB64, row_number: $('Build Gemini request').item.json.row_number } }];"
+        "jsCode": "// Code node \"Parse & validate\" — extracts frontmatter + body from Gemini's\n// output (handles ```yaml fences, --- delimiters, or whole-doc-wrapped output),\n// normalizes to quoted --- YAML, validates, and base64-encodes the final .md.\nconst TB = String.fromCharCode(96, 96, 96);\nconst parts = $json.candidates?.[0]?.content?.parts || [];\nlet text = parts.map(p => p.text || '').join('');\ntext = text.replace(/\\r\\n/g, '\\n').trim();\ntext = text.replace(new RegExp('^' + TB + '[a-zA-Z]*[ \\\\t]*\\\\n'), '');\ntext = text.replace(new RegExp('\\\\n?' + TB + '[ \\\\t]*$'), '');\ntext = text.trim();\n\nconst keys = ['title','excerpt','date','author','harm','location','seoTitle','seoDescription'];\nconst lines = text.split('\\n');\nconst data = {};\nlet i = 0;\nif (lines[0] && lines[0].trim() === '---') i = 1;\nfor (; i < lines.length; i++) {\n  const t = lines[i].trim();\n  if (t === '---') { i++; break; }\n  if (t.startsWith(TB)) { if (Object.keys(data).length) { i++; break; } else { continue; } }\n  const mm = lines[i].match(/^([A-Za-z]+):\\s*(.*)$/);\n  if (mm && keys.includes(mm[1])) { data[mm[1]] = mm[2].trim().replace(/^[\"']|[\"']$/g, ''); }\n  else if (t === '') { if (Object.keys(data).length) { i++; break; } }\n  else { break; }\n}\nlet body = lines.slice(i).join('\\n').trim();\n\nif (!data.title) { throw new Error('No title. First 200: ' + text.slice(0, 200)); }\nconst fm = keys.filter(k => data[k]).map(k => k + ': \"' + data[k].replace(/\"/g, '\\\\\"') + '\"').join('\\n');\nconst title = data.title;\nconst slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);\n\nconst stripped = body.replace(/^\\s*https?:\\/\\/\\S+\\s*$/gim, '');\nif (/<\\/?[a-z][\\s\\S]*?>/i.test(stripped)) { throw new Error('Raw HTML detected in body'); }\nconst wc = body.split(/\\s+/).filter(Boolean).length;\nif (wc < 250) { throw new Error('Draft too short: ' + wc + ' words'); }\n\nconst finalMd = '---\\n' + fm + '\\n---\\n\\n' + body + '\\n';\nconst contentB64 = Buffer.from(finalMd, 'utf8').toString('base64');\nreturn [{ json: { slug: slug, path: 'src/content/articles/' + slug + '.md', title: title, contentB64: contentB64, row_number: $('Build Gemini request').item.json.row_number } }];"
       },
       "id": "11111111-1111-1111-1111-111111111107",
       "name": "Parse & validate",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [840, 220]
+      "position": [
+        840,
+        220
+      ]
     },
     {
       "parameters": {
@@ -90,15 +141,30 @@
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "githubApi",
         "sendHeaders": true,
-        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            }
+          ]
+        },
         "options": {}
       },
       "id": "11111111-1111-1111-1111-111111111108",
       "name": "GitHub: main SHA",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1080, 220],
-      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+      "position": [
+        1080,
+        220
+      ],
+      "credentials": {
+        "githubApi": {
+          "id": "REPLACE_ME",
+          "name": "GitHub account"
+        }
+      }
     },
     {
       "parameters": {
@@ -107,7 +173,14 @@
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "githubApi",
         "sendHeaders": true,
-        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            }
+          ]
+        },
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ { \"ref\": \"refs/heads/draft/\" + $('Parse & validate').item.json.slug, \"sha\": $json.object.sha } }}",
@@ -117,8 +190,16 @@
       "name": "GitHub: create branch",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1320, 220],
-      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+      "position": [
+        1320,
+        220
+      ],
+      "credentials": {
+        "githubApi": {
+          "id": "REPLACE_ME",
+          "name": "GitHub account"
+        }
+      }
     },
     {
       "parameters": {
@@ -127,7 +208,14 @@
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "githubApi",
         "sendHeaders": true,
-        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            }
+          ]
+        },
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ { \"message\": \"Draft: \" + $('Parse & validate').item.json.title, \"content\": $('Parse & validate').item.json.contentB64, \"branch\": \"draft/\" + $('Parse & validate').item.json.slug } }}",
@@ -137,8 +225,16 @@
       "name": "GitHub: commit file",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1560, 220],
-      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+      "position": [
+        1560,
+        220
+      ],
+      "credentials": {
+        "githubApi": {
+          "id": "REPLACE_ME",
+          "name": "GitHub account"
+        }
+      }
     },
     {
       "parameters": {
@@ -147,7 +243,14 @@
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "githubApi",
         "sendHeaders": true,
-        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/vnd.github+json"
+            }
+          ]
+        },
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ { \"title\": \"Draft: \" + $('Parse & validate').item.json.title, \"head\": \"draft/\" + $('Parse & validate').item.json.slug, \"base\": \"main\", \"body\": \"Auto-drafted by n8n. Review the Vercel preview deploy linked below, then click Approve in the email to publish.\" } }}",
@@ -157,8 +260,16 @@
       "name": "GitHub: open PR",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1800, 220],
-      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+      "position": [
+        1800,
+        220
+      ],
+      "credentials": {
+        "githubApi": {
+          "id": "REPLACE_ME",
+          "name": "GitHub account"
+        }
+      }
     },
     {
       "parameters": {
@@ -168,20 +279,38 @@
         "subject": "=New draft ready: {{ $('Parse & validate').item.json.title }}",
         "emailType": "html",
         "message": "=<h2>New draft ready: {{ $('Parse & validate').item.json.title }}</h2><p><a href=\"{{ $json.html_url }}\">Open the PR &amp; preview on GitHub</a> (the Vercel preview link appears on the PR checks).</p><p style=\"margin:24px 0\"><a href=\"https://gofflawdfw.app.n8n.cloud/webhook/approve?pr={{ $json.number }}&token=REPLACE_WITH_APPROVE_SECRET\" style=\"background:#16a34a;color:#fff;padding:12px 20px;border-radius:6px;text-decoration:none;font-weight:600\">&#9989; Approve &amp; publish</a></p><p style=\"color:#6b7280;font-size:13px\">Clicking Approve merges the PR and deploys to bigdatadamage.com.</p>",
-        "options": { "appendAttribution": false }
+        "options": {
+          "appendAttribution": false
+        }
       },
       "id": "11111111-1111-1111-1111-111111111112",
       "name": "Email me to review",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
-      "position": [2040, 220],
-      "credentials": { "gmailOAuth2": { "id": "REPLACE_ME", "name": "Gmail account 3" } }
+      "position": [
+        2040,
+        220
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_ME",
+          "name": "Gmail account 3"
+        }
+      }
     },
     {
       "parameters": {
         "operation": "update",
-        "documentId": { "__rl": true, "value": "1V-anSvUJt1bCTFEP0OYcmJRUMw11PXi5Z-jXA5n7G2Q", "mode": "id" },
-        "sheetName": { "__rl": true, "value": "1271705953", "mode": "id" },
+        "documentId": {
+          "__rl": true,
+          "value": "1V-anSvUJt1bCTFEP0OYcmJRUMw11PXi5Z-jXA5n7G2Q",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "1271705953",
+          "mode": "id"
+        },
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
@@ -189,7 +318,9 @@
             "status": "in review",
             "pr_url": "={{ $('GitHub: open PR').item.json.html_url }}"
           },
-          "matchingColumns": ["row_number"]
+          "matchingColumns": [
+            "row_number"
+          ]
         },
         "options": {}
       },
@@ -197,23 +328,153 @@
       "name": "Mark in review",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
-      "position": [2280, 220],
-      "credentials": { "googleSheetsOAuth2Api": { "id": "REPLACE_ME", "name": "Google Sheets account" } }
+      "position": [
+        2280,
+        220
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_ME",
+          "name": "Google Sheets account"
+        }
+      }
     }
   ],
   "connections": {
-    "Schedule (Tue & Fri)": { "main": [ [ { "node": "Get queued row", "type": "main", "index": 0 } ] ] },
-    "Run now (manual)": { "main": [ [ { "node": "Get queued row", "type": "main", "index": 0 } ] ] },
-    "Get queued row": { "main": [ [ { "node": "Take first", "type": "main", "index": 0 } ] ] },
-    "Take first": { "main": [ [ { "node": "Build Gemini request", "type": "main", "index": 0 } ] ] },
-    "Build Gemini request": { "main": [ [ { "node": "Gemini draft", "type": "main", "index": 0 } ] ] },
-    "Gemini draft": { "main": [ [ { "node": "Parse & validate", "type": "main", "index": 0 } ] ] },
-    "Parse & validate": { "main": [ [ { "node": "GitHub: main SHA", "type": "main", "index": 0 } ] ] },
-    "GitHub: main SHA": { "main": [ [ { "node": "GitHub: create branch", "type": "main", "index": 0 } ] ] },
-    "GitHub: create branch": { "main": [ [ { "node": "GitHub: commit file", "type": "main", "index": 0 } ] ] },
-    "GitHub: commit file": { "main": [ [ { "node": "GitHub: open PR", "type": "main", "index": 0 } ] ] },
-    "GitHub: open PR": { "main": [ [ { "node": "Email me to review", "type": "main", "index": 0 } ] ] },
-    "Email me to review": { "main": [ [ { "node": "Mark in review", "type": "main", "index": 0 } ] ] }
+    "Schedule (Tue & Fri)": {
+      "main": [
+        [
+          {
+            "node": "Get queued row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run now (manual)": {
+      "main": [
+        [
+          {
+            "node": "Get queued row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get queued row": {
+      "main": [
+        [
+          {
+            "node": "Take first",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Take first": {
+      "main": [
+        [
+          {
+            "node": "Build Gemini request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Gemini request": {
+      "main": [
+        [
+          {
+            "node": "Gemini draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini draft": {
+      "main": [
+        [
+          {
+            "node": "Parse & validate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse & validate": {
+      "main": [
+        [
+          {
+            "node": "GitHub: main SHA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub: main SHA": {
+      "main": [
+        [
+          {
+            "node": "GitHub: create branch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub: create branch": {
+      "main": [
+        [
+          {
+            "node": "GitHub: commit file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub: commit file": {
+      "main": [
+        [
+          {
+            "node": "GitHub: open PR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub: open PR": {
+      "main": [
+        [
+          {
+            "node": "Email me to review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email me to review": {
+      "main": [
+        [
+          {
+            "node": "Mark in review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
-  "settings": { "executionOrder": "v1" }
+  "settings": {
+    "executionOrder": "v1"
+  }
 }
