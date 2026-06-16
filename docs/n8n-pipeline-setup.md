@@ -50,9 +50,10 @@ queued | Amarillo Data Centers and the Ogallala Aquifer: What Potter County Land
 
 ### Node 3 — HTTP Request: Gemini (grounded draft)
 - Method: **POST**
-- URL: `https://generativelanguage.googleapis.com/v1beta/models/<YOUR_CURRENT_GEMINI_MODEL>:generateContent`
-  - Use your current model (e.g. a `gemini-2.x-pro`). Confirm the exact id + grounding field in
-    Google's docs — grounding is the `google_search` tool (older keys used `google_search_retrieval`).
+- URL: `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-latest:generateContent`
+  - `gemini-pro-latest` is an alias that tracks the current Pro model. Grounding = the
+    `google_search` tool (confirmed available). Add `generationConfig.thinkingConfig.thinkingLevel: "HIGH"`
+    for accuracy.
 - Auth: header `x-goog-api-key: {{ your Gemini credential }}`.
 - Body (JSON):
 
