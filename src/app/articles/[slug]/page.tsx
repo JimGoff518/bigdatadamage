@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
@@ -28,6 +29,7 @@ export async function generateMetadata(props: PageProps<"/articles/[slug]">): Pr
   const { slug } = await props.params;
   const article = getArticle(slug);
   if (!article) return {};
+  const ogImage = article.image ? `${site.url}${article.image}` : undefined;
   return {
     title: article.seoTitle ?? article.title,
     description: article.seoDescription ?? article.excerpt,
@@ -36,7 +38,18 @@ export async function generateMetadata(props: PageProps<"/articles/[slug]">): Pr
       description: article.seoDescription ?? article.excerpt,
       type: "article",
       publishedTime: article.date,
+      ...(ogImage ? { images: [{ url: ogImage, width: 1200, height: 630, alt: article.title }] } : {}),
     },
+    ...(ogImage
+      ? {
+          twitter: {
+            card: "summary_large_image",
+            title: article.seoTitle ?? article.title,
+            description: article.seoDescription ?? article.excerpt,
+            images: [ogImage],
+          },
+        }
+      : {}),
   };
 }
 
@@ -74,6 +87,7 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
     datePublished: article.date,
     author: { "@type": "Organization", name: article.author },
     publisher: { "@type": "Organization", name: site.name },
+    ...(article.image ? { image: `${site.url}${article.image}` } : {}),
   };
 
   return (
@@ -85,6 +99,19 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
       <PageHeader title={article.title} />
 
       <article className="mx-auto max-w-3xl px-4 py-14">
+        {/* Hero image */}
+        {article.image && (
+          <div className="relative mb-8 aspect-[16/9] w-full overflow-hidden rounded-md border border-line shadow-card">
+            <Image
+              src={article.image}
+              alt={article.title}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover"
+            />
+          </div>
+        )}
         {/* Byline */}
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-fg-dim">
           <HarmTag harm={article.harm} />

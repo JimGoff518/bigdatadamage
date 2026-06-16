@@ -13,6 +13,7 @@ export type Article = {
   location?: string; // location slug
   featured?: boolean;
   video?: string; // optional featured YouTube URL/id, shown atop the article
+  image?: string; // optional hero/social image, root-relative path under /public
   seoTitle?: string;
   seoDescription?: string;
   content: string; // markdown body
@@ -37,6 +38,7 @@ export function getAllArticles(): Article[] {
       location: data.location,
       featured: data.featured ?? false,
       video: data.video,
+      image: data.image,
       seoTitle: data.seoTitle,
       seoDescription: data.seoDescription,
       content,

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Article } from "@/lib/articles";
 import type { Topic } from "@/content/topics";
 import type { Location } from "@/content/locations";
@@ -30,6 +31,17 @@ export function ArticleCard({ article }: { article: Article }) {
       href={`/articles/${article.slug}`}
       className="group flex flex-col rounded-md border border-line bg-panel p-5 shadow-card transition-all hover:-translate-y-1 hover:border-orange/60"
     >
+      {article.image && (
+        <div className="relative -mx-5 -mt-5 mb-4 aspect-[16/9] overflow-hidden rounded-t-md">
+          <Image
+            src={article.image}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, 360px"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+      )}
       <div className="flex items-center gap-2">
         <HarmTag harm={article.harm} />
         <time className="text-xs text-fg-dim">{formatDate(article.date)}</time>
