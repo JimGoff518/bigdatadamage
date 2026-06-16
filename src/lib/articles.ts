@@ -28,6 +28,18 @@ export function getAllArticles(): Article[] {
     const slug = file.replace(/\.md$/, "");
     const raw = fs.readFileSync(path.join(ARTICLES_DIR, file), "utf8");
     const { data, content } = matter(raw);
+    // Only surface an image if the file actually exists in /public and isn't a
+    // tiny/corrupt stub — a missing image should render as nothing, never broken.
+    const imageRef = typeof data.image === "string" ? data.image.trim() : "";
+    let image: string | undefined;
+    if (imageRef) {
+      try {
+        const p = path.join(process.cwd(), "public", imageRef);
+        if (fs.existsSync(p) && fs.statSync(p).size > 1000) image = imageRef;
+      } catch {
+        image = undefined;
+      }
+    }
     return {
       slug,
       title: data.title ?? slug,
@@ -38,7 +50,7 @@ export function getAllArticles(): Article[] {
       location: data.location,
       featured: data.featured ?? false,
       video: data.video,
-      image: data.image,
+      image,
       seoTitle: data.seoTitle,
       seoDescription: data.seoDescription,
       content,
