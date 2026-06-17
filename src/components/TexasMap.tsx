@@ -81,6 +81,18 @@ const scale = Math.min(
 const offX = PAD_L + (VIEW_W - PAD_L - PAD_R - (maxX - minX) * scale) / 2;
 const offY = PAD_TB + (VIEW_H - 2 * PAD_TB - (maxY - minY) * scale) / 2;
 
+// Only the well-separated regional cities get a text label on the map; the
+// dense DFW/Central cluster shows as dots (all named in the list beside the map)
+// so labels never collide. side = which way the label points off its pin.
+const LABELS: Record<string, "left" | "right"> = {
+  amarillo: "right",
+  odessa: "left",
+  "sulphur-springs": "right",
+  "san-marcos": "right",
+  "corpus-christi": "right",
+  harlingen: "right",
+};
+
 function project(lng: number, lat: number): { x: number; y: number } {
   return {
     x: offX + (lng * COS_LAT - minX) * scale,
@@ -107,21 +119,25 @@ export function TexasMap() {
         const ll = CITY_LL[loc.slug];
         if (!ll) return null;
         const { x, y } = project(ll[0], ll[1]);
+        const side = LABELS[loc.slug];
         return (
           <a key={loc.slug} href={`/locations/${loc.slug}`}>
             <title>{`${loc.city}, ${loc.county}`}</title>
-            <circle cx={x} cy={y} r="16" fill="var(--color-orange)" opacity="0.18" />
+            <circle cx={x} cy={y} r="15" fill="var(--color-orange)" opacity="0.18" />
             <circle cx={x} cy={y} r="7" fill="var(--color-orange)" stroke="var(--color-night)" strokeWidth="2" />
-            <text
-              x={x + 13}
-              y={y + 5}
-              fontSize="19"
-              fontWeight="700"
-              fill="var(--color-fg)"
-              className="font-display"
-            >
-              {loc.city}
-            </text>
+            {side && (
+              <text
+                x={side === "right" ? x + 13 : x - 13}
+                y={y + 5}
+                textAnchor={side === "right" ? "start" : "end"}
+                fontSize="19"
+                fontWeight="700"
+                fill="var(--color-fg)"
+                className="font-display"
+              >
+                {loc.city}
+              </text>
+            )}
           </a>
         );
       })}
