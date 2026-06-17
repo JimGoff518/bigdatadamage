@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { MobileCTABar } from "@/components/MobileCTABar";
+import { NewsTicker } from "@/components/NewsTicker";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -74,6 +75,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
+        <NewsTicker />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

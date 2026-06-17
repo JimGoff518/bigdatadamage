@@ -48,6 +48,21 @@ h1, h2, h3, h4, .font-display {
   text-transform: none;
 }
 
+/* Breaking-news ticker — seamless infinite scroll, pauses on hover */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker-scroll 60s linear infinite;
+}
+.ticker-bar:hover .ticker-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+}
+
 /* Burnt-orange → hazard CTA band */
 .cta-band {
   background: linear-gradient(100deg, #8f4100 0%, var(--color-orange) 55%, #d97a13 100%);
