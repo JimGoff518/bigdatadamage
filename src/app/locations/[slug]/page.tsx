@@ -21,6 +21,7 @@ export async function generateMetadata(props: PageProps<"/locations/[slug]">): P
   return {
     title: `Data Centers in ${loc.city}, TX (${loc.county})`,
     description: loc.intro.slice(0, 155),
+    alternates: { canonical: `/locations/${slug}` },
   };
 }
 

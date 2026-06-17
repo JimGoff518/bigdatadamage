@@ -19,6 +19,7 @@ import {
   extractToc,
 } from "@/lib/articles";
 import { getLocation } from "@/content/locations";
+import { getTopic } from "@/content/topics";
 import { site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -33,10 +34,12 @@ export async function generateMetadata(props: PageProps<"/articles/[slug]">): Pr
   return {
     title: article.seoTitle ?? article.title,
     description: article.seoDescription ?? article.excerpt,
+    alternates: { canonical: `/articles/${slug}` },
     openGraph: {
       title: article.seoTitle ?? article.title,
       description: article.seoDescription ?? article.excerpt,
       type: "article",
+      url: `/articles/${slug}`,
       publishedTime: article.date,
       ...(ogImage ? { images: [{ url: ogImage, width: 1200, height: 630, alt: article.title }] } : {}),
     },
@@ -79,15 +82,36 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
     },
   };
 
+  const url = `${site.url}/articles/${article.slug}`;
+  const topic = article.harm ? getTopic(article.harm) : undefined;
+  const crumbs = [{ name: "Home", item: site.url }];
+  if (topic) crumbs.push({ name: topic.name, item: `${site.url}/damage/${topic.slug}` });
+  crumbs.push({ name: article.title, item: url });
+
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.excerpt,
-    datePublished: article.date,
-    author: { "@type": "Organization", name: article.author },
-    publisher: { "@type": "Organization", name: site.name },
-    ...(article.image ? { image: `${site.url}${article.image}` } : {}),
+    "@graph": [
+      {
+        "@type": "Article",
+        headline: article.title,
+        description: article.excerpt,
+        datePublished: article.date,
+        dateModified: article.date,
+        mainEntityOfPage: url,
+        author: { "@type": "Organization", name: article.author },
+        publisher: { "@type": "Organization", name: site.name, "@id": `${site.url}/#organization` },
+        ...(article.image ? { image: `${site.url}${article.image}` } : {}),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: crumbs.map((c, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: c.name,
+          item: c.item,
+        })),
+      },
+    ],
   };
 
   return (

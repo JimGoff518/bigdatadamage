@@ -20,6 +20,7 @@ export async function generateMetadata(props: PageProps<"/damage/[harm]">): Prom
   return {
     title: `${topic.name}: ${topic.headline}`,
     description: topic.intro.slice(0, 155),
+    alternates: { canonical: `/damage/${harm}` },
   };
 }
 

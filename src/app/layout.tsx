@@ -31,7 +31,35 @@ export const metadata: Metadata = {
     siteName: site.name,
     type: "website",
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  // Paste the token from Google Search Console here when you verify (HTML-tag method).
+  // verification: { google: "YOUR_GOOGLE_VERIFICATION_TOKEN" },
+};
+
+// Sitewide brand entity for search engines.
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${site.url}/#organization`,
+      name: site.name,
+      url: site.url,
+      description: site.description,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}/#website`,
+      url: site.url,
+      name: site.name,
+      publisher: { "@id": `${site.url}/#organization` },
+      inLanguage: "en-US",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -42,6 +70,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${oswald.variable} ${inter.variable} h-full scroll-smooth antialiased`}>
       <body className="flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
