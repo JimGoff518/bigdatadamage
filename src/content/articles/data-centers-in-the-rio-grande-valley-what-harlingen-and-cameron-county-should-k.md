@@ -5,7 +5,6 @@ date: "2026-06-16"
 author: "Big Data Damage"
 harm: "water"
 location: "harlingen"
-image: "/images/articles/data-centers-in-the-rio-grande-valley-what-harlingen-and-cameron-county-should-k.jpg"
 seoTitle: "Harlingen Data Center Water Impact | Rio Grande Valley Water Scarcity"
 seoDescription: "Concerned about a Harlingen data center? Learn how these facilities could impact water resources in the Rio Grande Valley and Cameron County, a region already facing water scarcity."
 ---

@@ -4,7 +4,6 @@ excerpt: "Learn how to systematically document and preserve evidence of property
 date: "2026-06-16"
 author: "Big Data Damage"
 harm: "property"
-image: "/images/articles/what-evidence-to-preserve-if-a-data-center-is-harming-your-property.jpg"
 seoTitle: "Documenting Data Center Property Damage | Evidence Preservation Guide"
 seoDescription: "A step-by-step guide for landowners on how to collect and preserve evidence of property damage from nearby data centers, including photos, reports, and logs."
 ---
