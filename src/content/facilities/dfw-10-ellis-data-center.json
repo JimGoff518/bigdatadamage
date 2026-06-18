@@ -1,0 +1,13 @@
+{
+  "name": "DFW 10 Data Center",
+  "operator": "DFW 10",
+  "county": "Ellis",
+  "status": "operating",
+  "sourceUrl": "https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php",
+  "sourceName": "Texas Comptroller — qualifying data center registry",
+  "note": "Registered as a qualifying data center with the Texas Comptroller, in Ellis County. Listed near Red Oak. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 32.35,
+  "lng": -96.79,
+  "city": "Red Oak"
+}

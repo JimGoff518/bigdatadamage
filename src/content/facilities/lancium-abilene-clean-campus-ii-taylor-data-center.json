@@ -1,0 +1,13 @@
+{
+  "name": "Lancium Abilene Clean Campus II Data Center",
+  "operator": "Lancium Abilene Clean Campus II",
+  "county": "Taylor",
+  "status": "under-construction",
+  "sourceUrl": "https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php",
+  "sourceName": "Texas Comptroller — qualifying data center registry",
+  "note": "Registered as a qualifying data center with the Texas Comptroller, in Taylor County. Listed near Abilene. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 32.3,
+  "lng": -99.89,
+  "city": "Abilene"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Temple Green Data Center Data Center",
+  "operator": "Temple Green Data Center",
+  "county": "Bell",
+  "status": "operating",
+  "sourceUrl": "https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php",
+  "sourceName": "Texas Comptroller — qualifying data center registry",
+  "note": "Registered as a qualifying data center with the Texas Comptroller, in Bell County. Listed near Temple. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 31.04,
+  "lng": -97.48,
+  "city": "Temple"
+}
