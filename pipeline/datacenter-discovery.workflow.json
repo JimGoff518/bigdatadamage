@@ -180,7 +180,9 @@
       "name": "GitHub: commit file",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1940, 200]
+      "position": [1940, 200],
+      "onError": "continueRegularOutput",
+      "notes": "Continue on error: if the file already exists on the branch from a prior run (422 'sha wasn't supplied'), the content is already correct, so proceed to open the PR instead of failing."
     },
     {
       "parameters": {
@@ -197,7 +199,9 @@
       "name": "GitHub: open PR",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [2160, 200]
+      "position": [2160, 200],
+      "onError": "continueRegularOutput",
+      "notes": "Continue on error: if a PR already exists for this branch (422), don't fail the run; the review email still fires."
     },
     {
       "parameters": {
