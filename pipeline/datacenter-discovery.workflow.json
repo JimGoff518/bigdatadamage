@@ -1,0 +1,245 @@
+{
+  "name": "BDD — Data-Center Discovery",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "weeks", "weekInterval": 1, "triggerAtDay": [2], "triggerAtHour": 7 }
+          ]
+        }
+      },
+      "id": "node-schedule",
+      "name": "Schedule (weekly Tue 7am)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-260, 200]
+    },
+    {
+      "parameters": {},
+      "id": "node-manual",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-260, 420]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.firecrawl.dev/v1/scrape",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"url\": \"https://gov.texas.gov/business/page/recent-project-announcements\",\n  \"formats\": [\"markdown\"],\n  \"onlyMainContent\": true\n}",
+        "options": {}
+      },
+      "id": "node-firecrawl",
+      "name": "Firecrawl: scrape announcements",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-40, 300],
+      "notes": "Credential = Header Auth named 'Firecrawl'. Header: Name=Authorization, Value=Bearer fc-YOUR_KEY"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpQueryAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  contents: [{ parts: [{ text:\n    \"You are extracting Texas economic-development announcements. From the markdown below, return ONLY data-center / AI / hyperscale / cloud-computing / server-farm projects. Ignore semiconductor fabs, pharma, manufacturing, shipbuilding, energy, and anything not a data center.\\n\\nReturn STRICT JSON: an array of objects with keys: company (string), county (string, the Texas county, no the word 'County'), investmentText (string, e.g. '$17 billion', or '' if none), projectType (string, short). Summarize in your OWN words — never copy sentences from the source. If no data centers are present, return [].\\n\\nMARKDOWN:\\n\" + $json.data.markdown\n  }]}],\n  generationConfig: { temperature: 0, responseMimeType: \"application/json\" }\n}) }}",
+        "options": {}
+      },
+      "id": "node-gemini",
+      "name": "Gemini: extract data centers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [180, 300],
+      "notes": "Credential = Query Auth named 'Gemini'. Query param: Name=key, Value=YOUR_GEMINI_API_KEY"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Pull Gemini's JSON array out of the response, normalize, and emit a single\n// item holding the candidate list. Defensive: tolerate code-fences / stray text.\nconst resp = $json;\nlet text = '';\ntry { text = resp.candidates[0].content.parts[0].text || ''; } catch (e) { text = ''; }\ntext = text.trim().replace(/^```(json)?/i, '').replace(/```$/,'').trim();\nlet arr = [];\ntry { arr = JSON.parse(text); } catch (e) {\n  const m = text.match(/\\[([\\s\\S]*)\\]/);\n  if (m) { try { arr = JSON.parse(m[0]); } catch (e2) { arr = []; } }\n}\nif (!Array.isArray(arr)) arr = [];\nconst candidates = arr\n  .filter(c => c && c.company && c.county)\n  .map(c => ({\n    company: String(c.company).trim(),\n    county: String(c.county).replace(/county/ig, '').trim(),\n    investmentText: String(c.investmentText || '').trim(),\n    projectType: String(c.projectType || 'data center').trim()\n  }));\nreturn [{ json: { candidates } }];"
+      },
+      "id": "node-parse",
+      "name": "Parse candidates",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://raw.githubusercontent.com/JimGoff518/bigdatadamage/main/pipeline/texas-county-centroids.json",
+        "options": {}
+      },
+      "id": "node-centroids",
+      "name": "Get county centroids",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [620, 300],
+      "notes": "Replace JimGoff518 with your GitHub username/org. No auth needed for a public repo; if private, add the same GitHub Header Auth credential."
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/contents/src/content/facilities?ref=main",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "node-existing",
+      "name": "Get existing facilities",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [840, 300],
+      "notes": "Credential = Header Auth named 'GitHub' -> Authorization: Bearer ghp_YOUR_PAT (repo scope)."
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Build one validated facility JSON per NEW, placeable data center.\nconst slugify = s => String(s).toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');\nconst candidates = $('Parse candidates').first().json.candidates || [];\nconst centroids = ($('Get county centroids').first().json.counties) || {};\nconst existingItems = $('Get existing facilities').all();\nconst existingSlugs = new Set(\n  existingItems.flatMap(it => Array.isArray(it.json) ? it.json : [it.json])\n    .map(f => (f && f.name ? String(f.name).replace(/\\.json$/,'') : ''))\n    .filter(Boolean)\n);\nconst today = new Date().toISOString().slice(0,10);\nconst out = [];\nfor (const c of candidates) {\n  const countyKey = c.county.toLowerCase().trim();\n  const coords = centroids[countyKey];\n  const slug = slugify(c.company + '-' + c.county + '-data-center');\n  if (existingSlugs.has(slug)) continue;            // dedupe\n  const noteInv = c.investmentText ? (' Announced ' + c.investmentText + '.') : '';\n  const facility = {\n    name: c.company + ' Data Center',\n    operator: c.company,\n    county: c.county,\n    status: 'proposed',\n    sourceUrl: 'https://gov.texas.gov/business/page/recent-project-announcements',\n    sourceName: 'Office of the Governor — project announcements',\n    note: ('Proposed ' + c.projectType + ' in ' + c.county + ' County.' + noteInv + ' (Our summary; see source.)').trim(),\n    dateFound: today\n  };\n  if (coords && Number.isFinite(coords[0]) && Number.isFinite(coords[1])) {\n    facility.lat = coords[0];\n    facility.lng = coords[1];\n    out.push({ json: { slug, placeable: true, facility } });\n  } else {\n    // County not in lookup: still surface it, but flag for manual coordinates.\n    out.push({ json: { slug, placeable: false, missingCounty: c.county, facility } });\n  }\n}\nreturn out;"
+      },
+      "id": "node-build",
+      "name": "Build facility files",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1060, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "conditions": [
+            { "id": "c1", "leftValue": "={{ $json.placeable }}", "rightValue": true, "operator": { "type": "boolean", "operation": "true", "singleValue": true } }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "node-if",
+      "name": "Placeable?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1280, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/git/ref/heads/main",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "node-sha",
+      "name": "GitHub: main SHA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1500, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/git/refs",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ ref: 'refs/heads/facility/' + $('Build facility files').item.json.slug, sha: $json.object.sha }) }}",
+        "options": {}
+      },
+      "id": "node-branch",
+      "name": "GitHub: create branch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1720, 200]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/contents/src/content/facilities/{{ $('Build facility files').item.json.slug }}.json",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  message: 'Add facility: ' + $('Build facility files').item.json.facility.name,\n  content: Buffer.from(JSON.stringify($('Build facility files').item.json.facility, null, 2)).toString('base64'),\n  branch: 'facility/' + $('Build facility files').item.json.slug\n}) }}",
+        "options": {}
+      },
+      "id": "node-commit",
+      "name": "GitHub: commit file",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1940, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/pulls",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  title: 'New data center: ' + $('Build facility files').item.json.facility.name,\n  head: 'facility/' + $('Build facility files').item.json.slug,\n  base: 'main',\n  body: 'Auto-discovered from Governor project announcements.\\n\\nReview the facility JSON, confirm the county pin is right, then merge to publish on the map.\\n\\nNote: ' + $('Build facility files').item.json.facility.note\n}) }}",
+        "options": {}
+      },
+      "id": "node-pr",
+      "name": "GitHub: open PR",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2160, 200]
+    },
+    {
+      "parameters": {
+        "sendTo": "jim@gofflawdfw.com",
+        "subject": "=Review new data-center pin: {{ $('Build facility files').item.json.facility.name }}",
+        "emailType": "text",
+        "message": "=A new data center was discovered and a PR is open for your review:\n\n{{ $json.html_url }}\n\nFacility: {{ $('Build facility files').item.json.facility.name }}\nCounty: {{ $('Build facility files').item.json.facility.county }}\nNote: {{ $('Build facility files').item.json.facility.note }}\n\nMerge the PR to publish the pin on the /locations map.",
+        "options": {}
+      },
+      "id": "node-email",
+      "name": "Email me to review",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [2380, 200]
+    },
+    {
+      "parameters": {
+        "sendTo": "jim@gofflawdfw.com",
+        "subject": "=Data center needs a map location: {{ $json.facility.name }}",
+        "emailType": "text",
+        "message": "=A data center was found but its county ({{ $json.missingCounty }}) isn't in the centroid lookup, so it has no map coordinates yet.\n\nFacility: {{ $json.facility.name }}\nNote: {{ $json.facility.note }}\n\nTo place it: add \"{{ $json.missingCounty }}\" (lowercased) with [lat, lng] to pipeline/texas-county-centroids.json, then it'll be picked up next run.",
+        "options": {}
+      },
+      "id": "node-email-missing",
+      "name": "Email: missing county",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1500, 440]
+    }
+  ],
+  "connections": {
+    "Schedule (weekly Tue 7am)": { "main": [[{ "node": "Firecrawl: scrape announcements", "type": "main", "index": 0 }]] },
+    "Run now (manual)": { "main": [[{ "node": "Firecrawl: scrape announcements", "type": "main", "index": 0 }]] },
+    "Firecrawl: scrape announcements": { "main": [[{ "node": "Gemini: extract data centers", "type": "main", "index": 0 }]] },
+    "Gemini: extract data centers": { "main": [[{ "node": "Parse candidates", "type": "main", "index": 0 }]] },
+    "Parse candidates": { "main": [[{ "node": "Get county centroids", "type": "main", "index": 0 }]] },
+    "Get county centroids": { "main": [[{ "node": "Get existing facilities", "type": "main", "index": 0 }]] },
+    "Get existing facilities": { "main": [[{ "node": "Build facility files", "type": "main", "index": 0 }]] },
+    "Build facility files": { "main": [[{ "node": "Placeable?", "type": "main", "index": 0 }]] },
+    "Placeable?": {
+      "main": [
+        [{ "node": "GitHub: main SHA", "type": "main", "index": 0 }],
+        [{ "node": "Email: missing county", "type": "main", "index": 0 }]
+      ]
+    },
+    "GitHub: main SHA": { "main": [[{ "node": "GitHub: create branch", "type": "main", "index": 0 }]] },
+    "GitHub: create branch": { "main": [[{ "node": "GitHub: commit file", "type": "main", "index": 0 }]] },
+    "GitHub: commit file": { "main": [[{ "node": "GitHub: open PR", "type": "main", "index": 0 }]] },
+    "GitHub: open PR": { "main": [[{ "node": "Email me to review", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}
