@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { LocationCard } from "@/components/cards";
 import { TexasMap } from "@/components/TexasMap";
+import { FacilityList } from "@/components/FacilityList";
 import { locations } from "@/content/locations";
 
 export const metadata: Metadata = {
@@ -44,6 +45,8 @@ export default function LocationsPage() {
           on the <a href="/contact" className="font-semibold text-orange">contact page</a>.
         </p>
       </section>
+
+      <FacilityList />
     </>
   );
 }
