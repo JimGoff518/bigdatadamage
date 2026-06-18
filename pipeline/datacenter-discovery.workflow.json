@@ -46,7 +46,7 @@
         "method": "POST",
         "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "httpQueryAuth",
+        "nodeCredentialType": "googlePalmApi",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({\n  contents: [{ parts: [{ text:\n    \"You are extracting Texas economic-development announcements. From the markdown below, return ONLY data-center / AI / hyperscale / cloud-computing / server-farm projects. Ignore semiconductor fabs, pharma, manufacturing, shipbuilding, energy, and anything not a data center.\\n\\nReturn STRICT JSON: an array of objects with keys: company (string), county (string, the Texas county, no the word 'County'), investmentText (string, e.g. '$17 billion', or '' if none), projectType (string, short). Summarize in your OWN words — never copy sentences from the source. If no data centers are present, return [].\\n\\nMARKDOWN:\\n\" + $json.data.markdown\n  }]}],\n  generationConfig: { temperature: 0, responseMimeType: \"application/json\" }\n}) }}",
@@ -57,7 +57,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [180, 300],
-      "notes": "Credential = Query Auth named 'Gemini'. Query param: Name=key, Value=YOUR_GEMINI_API_KEY"
+      "notes": "Credential = Google Gemini(PaLM) Api account (your existing one). The key is appended automatically; do not add it to the URL."
     },
     {
       "parameters": {
@@ -88,7 +88,7 @@
         "method": "GET",
         "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/contents/src/content/facilities?ref=main",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "httpHeaderAuth",
+        "nodeCredentialType": "githubApi",
         "options": {}
       },
       "id": "node-existing",
@@ -96,7 +96,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [840, 300],
-      "notes": "Credential = Header Auth named 'GitHub' -> Authorization: Bearer ghp_YOUR_PAT (repo scope)."
+      "notes": "Credential = GitHub account (your existing GitHub API credential). All 5 GitHub nodes use it."
     },
     {
       "parameters": {
@@ -131,7 +131,7 @@
         "method": "GET",
         "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/git/ref/heads/main",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "httpHeaderAuth",
+        "nodeCredentialType": "githubApi",
         "options": {}
       },
       "id": "node-sha",
@@ -145,7 +145,7 @@
         "method": "POST",
         "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/git/refs",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "httpHeaderAuth",
+        "nodeCredentialType": "githubApi",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({ ref: 'refs/heads/facility/' + $('Build facility files').item.json.slug, sha: $json.object.sha }) }}",
@@ -162,7 +162,7 @@
         "method": "PUT",
         "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/contents/src/content/facilities/{{ $('Build facility files').item.json.slug }}.json",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "httpHeaderAuth",
+        "nodeCredentialType": "githubApi",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({\n  message: 'Add facility: ' + $('Build facility files').item.json.facility.name,\n  content: Buffer.from(JSON.stringify($('Build facility files').item.json.facility, null, 2)).toString('base64'),\n  branch: 'facility/' + $('Build facility files').item.json.slug\n}) }}",
@@ -179,7 +179,7 @@
         "method": "POST",
         "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/pulls",
         "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "httpHeaderAuth",
+        "nodeCredentialType": "githubApi",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({\n  title: 'New data center: ' + $('Build facility files').item.json.facility.name,\n  head: 'facility/' + $('Build facility files').item.json.slug,\n  base: 'main',\n  body: 'Auto-discovered from Governor project announcements.\\n\\nReview the facility JSON, confirm the county pin is right, then merge to publish on the map.\\n\\nNote: ' + $('Build facility files').item.json.facility.note\n}) }}",

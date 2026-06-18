@@ -20,15 +20,19 @@ Fastest: open each GitHub/centroids node and fix the URL, or re-export, sed, re-
 
 ## 3. Attach credentials (n8n will prompt per node)
 
-| Node | Credential type | Value |
-|---|---|---|
-| Firecrawl: scrape announcements | **Header Auth** | Name `Authorization`, Value `Bearer fc-YOUR_FIRECRAWL_KEY` |
-| Gemini: extract data centers | **Query Auth** | Name `key`, Value `YOUR_GEMINI_API_KEY` |
-| Get existing facilities / all GitHub nodes | **Header Auth** | Name `Authorization`, Value `Bearer ghp_YOUR_PAT` (PAT needs `repo` scope) |
-| Get county centroids | none (public repo) | — if repo is private, reuse the GitHub Header Auth |
-| Email nodes | your existing **Gmail OAuth2** | same one the content pipeline uses |
+The workflow ships with the correct credential *types* pre-set, so on import n8n
+auto-matches each node to the only credential of that type. Just confirm:
 
-You can reuse the GitHub and Gmail credentials already in your content pipeline.
+| Node(s) | Credential type | Use this credential |
+|---|---|---|
+| Firecrawl: scrape announcements | Header Auth | `Header Auth account` (holds `Authorization: Bearer fc-...`) |
+| Gemini: extract data centers | Google Gemini(PaLM) Api | `Google Gemini(PaLM) Api account` |
+| 5 GitHub nodes | GitHub API | `GitHub account` |
+| Get county centroids | none (public repo) | — |
+| Email nodes | Gmail OAuth2 | `Gmail account 3` |
+
+All four are credentials you already have — no new keys to create. Note: `Query Auth account`
+is Pixabay (from the content pipeline), NOT Gemini — do not use it here.
 
 ## 4. Test
 
