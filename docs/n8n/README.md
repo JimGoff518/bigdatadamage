@@ -1,9 +1,18 @@
 # n8n workflows — import & test
 
-Two workflows implement the pipeline in `../plans/2026-06-16-n8n-drafting-pipeline-design.md`:
+Workflows that implement the pipelines:
 
 - `bdd-draft.workflow.json` — scheduled drafter (Sheet → Gemini → GitHub PR → email)
 - `bdd-approve.workflow.json` — webhook the email's "Approve" button hits (merges the PR)
+- `bdd-facility-discovery.workflow.json` — finds Texas data centers (Firecrawl scrape → Gemini extract → GitHub PR → email). **Reuses `bdd-approve` as-is** — the approve webhook merges any PR by number. Adds facility pins to the map (`src/content/facilities/*.json`, rendered by `src/components/TexasMap.tsx`, colored by status).
+
+## Facility discovery — setup notes
+
+1. **Credential:** the `Firecrawl scrape` node uses a generic **Header Auth** credential named `Firecrawl API` (`Authorization` = `Bearer fc-...`).
+2. **Seed sources:** edit the `Seed sources` Code node — paste facility-specific public URLs (a TCEQ permit detail page, a county agenda item, or a news article about ONE specific Texas data center). A generic homepage returns "no facility found."
+3. **Approve secret:** the email's Approve button uses the same `REPLACE_WITH_APPROVE_SECRET` / `/webhook/approve` as `bdd-draft`.
+4. **One toggle on `bdd-approve`:** set its **Mark published** (Google Sheets) node to **Continue On Fail** — facility PRs have no Sheet row, and without this the success page won't render after the (already-completed) merge.
+5. **Coordinates:** Gemini never guesses lat/lng; if the source has no address, the PR is flagged "coordinates missing" and the pin won't render until you add them in the PR. This is intentional accuracy protection.
 
 ## Import (both files)
 

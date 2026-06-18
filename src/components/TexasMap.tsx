@@ -1,4 +1,5 @@
 import { locations } from "@/content/locations";
+import { getFacilities, FACILITY_STATUS_META, type FacilityStatus } from "@/lib/facilities";
 
 // Texas state outline as [longitude, latitude] vertices, clockwise from the
 // northwest corner of the Panhandle. Simplified but recognizable.
@@ -107,14 +108,34 @@ const TX_PATH =
   }).join(" ") + " Z";
 
 export function TexasMap() {
+  const facilities = getFacilities();
+  const statusKeys = Object.keys(FACILITY_STATUS_META) as FacilityStatus[];
+
   return (
-    <svg
-      viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-      className="h-auto w-full"
-      role="img"
-      aria-label="Map of Texas data center hotspots"
-    >
-      <path d={TX_PATH} fill="var(--color-panel)" stroke="var(--color-line)" strokeWidth="3" strokeLinejoin="round" />
+    <div>
+      <svg
+        viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+        className="h-auto w-full"
+        role="img"
+        aria-label="Map of Texas data center facilities, colored by permitting status, with the communities we cover"
+      >
+        <path d={TX_PATH} fill="var(--color-panel)" stroke="var(--color-line)" strokeWidth="3" strokeLinejoin="round" />
+
+        {/* Tracked data centers, colored by status. Each pin is a reviewed,
+            source-linked facility from src/content/facilities/. */}
+        {facilities.map((f) => {
+          const { x, y } = project(f.lng, f.lat);
+          const { label, colorVar } = FACILITY_STATUS_META[f.status];
+          const where = [f.city, f.county].filter(Boolean).join(", ");
+          return (
+            <g key={f.slug}>
+              <title>{`${f.name}${where ? ` — ${where}` : ""} — ${label}`}</title>
+              <circle cx={x} cy={y} r="13" fill={colorVar} opacity="0.18" />
+              <circle cx={x} cy={y} r="6" fill={colorVar} stroke="var(--color-paper)" strokeWidth="1.5" />
+            </g>
+          );
+        })}
+
       {locations.map((loc) => {
         const ll = CITY_LL[loc.slug];
         if (!ll) return null;
@@ -141,6 +162,25 @@ export function TexasMap() {
           </a>
         );
       })}
-    </svg>
+      </svg>
+
+      {/* Legend — color is never the only cue: every status is labeled here and
+          repeated in each pin's hover tooltip. */}
+      <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2" aria-label="Map legend: data center status">
+        {statusKeys.map((s) => (
+          <li key={s} className="flex items-center gap-2 text-sm text-fg-dim">
+            <span
+              className="inline-block h-3 w-3 rounded-full ring-1 ring-paper"
+              style={{ background: FACILITY_STATUS_META[s].colorVar }}
+            />
+            {FACILITY_STATUS_META[s].label}
+          </li>
+        ))}
+        <li className="flex items-center gap-2 text-sm text-fg-dim">
+          <span className="inline-block h-3 w-3 rounded-full bg-orange/30 ring-2 ring-orange" />
+          Community we cover
+        </li>
+      </ul>
+    </div>
   );
 }

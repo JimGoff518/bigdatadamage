@@ -1,0 +1,206 @@
+{
+  "name": "BDD Facility Discovery",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [ { "field": "cronExpression", "expression": "0 14 * * 1" } ] }
+      },
+      "id": "33333333-3333-3333-3333-333333333301",
+      "name": "Schedule (weekly Mon)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-360, 120]
+    },
+    {
+      "parameters": {},
+      "id": "33333333-3333-3333-3333-333333333302",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-360, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Seed sources to check for data-center facilities.\n// Put ONE facility-specific public URL per entry: a TCEQ permit detail page,\n// a county commissioners' agenda item, or a news article about a SPECIFIC\n// Texas data center. (A generic homepage will return 'no facility found'.)\n// For your first end-to-end test, paste one real article/permit URL below.\nconst sources = [\n  { url: 'https://www.tceq.texas.gov/' }\n];\nreturn sources.map(s => ({ json: s }));"
+      },
+      "id": "33333333-3333-3333-3333-333333333303",
+      "name": "Seed sources",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-120, 220]
+    },
+    {
+      "parameters": { "maxItems": 1 },
+      "id": "33333333-3333-3333-3333-333333333304",
+      "name": "Take first",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [120, 220]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.firecrawl.dev/v2/scrape",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"url\": $json.url, \"formats\": [\"markdown\"] } }}",
+        "options": {}
+      },
+      "id": "33333333-3333-3333-3333-333333333305",
+      "name": "Firecrawl scrape",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [360, 220],
+      "credentials": { "httpHeaderAuth": { "id": "REPLACE_ME", "name": "Firecrawl API" } }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build a Gemini request that EXTRACTS one facility as strict JSON from the\n// scraped page. We never republish the page — Gemini only pulls facts.\nconst md = ($json.data && $json.data.markdown) ? $json.data.markdown : '';\nconst sourceUrl = $('Take first').item.json.url;\nif (!md || md.length < 50) { throw new Error('Empty scrape for ' + sourceUrl); }\nconst sys = [\n  'You extract ONE Texas data center (or crypto-mining) facility from a scraped public web page.',\n  'Output a SINGLE JSON object and nothing else (no prose, no code fences).',\n  'Keys: name, operator, city, county, lat, lng, status, harm, sourceName, note.',\n  'status MUST be exactly one of: \"proposed\", \"permitted\", \"under-construction\", \"operating\".',\n  'Map permit language: application/pending/received/draft => \"proposed\"; permit issued/approved/active but not built => \"permitted\"; under construction/breaking ground => \"under-construction\"; online/operating => \"operating\". If unclear, use \"proposed\".',\n  'lat/lng: include ONLY if a physical street address or explicit coordinates appear on the page; otherwise set both to null. NEVER guess or estimate coordinates.',\n  'harm: a subset of [\"water\",\"air\",\"property\",\"noise\"] supported by the page; otherwise [].',\n  'note: ONE neutral factual sentence in your own words. Do not assert harm beyond what the source states.',\n  'If the page is not about a specific Texas data center facility, output {\"skip\": true}.'\n].join(' ');\nconst user = 'Source URL: ' + sourceUrl + '\\n\\nScraped page content:\\n' + md.slice(0, 12000);\nconst body = { systemInstruction: { parts: [{ text: sys }] }, contents: [{ role: 'user', parts: [{ text: user }] }], generationConfig: { responseMimeType: 'application/json', temperature: 0.1 } };\nreturn [{ json: { body: body, sourceUrl: sourceUrl } }];"
+      },
+      "id": "33333333-3333-3333-3333-333333333306",
+      "name": "Build Gemini request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [600, 220]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.body }}",
+        "options": {}
+      },
+      "id": "33333333-3333-3333-3333-333333333307",
+      "name": "Gemini extract",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [840, 220],
+      "credentials": { "googlePalmApi": { "id": "REPLACE_ME", "name": "Google Gemini(PaLM) account" } }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse Gemini's JSON, validate, and build the facility file + PR metadata.\nconst parts = $json.candidates && $json.candidates[0] && $json.candidates[0].content && $json.candidates[0].content.parts || [];\nlet text = parts.map(p => p.text || '').join('').trim();\ntext = text.replace(/^```[a-zA-Z]*\\n?/, '').replace(/```$/, '').trim();\nlet d;\ntry { d = JSON.parse(text); } catch (e) { throw new Error('Bad JSON from Gemini: ' + text.slice(0, 200)); }\nif (d.skip) { throw new Error('No specific data center facility found on the page.'); }\nconst name = (d.name || '').toString().trim();\nif (!name) { throw new Error('Gemini returned no facility name.'); }\nconst STAT = ['proposed', 'permitted', 'under-construction', 'operating'];\nconst status = STAT.indexOf(d.status) !== -1 ? d.status : 'proposed';\nconst sourceUrl = $('Build Gemini request').item.json.sourceUrl;\nlet lat = Number(d.lat), lng = Number(d.lng);\nconst hasCoords = Number.isFinite(lat) && Number.isFinite(lng) && lat > 25.5 && lat < 36.7 && lng > -107 && lng < -93.3;\nconst facility = {\n  name: name,\n  operator: d.operator || undefined,\n  city: d.city || undefined,\n  county: d.county || undefined,\n  lat: hasCoords ? lat : null,\n  lng: hasCoords ? lng : null,\n  status: status,\n  harm: Array.isArray(d.harm) ? d.harm.filter(h => typeof h === 'string') : [],\n  sourceUrl: sourceUrl,\n  sourceName: d.sourceName || undefined,\n  note: (d.note || '').toString().trim() || undefined,\n  dateFound: new Date().toISOString().slice(0, 10)\n};\nconst slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);\nconst contentB64 = Buffer.from(JSON.stringify(facility, null, 2), 'utf8').toString('base64');\nconst prTitle = 'Facility: ' + name;\nconst prBody = 'Auto-discovered for the map — review before approving. Verify the name, status, and coordinates against the source: ' + sourceUrl + (hasCoords ? '' : '  \\u26a0\\uFE0F COORDINATES MISSING: add lat/lng to the JSON in this PR, or the pin will not appear on the map.');\nreturn [{ json: { slug: slug, path: 'src/content/facilities/' + slug + '.json', contentB64: contentB64, name: name, prTitle: prTitle, prBody: prBody, needsCoords: !hasCoords } }];"
+      },
+      "id": "33333333-3333-3333-3333-333333333308",
+      "name": "Parse facility",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 220]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/git/ref/heads/main",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "options": {}
+      },
+      "id": "33333333-3333-3333-3333-333333333309",
+      "name": "GitHub: main SHA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1320, 220],
+      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/git/refs",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"ref\": \"refs/heads/facility/\" + $('Parse facility').item.json.slug, \"sha\": $json.object.sha } }}",
+        "options": {}
+      },
+      "id": "33333333-3333-3333-3333-333333333310",
+      "name": "GitHub: create branch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1560, 220],
+      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/contents/{{ $('Parse facility').item.json.path }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"message\": \"Add facility: \" + $('Parse facility').item.json.name, \"content\": $('Parse facility').item.json.contentB64, \"branch\": \"facility/\" + $('Parse facility').item.json.slug } }}",
+        "options": {}
+      },
+      "id": "33333333-3333-3333-3333-333333333311",
+      "name": "GitHub: commit file",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1800, 220],
+      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/pulls",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"title\": $('Parse facility').item.json.prTitle, \"head\": \"facility/\" + $('Parse facility').item.json.slug, \"base\": \"main\", \"body\": $('Parse facility').item.json.prBody } }}",
+        "options": {}
+      },
+      "id": "33333333-3333-3333-3333-333333333312",
+      "name": "GitHub: open PR",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2040, 220],
+      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "jim@gofflawdfw.com",
+        "subject": "=New data center for the map: {{ $('Parse facility').item.json.name }}",
+        "emailType": "html",
+        "message": "=<h2>New data center for the map: {{ $('Parse facility').item.json.name }}</h2><p><a href=\"{{ $json.html_url }}\">Open the PR on GitHub</a> &mdash; review the facility JSON (name, status, coordinates, source) before publishing.</p><p style=\"color:#b91c1c;font-weight:600\">{{ $('Parse facility').item.json.needsCoords ? '⚠ Coordinates are missing — add lat/lng in the PR or the pin will not show on the map.' : '' }}</p><p style=\"margin:24px 0\"><a href=\"https://gofflawdfw.app.n8n.cloud/webhook/approve?pr={{ $json.number }}&token=REPLACE_WITH_APPROVE_SECRET\" style=\"background:#16a34a;color:#fff;padding:12px 20px;border-radius:6px;text-decoration:none;font-weight:600\">&#9989; Approve &amp; add to map</a></p><p style=\"color:#6b7280;font-size:13px\">Clicking Approve merges the PR and deploys to bigdatadamage.com.</p>",
+        "options": { "appendAttribution": false }
+      },
+      "id": "33333333-3333-3333-3333-333333333313",
+      "name": "Email me to review",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [2280, 220],
+      "credentials": { "gmailOAuth2": { "id": "REPLACE_ME", "name": "Gmail account 3" } }
+    }
+  ],
+  "connections": {
+    "Schedule (weekly Mon)": { "main": [ [ { "node": "Seed sources", "type": "main", "index": 0 } ] ] },
+    "Run now (manual)": { "main": [ [ { "node": "Seed sources", "type": "main", "index": 0 } ] ] },
+    "Seed sources": { "main": [ [ { "node": "Take first", "type": "main", "index": 0 } ] ] },
+    "Take first": { "main": [ [ { "node": "Firecrawl scrape", "type": "main", "index": 0 } ] ] },
+    "Firecrawl scrape": { "main": [ [ { "node": "Build Gemini request", "type": "main", "index": 0 } ] ] },
+    "Build Gemini request": { "main": [ [ { "node": "Gemini extract", "type": "main", "index": 0 } ] ] },
+    "Gemini extract": { "main": [ [ { "node": "Parse facility", "type": "main", "index": 0 } ] ] },
+    "Parse facility": { "main": [ [ { "node": "GitHub: main SHA", "type": "main", "index": 0 } ] ] },
+    "GitHub: main SHA": { "main": [ [ { "node": "GitHub: create branch", "type": "main", "index": 0 } ] ] },
+    "GitHub: create branch": { "main": [ [ { "node": "GitHub: commit file", "type": "main", "index": 0 } ] ] },
+    "GitHub: commit file": { "main": [ [ { "node": "GitHub: open PR", "type": "main", "index": 0 } ] ] },
+    "GitHub: open PR": { "main": [ [ { "node": "Email me to review", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" }
+}
