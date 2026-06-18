@@ -1,0 +1,274 @@
+{
+  "name": "BDD — Comptroller Backfill (one-time)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "comp-manual",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-320, 300],
+      "notes": "One-time backfill. Run manually; there is no schedule."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.firecrawl.dev/v1/scrape",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"url\": \"https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php\",\n  \"formats\": [\"markdown\"],\n  \"onlyMainContent\": true\n}",
+        "options": {}
+      },
+      "id": "comp-firecrawl",
+      "name": "Firecrawl: Comptroller list",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-100, 300],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "notes": "Credential = Header Auth account (Firecrawl). Scrapes the two qualifying-data-center tables to markdown."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  contents: [{ parts: [{ text:\n    \"From the Texas Comptroller markdown tables below, extract every data-center facility listed. For EACH, infer its Texas CITY and COUNTY from the data-center name and the owner/operator company name. Examples: 'LinkedIn Richardson' is in Richardson (Dallas County); 'COPT San Antonio LP' is in San Antonio (Bexar County); 'Giga Texas' (Tesla) is in Austin (Travis County). If you cannot determine a Texas county with reasonable confidence, set county to an empty string. Return STRICT JSON: an array of objects with keys: company (the data-center or owner name), city (Texas city or empty), county (Texas county WITHOUT the word 'County', or empty if unknown), status (one of: operating, under-construction, proposed; use 'operating' unless the table marks it a planned or large project). Do not invent facilities that are not in the tables. Return [] if none.\\n\\nMARKDOWN:\\n\" + $json.data.markdown\n  }]}],\n  generationConfig: { temperature: 0, responseMimeType: \"application/json\" }\n}) }}",
+        "options": {}
+      },
+      "id": "comp-gemini",
+      "name": "Gemini: extract + locate",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [120, 300],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "notes": "Credential = Google Gemini(PaLM) Api account. Infers city/county since the Comptroller tables have no location column."
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const resp = $json;\nlet text = '';\ntry { text = resp.candidates[0].content.parts[0].text || ''; } catch (e) { text = ''; }\ntext = text.trim().replace(/^```(json)?/i, '').replace(/```$/,'').trim();\nlet arr = [];\ntry { arr = JSON.parse(text); } catch (e) {\n  const m = text.match(/\\[([\\s\\S]*)\\]/);\n  if (m) { try { arr = JSON.parse(m[0]); } catch (e2) { arr = []; } }\n}\nif (!Array.isArray(arr)) arr = [];\nconst candidates = arr\n  .filter(c => c && c.company)\n  .map(c => ({\n    company: String(c.company).trim(),\n    city: String(c.city || '').trim(),\n    county: String(c.county || '').replace(/county/ig, '').trim(),\n    status: String(c.status || 'operating').trim().toLowerCase()\n  }));\nreturn [{ json: { candidates } }];"
+      },
+      "id": "comp-parse",
+      "name": "Parse candidates",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [340, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://raw.githubusercontent.com/JimGoff518/bigdatadamage/main/pipeline/texas-county-centroids.json",
+        "options": {}
+      },
+      "id": "comp-centroids",
+      "name": "Get county centroids",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [560, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/contents/src/content/facilities?ref=main",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {}
+      },
+      "id": "comp-existing",
+      "name": "Get existing facilities",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [780, 300],
+      "notes": "Credential = GitHub account. Used to dedupe against pins already on the map."
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Build ONE git-tree of all placeable, NEW, deduped facility files for a single batch PR.\nconst slugify = s => String(s).toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');\nconst candidates = $('Parse candidates').first().json.candidates || [];\nlet _c = $('Get county centroids').first().json;\nif (typeof _c === 'string') { try { _c = JSON.parse(_c); } catch (e) { _c = {}; } }\nif (_c && typeof _c.data === 'string') { try { _c = JSON.parse(_c.data); } catch (e) {} }\nconst centroids = (_c && _c.counties) ? _c.counties : {};\nconst existingItems = $('Get existing facilities').all();\nconst existingSlugs = new Set(\n  existingItems.flatMap(it => Array.isArray(it.json) ? it.json : [it.json])\n    .map(f => (f && f.name ? String(f.name).replace(/\\.json$/,'') : ''))\n    .filter(Boolean)\n);\nconst ALLOWED = ['proposed','permitted','under-construction','operating'];\nconst today = new Date().toISOString().slice(0,10);\nconst seen = new Set();\nconst tree = [];\nconst placed = [];\nconst skipped = [];\nfor (const c of candidates) {\n  if (!c.company || !c.county) { skipped.push((c.company || '?') + ' (no county inferred)'); continue; }\n  const coords = centroids[c.county.toLowerCase().trim()];\n  if (!coords) { skipped.push(c.company + ' / ' + c.county + ' (county not in centroid lookup)'); continue; }\n  const slug = slugify(c.company + '-' + c.county + '-data-center');\n  if (existingSlugs.has(slug) || seen.has(slug)) continue;\n  seen.add(slug);\n  const facility = {\n    name: c.company + ' Data Center',\n    operator: c.company,\n    county: c.county,\n    status: ALLOWED.includes(c.status) ? c.status : 'operating',\n    sourceUrl: 'https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php',\n    sourceName: 'Texas Comptroller \\u2014 qualifying data center registry',\n    note: ('Registered as a qualifying data center with the Texas Comptroller, in ' + c.county + ' County.' + (c.city ? ' Listed near ' + c.city + '.' : '') + ' (Our summary; see source.)'),\n    dateFound: today,\n    lat: coords[0],\n    lng: coords[1]\n  };\n  if (c.city) facility.city = c.city;\n  tree.push({ path: 'src/content/facilities/' + slug + '.json', mode: '100644', type: 'blob', content: JSON.stringify(facility, null, 2) + '\\n' });\n  placed.push(facility.name + ' (' + c.county + ')');\n}\nconst branch = 'facility-backfill-comptroller-' + today;\nreturn [{ json: { tree, placed, placedCount: placed.length, skipped, skippedCount: skipped.length, branch } }];"
+      },
+      "id": "comp-build",
+      "name": "Build backfill",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "conditions": [
+            { "id": "h1", "leftValue": "={{ $json.placedCount }}", "rightValue": 0, "operator": { "type": "number", "operation": "gt" } }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "comp-if",
+      "name": "Has facilities?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1220, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/git/ref/heads/main",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {}
+      },
+      "id": "comp-sha",
+      "name": "GitHub: main SHA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1440, 200]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/git/commits/{{ $json.object.sha }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {}
+      },
+      "id": "comp-basecommit",
+      "name": "GitHub: base commit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1620, 200],
+      "notes": "Gets the base tree SHA so the new tree only adds files (keeps everything else)."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/git/trees",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ base_tree: $json.tree.sha, tree: $('Build backfill').first().json.tree }) }}",
+        "options": {}
+      },
+      "id": "comp-tree",
+      "name": "GitHub: create tree",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1800, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/git/commits",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ message: 'Backfill ' + $('Build backfill').first().json.placedCount + ' Comptroller-registered Texas data centers', tree: $json.sha, parents: [ $('GitHub: main SHA').first().json.object.sha ] }) }}",
+        "options": {}
+      },
+      "id": "comp-commit",
+      "name": "GitHub: create commit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1980, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/git/refs",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ ref: 'refs/heads/' + $('Build backfill').first().json.branch, sha: $json.sha }) }}",
+        "options": {}
+      },
+      "id": "comp-ref",
+      "name": "GitHub: create branch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2160, 200],
+      "onError": "continueRegularOutput",
+      "notes": "Continue on error: re-running the same day reuses the existing branch."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/pulls",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  title: 'Backfill: ' + $('Build backfill').first().json.placedCount + ' Comptroller-registered data centers',\n  head: $('Build backfill').first().json.branch,\n  base: 'main',\n  body: 'One-time backfill of qualifying data centers registered with the Texas Comptroller (public record). Locations inferred by county centroid, so SPOT-CHECK the pins before merging. ' + $('Build backfill').first().json.placedCount + ' added; ' + $('Build backfill').first().json.skippedCount + ' skipped (no confident county). Source: https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php'\n}) }}",
+        "options": {}
+      },
+      "id": "comp-pr",
+      "name": "GitHub: open PR",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2340, 200],
+      "onError": "continueRegularOutput",
+      "notes": "Continue on error: an existing PR for the branch shouldn't fail the run."
+    },
+    {
+      "parameters": {
+        "sendTo": "jim@gofflawdfw.com",
+        "subject": "=Comptroller backfill: {{ $('Build backfill').first().json.placedCount }} data centers ready to review",
+        "emailType": "text",
+        "message": "=The Comptroller backfill opened ONE batch PR with all placeable data centers:\n\n{{ $json.html_url }}\n\nAdded: {{ $('Build backfill').first().json.placedCount }}\nSkipped (no confident county — add manually later): {{ $('Build backfill').first().json.skippedCount }}\n\nSpot-check the county pins, then merge the single PR to publish them all at once.\n\nSkipped list:\n{{ $('Build backfill').first().json.skipped.join('\\n') }}",
+        "options": {}
+      },
+      "id": "comp-email",
+      "name": "Email me the batch PR",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [2520, 200]
+    },
+    {
+      "parameters": {
+        "sendTo": "jim@gofflawdfw.com",
+        "subject": "Comptroller backfill: nothing placeable",
+        "emailType": "text",
+        "message": "=The Comptroller backfill ran but placed 0 new facilities. Skipped: {{ $('Build backfill').first().json.skippedCount }}.\n\nThis usually means the scrape returned no tables, or none could be matched to a county in the lookup. Skipped list:\n{{ $('Build backfill').first().json.skipped.join('\\n') }}",
+        "options": {}
+      },
+      "id": "comp-email-none",
+      "name": "Email: nothing to add",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1440, 440]
+    }
+  ],
+  "connections": {
+    "Run now (manual)": { "main": [[{ "node": "Firecrawl: Comptroller list", "type": "main", "index": 0 }]] },
+    "Firecrawl: Comptroller list": { "main": [[{ "node": "Gemini: extract + locate", "type": "main", "index": 0 }]] },
+    "Gemini: extract + locate": { "main": [[{ "node": "Parse candidates", "type": "main", "index": 0 }]] },
+    "Parse candidates": { "main": [[{ "node": "Get county centroids", "type": "main", "index": 0 }]] },
+    "Get county centroids": { "main": [[{ "node": "Get existing facilities", "type": "main", "index": 0 }]] },
+    "Get existing facilities": { "main": [[{ "node": "Build backfill", "type": "main", "index": 0 }]] },
+    "Build backfill": { "main": [[{ "node": "Has facilities?", "type": "main", "index": 0 }]] },
+    "Has facilities?": {
+      "main": [
+        [{ "node": "GitHub: main SHA", "type": "main", "index": 0 }],
+        [{ "node": "Email: nothing to add", "type": "main", "index": 0 }]
+      ]
+    },
+    "GitHub: main SHA": { "main": [[{ "node": "GitHub: base commit", "type": "main", "index": 0 }]] },
+    "GitHub: base commit": { "main": [[{ "node": "GitHub: create tree", "type": "main", "index": 0 }]] },
+    "GitHub: create tree": { "main": [[{ "node": "GitHub: create commit", "type": "main", "index": 0 }]] },
+    "GitHub: create commit": { "main": [[{ "node": "GitHub: create branch", "type": "main", "index": 0 }]] },
+    "GitHub: create branch": { "main": [[{ "node": "GitHub: open PR", "type": "main", "index": 0 }]] },
+    "GitHub: open PR": { "main": [[{ "node": "Email me the batch PR", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}
