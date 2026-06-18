@@ -1,0 +1,12 @@
+{
+  "name": "Eneus Energy Data Center",
+  "operator": "Eneus Energy",
+  "county": "Cameron",
+  "status": "proposed",
+  "sourceUrl": "https://gov.texas.gov/business/page/recent-project-announcements",
+  "sourceName": "Office of the Governor — project announcements",
+  "note": "Proposed data center in Cameron County. Announced $14 billion. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 26.15,
+  "lng": -97.45
+}
