@@ -161,7 +161,9 @@
       "name": "GitHub: create branch",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1720, 200]
+      "position": [1720, 200],
+      "onError": "continueRegularOutput",
+      "notes": "Continue on error: if the branch already exists (422), proceed to commit into it instead of failing the run."
     },
     {
       "parameters": {
@@ -171,7 +173,7 @@
         "nodeCredentialType": "githubApi",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({\n  message: 'Add facility: ' + $('Build facility files').item.json.facility.name,\n  content: Buffer.from(JSON.stringify($('Build facility files').item.json.facility, null, 2)).toString('base64'),\n  branch: 'facility/' + $('Build facility files').item.json.slug\n}) }}",
+        "jsonBody": "={{ JSON.stringify({\n  message: 'Add facility: ' + $('Build facility files').item.json.facility.name,\n  content: JSON.stringify($('Build facility files').item.json.facility, null, 2).base64Encode(),\n  branch: 'facility/' + $('Build facility files').item.json.slug\n}) }}",
         "options": {}
       },
       "id": "node-commit",
