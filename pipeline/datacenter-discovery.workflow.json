@@ -39,7 +39,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [-40, 300],
-      "notes": "Credential = Header Auth named 'Firecrawl'. Header: Name=Authorization, Value=Bearer fc-YOUR_KEY"
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "notes": "Credential = Header Auth account (your Firecrawl key: Authorization = Bearer fc-...). Retries 3x on transient errors."
     },
     {
       "parameters": {
@@ -57,7 +60,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [180, 300],
-      "notes": "Credential = Google Gemini(PaLM) Api account (your existing one). The key is appended automatically; do not add it to the URL."
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "notes": "Credential = Google Gemini(PaLM) Api account (your existing one). The key is appended automatically; do not add it to the URL. Retries 3x on transient 503s."
     },
     {
       "parameters": {
