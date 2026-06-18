@@ -1,0 +1,12 @@
+{
+  "name": "Digital Realty Trust Inc. Data Center",
+  "operator": "Digital Realty Trust Inc.",
+  "county": "Dallas",
+  "status": "proposed",
+  "sourceUrl": "https://gov.texas.gov/business/page/recent-project-announcements",
+  "sourceName": "Office of the Governor — project announcements",
+  "note": "Proposed data center campus expansion in Dallas County. Announced $140 million. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 32.77,
+  "lng": -96.78
+}
