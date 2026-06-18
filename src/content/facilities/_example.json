@@ -1,0 +1,15 @@
+{
+  "_comment": "TEMPLATE — filenames starting with _ are ignored by the loader and never render. Copy this shape for real facilities. Every real pin needs: a name, in-Texas lat/lng, a status from the allowed set, and a public sourceUrl. Coordinates must come from a real address/record — never guessed.",
+  "name": "EXAMPLE Data Center (delete me)",
+  "operator": "Example Operator LLC",
+  "city": "Abilene",
+  "county": "Taylor",
+  "lat": 32.45,
+  "lng": -99.73,
+  "status": "permitted",
+  "harm": ["water"],
+  "sourceUrl": "https://www.tceq.texas.gov/",
+  "sourceName": "TCEQ air permit filing",
+  "note": "One-line factual summary, written in our own words.",
+  "dateFound": "2026-06-17"
+}

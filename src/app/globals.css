@@ -23,6 +23,7 @@
   --color-teal: #3f7da6;       /* faded denim / Texas-sky blue — water accent */
   --color-sand: #e8ddc7;       /* wheat — page background */
   --color-paper: #fbf7ee;      /* near-white — form fields, bright insets */
+  --color-danger: #b91c1c;     /* brick red — "operating" facilities on the map (top of the status ramp) */
 
   --font-display: var(--font-oswald);
   --font-sans: var(--font-inter);
@@ -54,7 +55,7 @@ h1, h2, h3, h4, .font-display {
   to { transform: translateX(-50%); }
 }
 .ticker-track {
-  animation: ticker-scroll 60s linear infinite;
+  animation: ticker-scroll 240s linear infinite;
 }
 .ticker-bar:hover .ticker-track {
   animation-play-state: paused;
