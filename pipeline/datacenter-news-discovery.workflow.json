@@ -1,0 +1,259 @@
+{
+  "name": "BDD — Data-Center News Discovery",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "weeks", "weekInterval": 1, "triggerAtDay": [3], "triggerAtHour": 7 }
+          ]
+        }
+      },
+      "id": "news-schedule",
+      "name": "Schedule (weekly Wed 7am)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-320, 200]
+    },
+    {
+      "parameters": {},
+      "id": "news-manual",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-320, 420]
+    },
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=%22data%20center%22%20Texas&hl=en-US&gl=US&ceid=US:en",
+        "options": {}
+      },
+      "id": "news-rss",
+      "name": "Google News RSS",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [-100, 300],
+      "notes": "Google News search RSS for \"data center\" Texas. Tune the q= query to widen/narrow. No credentials needed."
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Collect RSS articles into one numbered text block + a lookup list, so the\n// extractor sees all headlines at once and can cite each by index (no URL\n// hallucination — the real link is mapped back later by sourceIndex).\nconst items = $input.all();\nconst headlines = [];\nfor (const it of items) {\n  const j = it.json || {};\n  const title = String(j.title || '').trim();\n  if (!title) continue;\n  const url = String(j.link || j.guid || '').trim();\n  const snippet = String(j.contentSnippet || j.content || '')\n    .replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').trim().slice(0, 300);\n  let source = String(j.creator || '').trim();\n  if (!source && title.includes(' - ')) source = title.split(' - ').pop().trim();\n  headlines.push({ i: headlines.length, title, snippet, url, source });\n}\nconst text = headlines.map(h => `${h.i}) ${h.title}${h.snippet ? ' \\u2014 ' + h.snippet : ''}`).join('\\n');\nreturn [{ json: { headlines, text } }];"
+      },
+      "id": "news-collect",
+      "name": "Collect headlines",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [120, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  contents: [{ parts: [{ text:\n    \"You are screening Texas news headlines for SPECIFIC, NAMED data-center (server farm / hyperscale / AI / cloud-computing) FACILITIES located in Texas. For each headline describing a real, locatable Texas data-center facility, return one object. IGNORE: opinion pieces, national or market-trend articles, listicles, stock/finance coverage, and anything without a Texas location.\\n\\nReturn STRICT JSON: an array of objects with keys: company (operator/owner), city (Texas city or ''), county (the Texas county WITHOUT the word 'County'; infer it from the city if the article doesn't say), status (one of exactly: proposed, permitted, under-construction, operating), investmentText (e.g. '$1 billion' or ''), note (ONE factual sentence IN YOUR OWN WORDS — never copy the headline text), sourceIndex (the integer number of the headline this came from). If none qualify, return [].\\n\\nHEADLINES:\\n\" + $('Collect headlines').first().json.text\n  }]}],\n  generationConfig: { temperature: 0, responseMimeType: \"application/json\" }\n}) }}",
+        "options": {}
+      },
+      "id": "news-gemini",
+      "name": "Gemini: extract data centers",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [340, 300],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "notes": "Credential = Google Gemini(PaLM) Api account. Retries 3x on transient 503s."
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Pull Gemini's JSON array out of the response and normalize. Defensive\n// against code-fences / stray text.\nconst resp = $json;\nlet text = '';\ntry { text = resp.candidates[0].content.parts[0].text || ''; } catch (e) { text = ''; }\ntext = text.trim().replace(/^```(json)?/i, '').replace(/```$/,'').trim();\nlet arr = [];\ntry { arr = JSON.parse(text); } catch (e) {\n  const m = text.match(/\\[([\\s\\S]*)\\]/);\n  if (m) { try { arr = JSON.parse(m[0]); } catch (e2) { arr = []; } }\n}\nif (!Array.isArray(arr)) arr = [];\nconst candidates = arr\n  .filter(c => c && c.company && c.county)\n  .map(c => ({\n    company: String(c.company).trim(),\n    city: String(c.city || '').trim(),\n    county: String(c.county).replace(/county/ig, '').trim(),\n    status: String(c.status || 'proposed').trim().toLowerCase(),\n    investmentText: String(c.investmentText || '').trim(),\n    note: String(c.note || '').trim(),\n    sourceIndex: Number.isFinite(+c.sourceIndex) ? +c.sourceIndex : -1\n  }));\nreturn [{ json: { candidates } }];"
+      },
+      "id": "news-parse",
+      "name": "Parse candidates",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [560, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://raw.githubusercontent.com/JimGoff518/bigdatadamage/main/pipeline/texas-county-centroids.json",
+        "options": {}
+      },
+      "id": "news-centroids",
+      "name": "Get county centroids",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [780, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/contents/src/content/facilities?ref=main",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {}
+      },
+      "id": "news-existing",
+      "name": "Get existing facilities",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1000, 300],
+      "notes": "Credential = GitHub account. All 5 GitHub nodes use it."
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Build one validated facility JSON per NEW, placeable data center found in news.\nconst slugify = s => String(s).toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');\nconst candidates = $('Parse candidates').first().json.candidates || [];\nconst headlines = $('Collect headlines').first().json.headlines || [];\nlet _c = $('Get county centroids').first().json;\nif (typeof _c === 'string') { try { _c = JSON.parse(_c); } catch (e) { _c = {}; } }\nif (_c && typeof _c.data === 'string') { try { _c = JSON.parse(_c.data); } catch (e) {} }\nconst centroids = (_c && _c.counties) ? _c.counties : {};\nconst existingItems = $('Get existing facilities').all();\nconst existingSlugs = new Set(\n  existingItems.flatMap(it => Array.isArray(it.json) ? it.json : [it.json])\n    .map(f => (f && f.name ? String(f.name).replace(/\\.json$/,'') : ''))\n    .filter(Boolean)\n);\nconst ALLOWED = ['proposed','permitted','under-construction','operating'];\nconst today = new Date().toISOString().slice(0,10);\nconst out = [];\nfor (const c of candidates) {\n  const slug = slugify(c.company + '-' + c.county + '-data-center');\n  if (existingSlugs.has(slug)) continue;            // dedupe vs map (incl. Governor pipeline)\n  const src = headlines[c.sourceIndex] || {};\n  const sourceUrl = (src.url && /^https?:\\/\\//i.test(src.url)) ? src.url : '';\n  if (!sourceUrl) continue;                         // never assert a pin without a source link\n  const status = ALLOWED.includes(c.status) ? c.status : 'proposed';\n  const countyKey = c.county.toLowerCase().trim();\n  const coords = centroids[countyKey];\n  const facility = {\n    name: c.company + ' Data Center',\n    operator: c.company,\n    county: c.county,\n    status,\n    sourceUrl,\n    sourceName: src.source || 'News report',\n    note: ((c.note || ('Reported data center in ' + c.county + ' County.')) + ' (Our summary; see source.)').trim(),\n    dateFound: today\n  };\n  if (c.city) facility.city = c.city;\n  if (coords && Number.isFinite(coords[0]) && Number.isFinite(coords[1])) {\n    facility.lat = coords[0];\n    facility.lng = coords[1];\n    out.push({ json: { slug, placeable: true, facility } });\n  } else {\n    out.push({ json: { slug, placeable: false, missingCounty: c.county, facility } });\n  }\n}\nreturn out;"
+      },
+      "id": "news-build",
+      "name": "Build facility files",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1220, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "conditions": [
+            { "id": "c1", "leftValue": "={{ $json.placeable }}", "rightValue": true, "operator": { "type": "boolean", "operation": "true", "singleValue": true } }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "news-if",
+      "name": "Placeable?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1440, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/git/ref/heads/main",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {}
+      },
+      "id": "news-sha",
+      "name": "GitHub: main SHA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1660, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/git/refs",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ ref: 'refs/heads/facility/' + $('Build facility files').item.json.slug, sha: $json.object.sha }) }}",
+        "options": {}
+      },
+      "id": "news-branch",
+      "name": "GitHub: create branch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1880, 200],
+      "onError": "continueRegularOutput",
+      "notes": "Continue on error: existing branch (422) is fine; proceed to commit."
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/contents/src/content/facilities/{{ $('Build facility files').item.json.slug }}.json",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  message: 'Add facility: ' + $('Build facility files').item.json.facility.name,\n  content: JSON.stringify($('Build facility files').item.json.facility, null, 2).base64Encode(),\n  branch: 'facility/' + $('Build facility files').item.json.slug\n}) }}",
+        "options": {}
+      },
+      "id": "news-commit",
+      "name": "GitHub: commit file",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2100, 200],
+      "onError": "continueRegularOutput",
+      "notes": "Continue on error: existing file (422 'sha wasn't supplied') is fine; proceed to open PR."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/pulls",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  title: 'New data center: ' + $('Build facility files').item.json.facility.name,\n  head: 'facility/' + $('Build facility files').item.json.slug,\n  base: 'main',\n  body: 'Auto-discovered from Texas news (Google News).\\n\\nReview the facility JSON, confirm the county pin and status, then merge to publish on the map.\\n\\nSource: ' + $('Build facility files').item.json.facility.sourceUrl + '\\nNote: ' + $('Build facility files').item.json.facility.note\n}) }}",
+        "options": {}
+      },
+      "id": "news-pr",
+      "name": "GitHub: open PR",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2320, 200],
+      "onError": "continueRegularOutput",
+      "notes": "Continue on error: existing PR (422) shouldn't fail the run."
+    },
+    {
+      "parameters": {
+        "sendTo": "jim@gofflawdfw.com",
+        "subject": "=Review new data-center pin (news): {{ $('Build facility files').item.json.facility.name }}",
+        "emailType": "text",
+        "message": "=A data center was found in the news and a PR is open for your review:\n\n{{ $json.html_url }}\n\nFacility: {{ $('Build facility files').item.json.facility.name }}\nCounty: {{ $('Build facility files').item.json.facility.county }}\nStatus: {{ $('Build facility files').item.json.facility.status }}\nSource: {{ $('Build facility files').item.json.facility.sourceUrl }}\nNote: {{ $('Build facility files').item.json.facility.note }}\n\nMerge the PR to publish the pin on the /locations map.",
+        "options": {}
+      },
+      "id": "news-email",
+      "name": "Email me to review",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [2540, 200]
+    },
+    {
+      "parameters": {
+        "sendTo": "jim@gofflawdfw.com",
+        "subject": "=Data center needs a map location: {{ $json.facility.name }}",
+        "emailType": "text",
+        "message": "=A data center was found in the news but its county ({{ $json.missingCounty }}) isn't in the centroid lookup, so it has no map coordinates yet.\n\nFacility: {{ $json.facility.name }}\nSource: {{ $json.facility.sourceUrl }}\nNote: {{ $json.facility.note }}\n\nTo place it: add \"{{ $json.missingCounty }}\" (lowercased) with [lat, lng] to pipeline/texas-county-centroids.json, then it'll be picked up next run.",
+        "options": {}
+      },
+      "id": "news-email-missing",
+      "name": "Email: missing county",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1660, 440]
+    }
+  ],
+  "connections": {
+    "Schedule (weekly Wed 7am)": { "main": [[{ "node": "Google News RSS", "type": "main", "index": 0 }]] },
+    "Run now (manual)": { "main": [[{ "node": "Google News RSS", "type": "main", "index": 0 }]] },
+    "Google News RSS": { "main": [[{ "node": "Collect headlines", "type": "main", "index": 0 }]] },
+    "Collect headlines": { "main": [[{ "node": "Gemini: extract data centers", "type": "main", "index": 0 }]] },
+    "Gemini: extract data centers": { "main": [[{ "node": "Parse candidates", "type": "main", "index": 0 }]] },
+    "Parse candidates": { "main": [[{ "node": "Get county centroids", "type": "main", "index": 0 }]] },
+    "Get county centroids": { "main": [[{ "node": "Get existing facilities", "type": "main", "index": 0 }]] },
+    "Get existing facilities": { "main": [[{ "node": "Build facility files", "type": "main", "index": 0 }]] },
+    "Build facility files": { "main": [[{ "node": "Placeable?", "type": "main", "index": 0 }]] },
+    "Placeable?": {
+      "main": [
+        [{ "node": "GitHub: main SHA", "type": "main", "index": 0 }],
+        [{ "node": "Email: missing county", "type": "main", "index": 0 }]
+      ]
+    },
+    "GitHub: main SHA": { "main": [[{ "node": "GitHub: create branch", "type": "main", "index": 0 }]] },
+    "GitHub: create branch": { "main": [[{ "node": "GitHub: commit file", "type": "main", "index": 0 }]] },
+    "GitHub: commit file": { "main": [[{ "node": "GitHub: open PR", "type": "main", "index": 0 }]] },
+    "GitHub: open PR": { "main": [[{ "node": "Email me to review", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}
