@@ -1,0 +1,13 @@
+{
+  "name": "Rowan Data Center",
+  "operator": "Rowan",
+  "county": "Bell",
+  "status": "under-construction",
+  "sourceUrl": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQd0xuc3RHc0J4T25UUS1TdFBBV2JYN2VTaFlxa1BfSEZZLUk3TkF2TVJMWWNRQ2YzYWo0YU9wRFBBRkE2WmEyQ3NOMW1DQXNXWV9lRnRVUHpYQk50Tm1OMC1qMEZHdTNNUkNZMnFZNG51SUtVUHRzcG03TW5PVW1KcjAtWm1DWl9VR3FXUGFRdERWWTBwX2xOdi1wdnREYkE?oc=5",
+  "sourceName": "Data Center Dynamics",
+  "note": "Rowan began construction on a 300MW data center in Temple, Texas. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "city": "Temple",
+  "lat": 31.04,
+  "lng": -97.48
+}
