@@ -1,0 +1,13 @@
+{
+  "name": "Meta Data Center",
+  "operator": "Meta",
+  "county": "Bell",
+  "status": "operating",
+  "sourceUrl": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQOHB3YVR4RUF2TlpCVGJ5a21ZMWNnQnJUWHk0c21JMHRPdDhkQ1YtN1M4NTBmRkQwblFnazZmOWZNMnZHU2dwcm93WFNfSzM5SzgwbjFJcHluVWxfX2FXd3FuZXJTWW1UZzhIb2M2OUV4Vzd3YWJwcG53VlNnQU1WQW5MaWtCbVVMV2FIejFrWXEyWDdRem9tTW43cHdiSHJXS1VkdFVienE?oc=5",
+  "sourceName": "San Antonio Express-News",
+  "note": "Another data center is being developed near Meta's existing campus in Temple. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "city": "Temple",
+  "lat": 31.04,
+  "lng": -97.48
+}
