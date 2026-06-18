@@ -1,0 +1,13 @@
+{
+  "name": "Oppidan Data Center",
+  "operator": "Oppidan",
+  "county": "Bell",
+  "status": "proposed",
+  "sourceUrl": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNczVYYnBweFdmWHZCclpJUzFZTld0YmgwbVRRS184d3dVR2pacGtmSUx3a05iZWRndzJValh1TTB1VU1vZy1Ba1JOUDc4bVhxclo4NV9CRWlBZGJ4UktyNE1VeVZ0Z3ZnSm5UQWk4ZEkyQ3FMbmk4RHljaXRHSlVQWjhfVHNuX2JuMDdZZ1BtZWt2dnBKR1dQRg?oc=5",
+  "sourceName": "Data Center Dynamics",
+  "note": "Oppidan filed plans for a 5MW data center in Temple, Texas. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "city": "Temple",
+  "lat": 31.04,
+  "lng": -97.48
+}
