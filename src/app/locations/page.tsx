@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
-import { LocationCard } from "@/components/cards";
+import { Icon } from "@/components/Icons";
 import { TexasMap } from "@/components/TexasMap";
 import { FacilityList } from "@/components/FacilityList";
 import { locations } from "@/content/locations";
@@ -32,12 +33,42 @@ export default function LocationsPage() {
               </div>
             </div>
           </Reveal>
-          <div className="grid gap-4">
-            {locations.map((loc, i) => (
-              <Reveal key={loc.slug} delay={i * 0.05}>
-                <LocationCard location={loc} />
-              </Reveal>
-            ))}
+          <div className="rounded-md border border-line bg-panel shadow-card">
+            <div className="border-b border-line px-5 py-4">
+              <p className="eyebrow text-[11px] text-hazard">Communities</p>
+              <h2 className="mt-1 text-lg font-bold text-fg">Communities we cover</h2>
+              <p className="mt-0.5 text-xs text-fg-dim">
+                {locations.length} Texas communities — scroll the list, tap any to open.
+              </p>
+            </div>
+            <ul className="max-h-[26rem] divide-y divide-line overflow-y-auto">
+              {locations.map((loc) => (
+                <li key={loc.slug}>
+                  <Link
+                    href={`/locations/${loc.slug}`}
+                    className="group flex items-center justify-between gap-3 px-5 py-3 transition-colors hover:bg-panel-2"
+                  >
+                    <span className="min-w-0">
+                      <span className="flex items-center gap-2">
+                        <span className="font-semibold text-fg group-hover:text-orange">
+                          {loc.city}
+                        </span>
+                        {loc.hot && (
+                          <span className="rounded-sm bg-orange px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-night">
+                            Hotspot
+                          </span>
+                        )}
+                      </span>
+                      <span className="block truncate text-xs text-fg-dim">
+                        {loc.county}
+                        {loc.aquifer ? ` · ${loc.aquifer}` : ""}
+                      </span>
+                    </span>
+                    <Icon name="arrow" width={16} height={16} className="shrink-0 text-orange" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
         <p className="mt-8 text-sm text-fg-dim">
