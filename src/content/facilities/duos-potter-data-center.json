@@ -1,0 +1,13 @@
+{
+  "name": "Duos Data Center",
+  "operator": "Duos",
+  "county": "Potter",
+  "status": "operating",
+  "sourceUrl": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPZnpyOEhCeDZsMWlTN3EyNmNfLU9YdFR5NFVUbHFMaHJ5RFBodEJwOXFZRW9wQ1FBQzdabmVUVTFXSk1EQXhEXzhuWWVVSGhiRmx3RXVsWU8tT3JEYlFFY0g3dzhaUW9JM0V6WmxxYW1xU0Y4bFV4bVg4TXBuWE5TVDVoQmpoYU9aMUtTUGU5eXJMdERxUDVCVWszX2wtWTA?oc=5",
+  "sourceName": "Data Center Dynamics",
+  "note": "Duos deployed its second Edge data center in Amarillo, Texas. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "city": "Amarillo",
+  "lat": 35.4,
+  "lng": -101.89
+}
