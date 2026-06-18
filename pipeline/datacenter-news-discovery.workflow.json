@@ -25,15 +25,27 @@
     },
     {
       "parameters": {
-        "url": "https://news.google.com/rss/search?q=%22data%20center%22%20Texas&hl=en-US&gl=US&ceid=US:en",
+        "mode": "runOnceForAllItems",
+        "jsCode": "const DQ = String.fromCharCode(34);\nconst QUERIES = [\n  DQ + 'data center' + DQ + ' Texas (water OR aquifer OR groundwater OR drought OR well)',\n  DQ + 'data center' + DQ + ' Texas (noise OR emissions OR ' + DQ + 'property value' + DQ + ' OR pollution)',\n  'Texas (data center OR ' + DQ + 'crypto mining' + DQ + ') (lawsuit OR ' + DQ + 'class action' + DQ + ' OR moratorium OR TCEQ OR permit)',\n  '(Oncor OR CenterPoint) (eminent domain OR easement OR ' + DQ + 'transmission line' + DQ + ') Texas',\n  '(' + DQ + 'data center' + DQ + ' OR ' + DQ + 'crypto mine' + DQ + ') (Granbury OR ' + DQ + 'Hood County' + DQ + ' OR ' + DQ + 'Sulphur Springs' + DQ + ' OR ' + DQ + 'Hopkins County' + DQ + ' OR ' + DQ + 'Hill County' + DQ + ' OR Hillsboro OR Amarillo OR ' + DQ + 'Corpus Christi' + DQ + ' OR Harlingen OR Temple OR ' + DQ + 'San Marcos' + DQ + ' OR Lufkin OR Sweetwater OR Odessa)'\n];\nreturn QUERIES.map(q => ({ json: { url: 'https://news.google.com/rss/search?q=' + encodeURIComponent(q) + '&hl=en-US&gl=US&ceid=US:en', query: q } }));"
+      },
+      "id": "news-buildfeeds",
+      "name": "Build query feeds",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-120, 300],
+      "notes": "The same 5 landowner-harm Google News queries the site's news.ts uses. Emits one feed URL per query."
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
         "options": {}
       },
       "id": "news-rss",
       "name": "Google News RSS",
       "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1.1,
-      "position": [-100, 300],
-      "notes": "Google News search RSS for \"data center\" Texas. Tune the q= query to widen/narrow. No credentials needed."
+      "position": [100, 300],
+      "notes": "Reads each of the 5 query feeds (runs once per incoming URL) and aggregates all articles."
     },
     {
       "parameters": {
@@ -234,8 +246,9 @@
     }
   ],
   "connections": {
-    "Schedule (weekly Wed 7am)": { "main": [[{ "node": "Google News RSS", "type": "main", "index": 0 }]] },
-    "Run now (manual)": { "main": [[{ "node": "Google News RSS", "type": "main", "index": 0 }]] },
+    "Schedule (weekly Wed 7am)": { "main": [[{ "node": "Build query feeds", "type": "main", "index": 0 }]] },
+    "Run now (manual)": { "main": [[{ "node": "Build query feeds", "type": "main", "index": 0 }]] },
+    "Build query feeds": { "main": [[{ "node": "Google News RSS", "type": "main", "index": 0 }]] },
     "Google News RSS": { "main": [[{ "node": "Collect headlines", "type": "main", "index": 0 }]] },
     "Collect headlines": { "main": [[{ "node": "Gemini: extract data centers", "type": "main", "index": 0 }]] },
     "Gemini: extract data centers": { "main": [[{ "node": "Parse candidates", "type": "main", "index": 0 }]] },
