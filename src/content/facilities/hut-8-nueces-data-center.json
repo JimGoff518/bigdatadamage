@@ -1,0 +1,12 @@
+{
+  "name": "Hut 8 Data Center",
+  "operator": "Hut 8",
+  "county": "Nueces",
+  "status": "proposed",
+  "sourceUrl": "https://gov.texas.gov/business/page/recent-project-announcements",
+  "sourceName": "Office of the Governor — project announcements",
+  "note": "Proposed AI data center in Nueces County. Announced $17 billion. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 27.73,
+  "lng": -97.51
+}
