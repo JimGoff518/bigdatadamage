@@ -1,0 +1,13 @@
+{
+  "name": "Cyrusone LLC - Houston West III Data Center Data Center",
+  "operator": "Cyrusone LLC - Houston West III Data Center",
+  "county": "Harris",
+  "status": "under-construction",
+  "sourceUrl": "https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php",
+  "sourceName": "Texas Comptroller — qualifying data center registry",
+  "note": "Registered as a qualifying data center with the Texas Comptroller, in Harris County. Listed near Houston. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 29.86,
+  "lng": -95.39,
+  "city": "Houston"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Fluidstack Abernathy Data Center Data Center",
+  "operator": "Fluidstack Abernathy Data Center",
+  "county": "Lubbock",
+  "status": "under-construction",
+  "sourceUrl": "https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php",
+  "sourceName": "Texas Comptroller — qualifying data center registry",
+  "note": "Registered as a qualifying data center with the Texas Comptroller, in Lubbock County. Listed near Abernathy. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 33.61,
+  "lng": -101.82,
+  "city": "Abernathy"
+}

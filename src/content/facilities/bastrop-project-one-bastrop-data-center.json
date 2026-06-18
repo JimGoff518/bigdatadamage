@@ -1,0 +1,13 @@
+{
+  "name": "Bastrop Project One Data Center",
+  "operator": "Bastrop Project One",
+  "county": "Bastrop",
+  "status": "operating",
+  "sourceUrl": "https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php",
+  "sourceName": "Texas Comptroller — qualifying data center registry",
+  "note": "Registered as a qualifying data center with the Texas Comptroller, in Bastrop County. Listed near Bastrop. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 30.1,
+  "lng": -97.31,
+  "city": "Bastrop"
+}

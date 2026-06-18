@@ -1,0 +1,13 @@
+{
+  "name": "NTT Global Data Centers Americas - Dallas TX2 Data Center",
+  "operator": "NTT Global Data Centers Americas - Dallas TX2",
+  "county": "Dallas",
+  "status": "operating",
+  "sourceUrl": "https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php",
+  "sourceName": "Texas Comptroller — qualifying data center registry",
+  "note": "Registered as a qualifying data center with the Texas Comptroller, in Dallas County. Listed near Dallas. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 32.77,
+  "lng": -96.78,
+  "city": "Dallas"
+}

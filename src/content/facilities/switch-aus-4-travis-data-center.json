@@ -1,0 +1,13 @@
+{
+  "name": "Switch AUS 4 Data Center",
+  "operator": "Switch AUS 4",
+  "county": "Travis",
+  "status": "operating",
+  "sourceUrl": "https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php",
+  "sourceName": "Texas Comptroller — qualifying data center registry",
+  "note": "Registered as a qualifying data center with the Texas Comptroller, in Travis County. Listed near Austin. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 30.33,
+  "lng": -97.78,
+  "city": "Austin"
+}

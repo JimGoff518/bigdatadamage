@@ -1,0 +1,13 @@
+{
+  "name": "Denton Data Center Data Center",
+  "operator": "Denton Data Center",
+  "county": "Denton",
+  "status": "under-construction",
+  "sourceUrl": "https://comptroller.texas.gov/taxes/data-centers/data-center-lists.php",
+  "sourceName": "Texas Comptroller — qualifying data center registry",
+  "note": "Registered as a qualifying data center with the Texas Comptroller, in Denton County. Listed near Denton. (Our summary; see source.)",
+  "dateFound": "2026-06-18",
+  "lat": 33.2,
+  "lng": -97.12,
+  "city": "Denton"
+}
