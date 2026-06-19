@@ -89,6 +89,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Research & studies */}
+      <section className="border-b border-line bg-night text-paper">
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <Reveal>
+            <p className="eyebrow border-l-4 border-orange pl-3 text-xs text-hazard">
+              Research &amp; studies
+            </p>
+            <h2 className="mt-3 max-w-2xl text-3xl font-bold sm:text-4xl">
+              The evidence, gathered in one place
+            </h2>
+            <p className="mt-3 max-w-2xl text-paper/80">
+              A curated library of the peer-reviewed studies and agency reports on how data centers
+              affect health — noise, diesel emissions, water, and more. Each one links to the full
+              text at its source.
+            </p>
+            <Link
+              href="/resources"
+              className="mt-6 inline-flex items-center gap-2 rounded-sm bg-orange px-5 py-3 font-bold text-night transition-colors hover:bg-orange/90"
+            >
+              Browse the research <Icon name="arrow" width={18} height={18} />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
       {/* By location */}
       <section className="mx-auto max-w-6xl px-4 py-20">
         <Reveal>

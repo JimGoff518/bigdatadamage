@@ -16,6 +16,7 @@ export type EvidenceType = "direct" | "modeled" | "analogous";
 export type StudyKind =
   | "Peer-reviewed study"
   | "Government / agency report"
+  | "Research / nonprofit report"
   | "Preprint (not peer-reviewed)"
   | "Investigative report";
 
@@ -94,6 +95,17 @@ export const studyCategories: StudyCategory[] = [
         summary:
           "A plain-language overview from the Environmental Health Project, a nonprofit, that pulls the concerns together in one place — generator and power-plant air pollution (citing the 2025 modeling projecting ~1,300 premature deaths and over $20B in health costs a year by 2030), heavy water use, light pollution, and noise. It is an advocacy-oriented summary that leans on peer-reviewed and government sources rather than a study in its own right.",
         url: "https://www.environmentalhealthproject.org/post/the-dangers-of-data-centers",
+        pdf: false,
+      },
+      {
+        title: "2024 United States Data Center Energy Usage Report",
+        source: "Lawrence Berkeley National Laboratory (U.S. Dept. of Energy)",
+        year: 2024,
+        kind: "Government / agency report",
+        evidence: "direct",
+        summary:
+          "The Department of Energy's benchmark report on the scale of the build-out. It documents that U.S. data center electricity use reached 176 TWh in 2023 — about 4.4% of the national total — and could hit 325–580 TWh by 2028, and it models the water footprint that scale implies through on-site cooling and power generation. The authoritative reference for how fast the load, and its resource demands, are growing.",
+        url: "https://escholarship.org/uc/item/32d6m0d1",
         pdf: false,
       },
     ],
@@ -208,6 +220,28 @@ export const studyCategories: StudyCategory[] = [
         url: "https://insideclimatenews.org/news/12112025/data-center-diesel-generators-noise-pollution/",
         pdf: false,
       },
+      {
+        title: "Localized air pollution impacts from data centers in Northern Virginia",
+        source: "VCU Institute for Sustainable Energy & Environment (Pitt, Suen & Plisko)",
+        year: 2026,
+        kind: "Research / nonprofit report",
+        evidence: "direct",
+        summary:
+          "The underlying research behind the VCU coverage. The authors mapped backup-generator air pollution from 138 Northern Virginia data centers and found that, while any single facility is minor, the combined emissions from 100+ facilities are significant — and in some neighborhoods near clusters already rival the exposure from a regional power station. It also examined how that exposure tracks with race, income, and education.",
+        url: "https://scholarscompass.vcu.edu/isee_pubs/3/",
+        pdf: false,
+      },
+      {
+        title: "State of the Air 2026",
+        source: "American Lung Association",
+        year: 2026,
+        kind: "Research / nonprofit report",
+        evidence: "analogous",
+        summary:
+          "The American Lung Association's annual air-quality report card. The 2026 edition places Dallas, Houston, Brownsville, and McAllen among the nation's most polluted cities — which means the diesel-generator and power-plant emissions tied to new data centers land in Texas airsheds that already carry an unhealthy burden.",
+        url: "https://www.lung.org/research/sota",
+        pdf: false,
+      },
     ],
   },
   {
@@ -260,6 +294,17 @@ export const studyCategories: StudyCategory[] = [
           "The federal health agency's profile of PFAS — the 'forever chemicals' that can turn up in cooling-tower discharge. It links PFAS exposure to effects on the liver, immune system, and cholesterol, to raised blood pressure in pregnancy, and to increased risk of some cancers, and explains why they are so hard to remove from water. It establishes why the contamination pathway matters; it does not measure PFAS near a specific data center.",
         url: "https://www.atsdr.cdc.gov/toxprofiles/tp200.pdf",
         pdf: true,
+      },
+      {
+        title: "Thirsty data and the Lone Star State: data center growth and Texas' water supply",
+        source: "Houston Advanced Research Center (HARC) — Dr. Margaret Cook",
+        year: 2025,
+        kind: "Research / nonprofit report",
+        evidence: "modeled",
+        summary:
+          "A Texas-focused report: it estimates Texas data centers used roughly 25 billion gallons of water in 2025 (direct and indirect) and projects that could climb to about 399 billion gallons a year by 2030 — on the order of 6.6% of the state's water supply — concentrated around DFW, Houston, San Antonio, Austin, and West Texas. Modeled projections, paired with policy fixes like mandatory water-use reporting for large industrial users.",
+        url: "https://harcresearch.org/research/thirsty-data-and-the-lone-star-state-the-impact-of-data-center-growth-on-texas-water-supply/",
+        pdf: false,
       },
     ],
   },
