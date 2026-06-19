@@ -242,6 +242,30 @@ export const studyCategories: StudyCategory[] = [
         url: "https://www.lung.org/research/sota",
         pdf: false,
       },
+      {
+        title:
+          "On-site power at a Virginia data center: $53–99 million a year in health damages",
+        source: "Piedmont Environmental Council / EmPower Analytics Group (Dr. Michael Cork)",
+        year: 2026,
+        kind: "Research / nonprofit report",
+        evidence: "modeled",
+        summary:
+          "An EPA COBRA modeling study of the permitted on-site power at a Vantage data center in Loudoun County, Virginia — eight gas turbines and 51 diesel generators (~135 MW). It estimates the fine-particle (PM2.5) emissions would cause roughly $53–99 million a year in health damages and 3.4–6.5 premature deaths a year, rising to about $1.6–3.0 billion and 100+ deaths over 30 years. A direct preview of the 'behind-the-meter' gas-and-diesel power model now coming to Texas.",
+        url: "https://www.pecva.org/resources/press/press-release-new-study-finds-on-site-power-at-virginia-data-center-could-result-in-53-million-99-million-in-annual-health-damages/",
+        pdf: false,
+      },
+      {
+        title:
+          "xAI's gas-turbine power plant could worsen regional air pollution (Memphis / N. Mississippi)",
+        source: "Southern Environmental Law Center / EmPower Analytics Group (Dr. Michael Cork)",
+        year: 2026,
+        kind: "Research / nonprofit report",
+        evidence: "modeled",
+        summary:
+          "A PM2.5 modeling study of xAI's Colossus II / MZX Tech power plant near Memphis: its permitted gas turbines could emit roughly 20 tons of fine particles a year plus precursor pollutants, raising downwind communities' PM2.5 by up to 0.5 µg/m³ — a mortality-risk increase the authors compare to alcohol-impaired driving. The study anchors the NAACP and SELC legal challenge, and is a cautionary precedent for behind-the-meter data-center power in Texas.",
+        url: "https://www.selc.org/press-release/new-study-finds-proposed-xai-gas-plant-could-worsen-regional-air-pollution-cause-millions-of-dollars-in-annual-health-damages/",
+        pdf: false,
+      },
     ],
   },
   {
