@@ -140,6 +140,17 @@ export const studyCategories: StudyCategory[] = [
         url: "https://www.nature.com/articles/s41370-024-00732-4",
         pdf: false,
       },
+      {
+        title: "WHO systematic review: environmental noise and effects on sleep",
+        source: "Int. Journal of Environmental Research & Public Health (Basner & McGuire)",
+        year: 2018,
+        kind: "Peer-reviewed study",
+        evidence: "analogous",
+        summary:
+          "The companion to the WHO cardiovascular review, focused on sleep. It found sufficient evidence that nighttime transportation noise fragments sleep and raises awakenings and self-reported disturbance — the pathway by which a constant nighttime hum can wear on health over time. The sleep evidence is from traffic and aircraft noise, applied by analogy.",
+        url: "https://www.mdpi.com/1660-4601/15/3/519",
+        pdf: false,
+      },
     ],
   },
   {
@@ -185,6 +196,18 @@ export const studyCategories: StudyCategory[] = [
         url: "https://news.vcu.edu/article/northern-virginia-data-center-air-pollution-rivals-power-plant-emissions",
         pdf: false,
       },
+      {
+        title:
+          "Data centers' use of diesel generators for backup power is commonplace — and problematic",
+        source: "Inside Climate News (Arcelia Martin)",
+        year: 2025,
+        kind: "Investigative report",
+        evidence: "direct",
+        summary:
+          "Investigative reporting on the diesel backup generators that keep data centers at 99.999% uptime. It notes the American Cancer Society links diesel emissions to heart and lung disease and cancer, that natural-gas generators emit far less NOx, and that operators largely self-report emissions to Texas and federal regulators — in metro areas that already violate air-quality standards.",
+        url: "https://insideclimatenews.org/news/12112025/data-center-diesel-generators-noise-pollution/",
+        pdf: false,
+      },
     ],
   },
   {
@@ -215,6 +238,28 @@ export const studyCategories: StudyCategory[] = [
           "A peer-reviewed assessment confirming data centers evaporate on the order of 1–9 liters per kilowatt-hour and that, while the national water footprint is modest, the impact is significant and concentrated in already water-stressed regions — the situation across much of Texas.",
         url: "https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2025AV002140",
         pdf: false,
+      },
+      {
+        title: "Making AI less 'thirsty': the secret water footprint of AI models",
+        source: "arXiv preprint (UC Riverside / UT Arlington); later in Communications of the ACM",
+        year: 2023,
+        kind: "Preprint (not peer-reviewed)",
+        evidence: "modeled",
+        summary:
+          "The widely-cited estimate of AI's water footprint: training a model like GPT-3 in U.S. data centers can directly evaporate roughly 700,000 liters of clean freshwater, and global AI water withdrawal could reach 4.2–6.6 billion cubic meters a year by 2027. Modeled figures, since published in a peer-reviewed ACM journal.",
+        url: "https://arxiv.org/pdf/2304.03271",
+        pdf: true,
+      },
+      {
+        title: "Toxicological Profile for Perfluoroalkyls (PFAS)",
+        source: "ATSDR, U.S. Department of Health & Human Services",
+        year: 2021,
+        kind: "Government / agency report",
+        evidence: "analogous",
+        summary:
+          "The federal health agency's profile of PFAS — the 'forever chemicals' that can turn up in cooling-tower discharge. It links PFAS exposure to effects on the liver, immune system, and cholesterol, to raised blood pressure in pregnancy, and to increased risk of some cancers, and explains why they are so hard to remove from water. It establishes why the contamination pathway matters; it does not measure PFAS near a specific data center.",
+        url: "https://www.atsdr.cdc.gov/toxprofiles/tp200.pdf",
+        pdf: true,
       },
     ],
   },
