@@ -6,7 +6,7 @@ import { getAllArticles } from "@/lib/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = site.url;
-  const staticRoutes = ["", "/damage", "/locations", "/your-rights", "/news", "/contact"].map(
+  const staticRoutes = ["", "/damage", "/locations", "/your-rights", "/resources", "/news", "/contact"].map(
     (path) => ({ url: `${base}${path}`, changeFrequency: "weekly" as const, priority: path === "" ? 1 : 0.7 })
   );
 

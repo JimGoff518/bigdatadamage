@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-type IconName = "water" | "air" | "home" | "phone" | "arrow" | "shield";
+type IconName = "water" | "air" | "home" | "phone" | "arrow" | "shield" | "doc" | "download";
 
 const paths: Record<IconName, React.ReactNode> = {
   water: (
@@ -44,6 +44,26 @@ const paths: Record<IconName, React.ReactNode> = {
       fill="none"
       stroke="currentColor"
       strokeWidth="1.7"
+      strokeLinejoin="round"
+    />
+  ),
+  doc: (
+    <path
+      d="M6 3h7l5 5v13H6V3Zm7 0v5h5M9 13h6M9 17h6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinejoin="round"
+      strokeLinecap="round"
+    />
+  ),
+  download: (
+    <path
+      d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
       strokeLinejoin="round"
     />
   ),
