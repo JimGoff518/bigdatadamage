@@ -73,6 +73,29 @@ export const studyCategories: StudyCategory[] = [
         url: "https://arxiv.org/pdf/2412.06288",
         pdf: true,
       },
+      {
+        title:
+          "California data center health impacts tripled in four years",
+        source: "UC Riverside News (with the think tank Next 10)",
+        year: 2025,
+        kind: "Investigative report",
+        evidence: "modeled",
+        summary:
+          "Reporting on UC Riverside research (Shaolei Ren) finding that the public-health burden from California data-center pollution roughly tripled from 2019 to 2023 and could rise another ~72% by 2028 without policy change — driven by diesel-generator nitrogen oxides, fine particulates, and gas-plant emissions. The researchers stress these are modeled estimates made 'in the dark' because facilities disclose little environmental data.",
+        url: "https://news.ucr.edu/articles/2025/11/21/california-data-center-health-impacts-tripled-4-years",
+        pdf: false,
+      },
+      {
+        title: "The dangers of data centers",
+        source: "Environmental Health Project (nonprofit)",
+        year: 2025,
+        kind: "Investigative report",
+        evidence: "direct",
+        summary:
+          "A plain-language overview from the Environmental Health Project, a nonprofit, that pulls the concerns together in one place — generator and power-plant air pollution (citing the 2025 modeling projecting ~1,300 premature deaths and over $20B in health costs a year by 2030), heavy water use, light pollution, and noise. It is an advocacy-oriented summary that leans on peer-reviewed and government sources rather than a study in its own right.",
+        url: "https://www.environmentalhealthproject.org/post/the-dangers-of-data-centers",
+        pdf: false,
+      },
     ],
   },
   {
@@ -92,7 +115,8 @@ export const studyCategories: StudyCategory[] = [
         summary:
           "The systematic review underpinning the WHO noise guidelines. It found the risk of ischemic heart disease rises about 8% for every 10-decibel increase in road-traffic noise (rated high-quality evidence), with risk climbing continuously from roughly 50 dB and no clear safe threshold.",
         url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5858448/",
-        pdf: false,
+        file: "/studies/van-kempen-2018-noise-cardiovascular-who.pdf",
+        license: "CC BY 4.0",
       },
       {
         title: "Environmental noise and the cardiovascular system (mechanisms)",
@@ -211,18 +235,20 @@ export const studyCategories: StudyCategory[] = [
         summary:
           "The closest analog for the low-frequency hum debate. It finds audible turbine sound reliably causes annoyance and sleep disturbance, but concludes that sub-audible infrasound is highly unlikely to cause adverse health effects and that cardiovascular links are not established. A useful counter to overstated 'infrasound sickness' claims.",
         url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8430592/",
-        pdf: false,
+        file: "/studies/wind-turbine-sound-health-2021.pdf",
+        license: "CC BY 4.0",
       },
       {
-        title: "Effects of noise on the welfare of farm animals (review)",
-        source: "Animals (MDPI)",
+        title: "Noise as a factor of environmental stress for cattle — a review",
+        source: "Annals of Animal Science (Angrecka et al.)",
         year: 2023,
         kind: "Peer-reviewed study",
         evidence: "analogous",
         summary:
-          "There is no study of livestock raised near a data center. This peer-reviewed review covers the general science: noise can raise heart rate, cortisol, and stress hormones in farm animals and reduce milk yield in cattle at high sound levels — physiology relevant to ranchland near new facilities, applied by analogy.",
-        url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10376870/",
-        pdf: false,
+          "No study examines cattle raised near a data center, but this peer-reviewed review of the cattle-noise science is directly relevant to Texas ranch and dairy land. It documents that once sound exceeds roughly 80–90 dB, it can disrupt adrenal and hormone function, lower milk yield, raise somatic cell counts, and impair fertility — with discomfort at 90–100 dB. Those documented effects occur at higher levels than a data-center hum, so the link is by analogy, not direct proof.",
+        url: "https://sciendo.com/article/10.2478/aoas-2023-0046",
+        file: "/studies/noise-environmental-stress-cattle-2023.pdf",
+        license: "CC BY 4.0",
       },
     ],
   },
