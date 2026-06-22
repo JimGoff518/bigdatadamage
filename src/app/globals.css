@@ -15,12 +15,12 @@
   --color-panel-2: #e9ddc3;    /* deeper paper — chips, insets */
   --color-line: #d6c4a0;       /* warm tan hairlines, borders */
   --color-fg: #2a2218;         /* dark saddle-leather — primary text */
-  --color-fg-dim: #6f6450;     /* muted clay — secondary text */
+  --color-fg-dim: #5f5443;     /* muted clay — secondary text (darkened for WCAG AA on sand) */
 
-  --color-orange: #bf5700;     /* Texas burnt orange — primary CTA */
+  --color-orange: #a84a00;     /* Texas burnt orange — primary CTA (deepened for WCAG AA as link text + white-on-orange buttons) */
   --color-orange-bright: #d96a13; /* hover */
-  --color-hazard: #9a6612;     /* deep goldenrod — eyebrows, labels, accent bars */
-  --color-teal: #3f7da6;       /* faded denim / Texas-sky blue — water accent */
+  --color-hazard: #7d520e;     /* deep goldenrod — eyebrows/labels (darkened for WCAG AA on light) */
+  --color-teal: #356d92;       /* faded denim / Texas-sky blue — water accent (darkened for WCAG AA) */
   --color-sand: #e8ddc7;       /* wheat — page background */
   --color-paper: #fbf7ee;      /* near-white — form fields, bright insets */
   --color-danger: #b91c1c;     /* brick red — "operating" facilities on the map (top of the status ramp) */

@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "The Damage: How Data Centers Harm Texas Landowners",
   description:
     "Water depletion, air pollution, and property-value collapse — the three ways data centers harm Texas property owners, explained.",
+  alternates: { canonical: "/damage" },
 };
 
 export default function DamagePage() {

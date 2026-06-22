@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Research & Studies: Data Centers and Health",
   description:
     "A curated, plain-English library of the studies and agency reports on how data centers affect human and livestock health — noise, diesel emissions, water, and the low-frequency hum. Each study links to the full text at its source.",
+  alternates: { canonical: "/resources" },
 };
 
 const evidenceLabel: Record<EvidenceType, string> = {

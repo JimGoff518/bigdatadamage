@@ -71,7 +71,7 @@ export function HarmCard({ topic }: { topic: Topic }) {
     >
       <span className={`h-1.5 w-full ${accentBar[topic.accent] ?? "bg-orange"}`} />
       <div className="flex flex-1 flex-col p-6">
-        <span className="grid h-12 w-12 place-items-center rounded-sm bg-orange text-night">
+        <span className="grid h-12 w-12 place-items-center rounded-sm bg-orange text-paper">
           <Icon name={topic.icon} width={26} height={26} />
         </span>
         <h3 className="mt-4 text-xl font-bold text-fg">{topic.name}</h3>
@@ -94,7 +94,7 @@ export function LocationCard({ location }: { location: Location }) {
         <div className="flex items-center gap-2">
           <h3 className="font-bold text-fg group-hover:text-orange">{location.city}</h3>
           {location.hot && (
-            <span className="rounded-sm bg-orange px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-night">
+            <span className="rounded-sm bg-orange px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-paper">
               Hotspot
             </span>
           )}

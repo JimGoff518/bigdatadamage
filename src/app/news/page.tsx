@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "News & Guides on Texas Data Centers",
   description:
     "The latest news, lawsuit information, and plain-English guides on data center water, air, and property impacts across Texas.",
+  alternates: { canonical: "/news" },
 };
 
 // Refresh the aggregated headline feed every six hours.

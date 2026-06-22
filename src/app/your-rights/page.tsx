@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Your Rights: Texas Water & Property Law vs. Data Centers",
   description:
     "Plain-English guide to the Texas legal concepts that matter when a data center affects your land — Rule of Capture, subsidence, nuisance, quiet enjoyment, and GCD permit protests.",
+  alternates: { canonical: "/your-rights" },
 };
 
 const sections = [

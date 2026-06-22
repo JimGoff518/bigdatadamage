@@ -31,6 +31,14 @@ export const metadata: Metadata = {
     url: site.url,
     siteName: site.name,
     type: "website",
+    // Fallback social card for every page without its own OG image.
+    images: [{ url: "/images/hero-fenceline.jpg", width: 1200, height: 630, alt: site.name }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} — ${site.tagline}`,
+    description: site.description,
+    images: ["/images/hero-fenceline.jpg"],
   },
   robots: {
     index: true,
