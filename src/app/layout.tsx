@@ -60,8 +60,14 @@ const orgJsonLd = {
       url: site.url,
       description: site.description,
       image: `${site.url}/images/hero-fenceline.jpg`,
-      // TODO: add `logo` once a dedicated logo asset exists, and `sameAs`
-      // once verified social/profile URLs are available (entity grounding).
+      logo: {
+        "@type": "ImageObject",
+        url: `${site.url}/images/logo-mark.png`,
+        width: 512,
+        height: 512,
+      },
+      // TODO: add `sameAs` once verified profile URLs are available
+      // (LinkedIn, @getgoff YouTube, X, Facebook, Wikidata) — entity grounding.
       knowsAbout: [
         "Texas groundwater rights",
         "data center water usage",
