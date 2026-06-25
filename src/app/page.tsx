@@ -34,6 +34,10 @@ export default function Home() {
           <h2 className="mt-3 max-w-2xl text-3xl font-bold text-fg sm:text-4xl">
             Three ways the data center boom is hurting Texas landowners
           </h2>
+          <p className="mt-3 max-w-2xl text-fg/70">
+            When a hyperscale facility moves in next door, the burdens can land on you while the
+            benefits go elsewhere. Here is where the harm tends to show up.
+          </p>
         </Reveal>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {topics.map((topic, i) => (

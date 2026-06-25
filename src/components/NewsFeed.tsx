@@ -9,42 +9,43 @@ function formatDate(iso: string): string {
 }
 
 // Async server component. Fetches aggregated Google News headlines (cached
-// hourly) and renders them as outbound links. Renders nothing if the feed is
-// empty/unreachable so it never breaks the page.
+// hourly) and renders them as a clean, scannable list of outbound links: date
+// and source on the left, headline center, "Read" affordance on the right.
+// Renders nothing if the feed is empty/unreachable so it never breaks the page.
 export async function NewsFeed() {
   const items = await getDataCenterNews(12);
   if (items.length === 0) return null;
 
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
+    <ul className="divide-y divide-line/70 overflow-hidden rounded-md border border-line bg-panel shadow-card">
       {items.map((item) => (
-        <a
-          key={item.link}
-          href={item.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex flex-col rounded-md border border-line bg-panel p-4 shadow-card transition-colors hover:border-orange/60"
-        >
-          <h3 className="font-semibold leading-snug text-fg group-hover:text-orange">
-            {item.title}
-          </h3>
-          <div className="mt-2 flex items-center gap-2 text-xs text-fg-dim">
-            <span className="font-semibold text-fg/70">{item.source}</span>
-            {item.isoDate && (
-              <>
-                <span aria-hidden>·</span>
-                <time dateTime={item.isoDate}>{formatDate(item.isoDate)}</time>
-              </>
-            )}
-            <Icon
-              name="arrow"
-              width={14}
-              height={14}
-              className="ml-auto text-orange opacity-0 transition-opacity group-hover:opacity-100"
-            />
-          </div>
-        </a>
+        <li key={item.link}>
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-start gap-4 border-l-4 border-transparent px-4 py-4 transition-colors hover:border-orange hover:bg-panel-2/40"
+          >
+            <div className="w-24 shrink-0 text-xs sm:w-28">
+              {item.isoDate && (
+                <time dateTime={item.isoDate} className="block font-semibold text-fg">
+                  {formatDate(item.isoDate)}
+                </time>
+              )}
+              <span className="block text-fg-dim">{item.source}</span>
+            </div>
+
+            <h3 className="flex-1 font-semibold leading-snug text-fg group-hover:text-orange">
+              {item.title}
+            </h3>
+
+            <span className="ml-auto hidden shrink-0 items-center gap-1 self-center text-sm font-semibold text-orange opacity-0 transition-opacity group-hover:opacity-100 sm:flex">
+              Read
+              <Icon name="arrow" width={14} height={14} />
+            </span>
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

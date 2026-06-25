@@ -13,6 +13,10 @@ export function ByTheNumbers() {
           <h2 className="mt-3 max-w-2xl text-3xl font-bold text-fg sm:text-4xl">
             The scale of the Texas data center rush
           </h2>
+          <p className="mt-3 max-w-2xl text-fg/70">
+            Texas is the nation&apos;s top target for new data centers. Here is how fast they are
+            arriving — and where they are landing.
+          </p>
         </Reveal>
 
         {/* Stat band */}
