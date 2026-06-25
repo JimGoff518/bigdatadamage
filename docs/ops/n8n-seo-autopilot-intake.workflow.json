@@ -50,29 +50,18 @@
     {
       "parameters": {
         "operation": "append",
-        "documentId": { "__rl": true, "value": "1nLduE4D58-vBj_7KfzfM80XbugexKK0EvpZjsSmzjSQ", "mode": "id" },
-        "sheetName": { "__rl": true, "value": "gid=0", "mode": "id" },
+        "documentId": { "__rl": true, "value": "1V-anSvUJt1bCTFEP0OYcmJRUMw11PXi5Z-jXA5n7G2Q", "mode": "id" },
+        "sheetName": { "__rl": true, "value": "1271705953", "mode": "id" },
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
             "status": "={{ $json.status || 'queued' }}",
-            "slug": "={{ $json.slug }}",
             "title": "={{ $json.title }}",
-            "seoTitle": "={{ $json.seoTitle }}",
-            "seoDescription": "={{ $json.seoDescription }}",
+            "keyword": "={{ $json.keyword }}",
             "harm": "={{ $json.harm }}",
             "location": "={{ $json.location }}",
-            "cluster": "={{ $json.cluster }}",
-            "intent": "={{ $json.intent }}",
-            "priority_score": "={{ $json.priority_score }}",
-            "target_keyword": "={{ $json.target_keyword }}",
-            "volume": "={{ $json.volume }}",
-            "difficulty": "={{ $json.difficulty }}",
-            "outline": "={{ typeof $json.outline === 'string' ? $json.outline : JSON.stringify($json.outline) }}",
-            "tldr": "={{ $json.tldr }}",
-            "sources_to_cite": "={{ typeof $json.sources_to_cite === 'string' ? $json.sources_to_cite : JSON.stringify($json.sources_to_cite) }}",
-            "eeat_angle": "={{ $json.eeat_angle }}",
-            "date_planned": "={{ $json.date_planned || $now.toISODate() }}"
+            "internal_links": "={{ typeof $json.internal_links === 'string' ? $json.internal_links : (Array.isArray($json.internal_links) ? $json.internal_links.join(', ') : '') }}",
+            "notes": "={{ $json.notes }}"
           },
           "matchingColumns": []
         },
@@ -83,7 +72,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [900, 240],
-      "notes": "Set Google Sheets credential, documentId, and sheetName in the n8n UI. Column keys must match your Sheet's header row exactly."
+      "notes": "Appends to the LIVE BDD Content Queue sheet (1V-anSvUJ..., tab 1271705953) read by the bdd-draft workflow. Columns must match: status|title|keyword|harm|location|internal_links|notes|pr_url."
     },
     {
       "parameters": {
