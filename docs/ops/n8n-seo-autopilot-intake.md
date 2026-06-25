@@ -30,8 +30,10 @@ Webhook (POST /seo-autopilot-intake)
 ```
 
 - **Webhook** — `responseMode: responseNode` so we control the reply.
-- **Verify shared secret** — rejects anything without the matching `x-bdd-secret` header.
-  Keeps the public webhook from being spammed.
+- **Verify shared secret** — rejects anything without the matching `x-bdd-secret` header
+  (compared against the n8n Variable `$vars.BDD_INTAKE_SECRET`). Keeps the public webhook
+  from being spammed. On n8n **Cloud**, use **Variables** (`$vars`) — OS env vars (`$env`)
+  can't be set on Cloud. On self-hosted, you may use `$env` instead.
 - **Split rows** — turns the `rows` array into one item per article so the Sheets node
   appends each as its own row.
 - **Append to content Sheet** — Google Sheets *append*, `status` defaults to `queued`.
@@ -48,7 +50,8 @@ Webhook (POST /seo-autopilot-intake)
    - Confirm the column keys match your Sheet's **header row exactly**. If your headers
      differ, rename either the Sheet headers or the keys in this node — and mirror any
      change in the skill's row schema (`.claude/skills/seo-content-autopilot/SKILL.md`).
-3. **Secret** — set an n8n env var `BDD_INTAKE_SECRET` to a long random string.
+3. **Secret** — add an n8n **Variable** named `BDD_INTAKE_SECRET` (long random string).
+   The IF node compares the `x-bdd-secret` header against `$vars.BDD_INTAKE_SECRET`.
 4. **Activate** the workflow and copy its **Production webhook URL**.
 5. **Point the skill at it** — set, in the Claude Code environment that runs the skill:
    - `BDD_N8N_WEBHOOK_URL` = the production webhook URL,

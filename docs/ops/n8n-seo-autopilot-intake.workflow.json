@@ -23,7 +23,7 @@
           "conditions": [
             {
               "leftValue": "={{ $json.headers['x-bdd-secret'] }}",
-              "rightValue": "={{ $env.BDD_INTAKE_SECRET }}",
+              "rightValue": "={{ $vars.BDD_INTAKE_SECRET }}",
               "operator": { "type": "string", "operation": "equals" }
             }
           ]
