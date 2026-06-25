@@ -85,9 +85,12 @@ For each approved title, produce an outline object containing:
 - `cluster`, `intent`, `priority_score`, `target_keyword`, `volume`, `difficulty`
 
 ### Phase 5 — Queue into the n8n Sheet (direct write)
-- Deliver rows to the content Sheet by POSTing the outline objects as JSON to the n8n
-  intake webhook. Configure the URL once via the `BDD_N8N_WEBHOOK_URL` environment
-  variable (or `.claude/seo-autopilot.local.json` → `{ "webhookUrl": "..." }`).
+- Deliver rows to the content Sheet by POSTing the outline objects to the n8n intake
+  webhook. Contract (see `docs/ops/n8n-seo-autopilot-intake.md`):
+  - URL from `BDD_N8N_WEBHOOK_URL` (or `.claude/seo-autopilot.local.json` → `{ "webhookUrl": "..." }`).
+  - Header `x-bdd-secret: <BDD_INTAKE_SECRET>` (shared secret; the webhook rejects without it).
+  - Body shape: `{ "rows": [ <one outline object per article> ] }`.
+  - Expect `{ "ok": true }` back; surface any non-200 to the user.
 - Each row's `status` = `queued` so the existing n8n flow (Sheet → Gemini draft → PR →
   approve email → deploy) picks it up. The human approval email remains the publish gate.
 - **Fallback:** if no webhook URL is configured, write the rows to
