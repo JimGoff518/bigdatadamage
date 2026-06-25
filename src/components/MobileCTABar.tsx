@@ -16,7 +16,7 @@ export function MobileCTABar() {
       </a>
       <Link
         href="/contact"
-        className="flex items-center justify-center gap-2 bg-orange py-3.5 text-sm font-bold text-night"
+        className="flex items-center justify-center gap-2 bg-orange py-3.5 text-sm font-bold text-paper"
       >
         Free Review
         <Icon name="arrow" width={16} height={16} />

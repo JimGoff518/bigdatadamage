@@ -21,7 +21,7 @@ export function Footer() {
             </p>
             <a
               href={site.phoneHref}
-              className="mt-5 inline-flex items-center gap-2 rounded-sm bg-orange px-4 py-2.5 font-bold text-night transition-colors hover:bg-orange-bright"
+              className="mt-5 inline-flex items-center gap-2 rounded-sm bg-orange px-4 py-2.5 font-bold text-paper transition-colors hover:bg-orange-bright"
             >
               <Icon name="phone" width={16} height={16} />
               {site.phone}

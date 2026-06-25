@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { Reveal } from "@/components/Reveal";
@@ -7,6 +8,15 @@ import { Icon } from "@/components/Icons";
 import { topics } from "@/content/topics";
 import { locations } from "@/content/locations";
 import { getAllArticles, getFeaturedArticle } from "@/lib/articles";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "Big Data Damage — Texas Data Center Water, Air & Property Harm",
+  },
+  description:
+    "Information for Texas landowners near large data centers — how these facilities may affect your water, air, and property value, and what your options are.",
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   const articles = getAllArticles();
@@ -24,6 +34,10 @@ export default function Home() {
           <h2 className="mt-3 max-w-2xl text-3xl font-bold text-fg sm:text-4xl">
             Three ways the data center boom is hurting Texas landowners
           </h2>
+          <p className="mt-3 max-w-2xl text-fg/70">
+            When a hyperscale facility moves in next door, the burdens can land on you while the
+            benefits go elsewhere. Here is where the harm tends to show up.
+          </p>
         </Reveal>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {topics.map((topic, i) => (
@@ -61,7 +75,7 @@ export default function Home() {
                 className="group grid gap-6 rounded-md border border-line bg-panel p-8 shadow-card transition-colors hover:border-orange/60 md:grid-cols-2 md:items-center"
               >
                 <div>
-                  <span className="inline-flex items-center gap-1 rounded-sm bg-orange px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-night">
+                  <span className="inline-flex items-center gap-1 rounded-sm bg-orange px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-paper">
                     Featured Report
                   </span>
                   <h3 className="mt-4 text-2xl font-bold leading-snug text-fg group-hover:text-orange">
@@ -106,7 +120,7 @@ export default function Home() {
             </p>
             <Link
               href="/resources"
-              className="mt-6 inline-flex items-center gap-2 rounded-sm bg-orange px-5 py-3 font-bold text-night transition-colors hover:bg-orange/90"
+              className="mt-6 inline-flex items-center gap-2 rounded-sm bg-orange px-5 py-3 font-bold text-paper transition-colors hover:bg-orange-bright"
             >
               Browse the research <Icon name="arrow" width={18} height={18} />
             </Link>

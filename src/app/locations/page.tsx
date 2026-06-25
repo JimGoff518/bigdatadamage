@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Texas Data Center Hotspots by Location",
   description:
     "Find your Texas community on the front lines of the data center fight — water, air, and property-value impacts by city, county, and aquifer.",
+  alternates: { canonical: "/locations" },
 };
 
 export default function LocationsPage() {
@@ -51,7 +52,7 @@ export default function LocationsPage() {
                   <span className="flex items-center gap-2">
                     <span className="font-semibold text-fg group-hover:text-orange">{loc.city}</span>
                     {loc.hot && (
-                      <span className="rounded-sm bg-orange px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-night">
+                      <span className="rounded-sm bg-orange px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-paper">
                         Hotspot
                       </span>
                     )}

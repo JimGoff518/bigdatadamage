@@ -4,12 +4,14 @@ import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { ArticleCard } from "@/components/cards";
 import { NewsFeed } from "@/components/NewsFeed";
+import { FeaturedVideoCard } from "@/components/FeaturedVideoCard";
 import { getAllArticles } from "@/lib/articles";
 
 export const metadata: Metadata = {
   title: "News & Guides on Texas Data Centers",
   description:
     "The latest news, lawsuit information, and plain-English guides on data center water, air, and property impacts across Texas.",
+  alternates: { canonical: "/news" },
 };
 
 // Refresh the aggregated headline feed every six hours.
@@ -49,12 +51,20 @@ export default function NewsPage() {
             <p className="eyebrow border-l-4 border-orange pl-3 text-xs text-hazard">
               From around Texas
             </p>
-            <h2 className="mt-3 text-3xl font-bold text-fg sm:text-4xl">Latest headlines</h2>
+            <h2 className="mt-3 text-3xl font-bold text-fg sm:text-4xl">Latest news &amp; video</h2>
             <p className="mt-3 max-w-2xl text-fg/70">
-              Recent reporting on Texas data centers, water and power impacts, and transmission-line
-              and eminent-domain fights. Links open the original article at the source.
+              Staying informed is the first step to protecting your land. Here is the latest reporting
+              on Texas data centers — water and power impacts, property and quiet-enjoyment fights,
+              and transmission-line and eminent-domain disputes. Links open the original at the source.
             </p>
           </Reveal>
+          <div className="mt-8">
+            <Reveal>
+              <Suspense fallback={null}>
+                <FeaturedVideoCard />
+              </Suspense>
+            </Reveal>
+          </div>
           <div className="mt-8">
             <Suspense fallback={<p className="text-sm text-fg-dim">Loading the latest headlines…</p>}>
               <NewsFeed />

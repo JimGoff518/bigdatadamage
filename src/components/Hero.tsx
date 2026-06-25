@@ -1,19 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Icon } from "@/components/Icons";
 
 export function Hero() {
+  const reduce = useReducedMotion();
+  // When reduced motion is requested, render text at its final position (no fade/slide)
+  // and don't autoplay the background video.
+  const reveal = (offset: { opacity: number; y: number }) =>
+    reduce ? false : offset;
+
   return (
     <section
       className="relative overflow-hidden bg-night bg-cover bg-center text-paper"
       style={{ backgroundImage: "url('/images/hero-fenceline.jpg')" }}
     >
-      {/* Background video; falls back to the hero photo (poster) if it can't play */}
+      {/* Background video; falls back to the hero photo (poster) if it can't play.
+          Autoplay is disabled when the visitor prefers reduced motion. */}
       <video
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        autoPlay
+        autoPlay={!reduce}
         muted
         loop
         playsInline
@@ -33,7 +40,7 @@ export function Hero() {
 
       <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-40 sm:pt-28 sm:pb-48">
         <motion.span
-          initial={{ opacity: 0, y: 12 }}
+          initial={reveal({ opacity: 0, y: 12 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="eyebrow inline-flex items-center gap-2 border-l-4 border-orange pl-3 text-xs text-hazard"
@@ -42,7 +49,7 @@ export function Hero() {
         </motion.span>
 
         <motion.h1
-          initial={{ opacity: 0, y: 18 }}
+          initial={reveal({ opacity: 0, y: 18 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05 }}
           className="mt-5 max-w-3xl text-balance text-4xl font-bold leading-[1.03] sm:text-6xl"
@@ -55,7 +62,7 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 18 }}
+          initial={reveal({ opacity: 0, y: 18 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.12 }}
           className="mt-6 max-w-2xl text-lg leading-relaxed text-paper/85"
@@ -66,14 +73,14 @@ export function Hero() {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={reveal({ opacity: 0, y: 18 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.18 }}
           className="mt-8 flex flex-wrap gap-3"
         >
           <Link
             href="/locations"
-            className="inline-flex items-center gap-2 rounded-sm bg-orange px-5 py-3 font-bold text-night transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 rounded-sm bg-orange px-5 py-3 font-bold text-paper transition-transform hover:-translate-y-0.5"
           >
             See what&apos;s happening near you
             <Icon name="arrow" width={18} height={18} />

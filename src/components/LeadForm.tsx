@@ -85,7 +85,7 @@ export function LeadForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-orange px-5 py-3 font-bold text-night transition-colors hover:bg-orange-bright disabled:opacity-60"
+        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-orange px-5 py-3 font-bold text-paper transition-colors hover:bg-orange-bright disabled:opacity-60"
       >
         {status === "submitting" ? "Sending…" : "Get a free, confidential review"}
         {status !== "submitting" && <Icon name="arrow" width={18} height={18} />}

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Tell Us What's Happening Near You",
   description:
     "Free, confidential review for Texas landowners affected by a data center's water use, emissions, noise, or impact on property value.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
@@ -26,7 +27,7 @@ export default function ContactPage() {
             <h2 className="text-2xl font-bold text-fg">Prefer to talk?</h2>
             <a
               href={site.phoneHref}
-              className="mt-4 inline-flex items-center gap-2 rounded-sm bg-orange px-5 py-3 text-lg font-bold text-night transition-colors hover:bg-orange-bright"
+              className="mt-4 inline-flex items-center gap-2 rounded-sm bg-orange px-5 py-3 text-lg font-bold text-paper transition-colors hover:bg-orange-bright"
             >
               <Icon name="phone" width={18} height={18} />
               {site.phone}

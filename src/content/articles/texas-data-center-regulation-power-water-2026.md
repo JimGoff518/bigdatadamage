@@ -11,8 +11,8 @@ seoDescription: "Texas tightened data center rules in June 2026 as 248 planned f
 The scale of the data center rush in Texas is now coming into focus — and so is the pushback.
 According to reporting by **[The Texas Tribune](https://www.texastribune.org/2026/06/08/texas-regulation-data-centers-electricity-power-water/)**,
 state grid operator ERCOT has moved to tighten how these projects connect to the power grid,
-even as the projected demand on electricity and water reaches numbers that alarmed observers call
-"insane."
+even as the projected demand on electricity and water climbs to levels that have alarmed grid
+experts and local officials.
 
 Here's a plain-English breakdown of what's happening and what it means if you own land or pay a
 utility bill in Texas.
@@ -70,8 +70,8 @@ takeaways are:
 - Knowing [your rights](/your-rights) as a Texas landowner matters more than ever as the law races
   to catch up with the buildout.
 
-*Source: The Texas Tribune, "As data centers flood Texas, the state moves to regulate their
-electricity and water use" (June 8, 2026).*
+*Source: reporting by The Texas Tribune on Texas data-center regulation (June 8, 2026) —
+[read the original article](https://www.texastribune.org/2026/06/08/texas-regulation-data-centers-electricity-power-water/).*
 
 ---
 
