@@ -59,6 +59,39 @@ const orgJsonLd = {
       name: site.name,
       url: site.url,
       description: site.description,
+      image: `${site.url}/images/hero-fenceline.jpg`,
+      // TODO: add `logo` once a dedicated logo asset exists, and `sameAs`
+      // once verified social/profile URLs are available (entity grounding).
+      knowsAbout: [
+        "Texas groundwater rights",
+        "data center water usage",
+        "property value diminution",
+        "rule of capture",
+        "Groundwater Conservation District permit protests",
+        "nuisance law",
+      ],
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+1-214-206-3377",
+        contactType: "legal intake",
+        areaServed: "US-TX",
+        availableLanguage: "English",
+      },
+      // Sponsoring firm (Texas Bar advertising). The Dallas, TX address
+      // disambiguates from the unrelated similarly named firm in Connecticut
+      // (same surname only). URL intentionally omitted to keep BigDataDamage
+      // walled off from gofflawdfw.com.
+      publisher: {
+        "@type": "LegalService",
+        name: site.sponsor,
+        areaServed: { "@type": "State", name: "Texas" },
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Dallas",
+          addressRegion: "TX",
+          addressCountry: "US",
+        },
+      },
     },
     {
       "@type": "WebSite",

@@ -40,3 +40,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# GEO-SEO tool install (local tooling; its markdown holds machine-specific
+# absolute paths) + local audit output — never commit these.
+/.claude/skills/geo/
+/.claude/skills/geo-*/
+/.claude/agents/geo-*.md
+/GEO-AUDIT-REPORT.md

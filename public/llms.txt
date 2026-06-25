@@ -1,0 +1,29 @@
+# Big Data Damage
+
+> A Texas information resource documenting how large data centers affect landowners' water, air, and property value — and the legal options available. Published by Goff Law (Dallas, TX). Pro just-compensation for harmed landowners — not anti-AI.
+
+## Core Guides
+- [Your Rights](https://www.bigdatadamage.com/your-rights): Plain-English Texas water & property law — Rule of Capture, subsidence, GCD permit protests, nuisance, quiet enjoyment, diminution of value.
+- [The Rule of Capture, Explained](https://www.bigdatadamage.com/articles/rule-of-capture-explained): How Texas's groundwater doctrine lets the biggest pump win — and where it stops.
+- [Stolen Water](https://www.bigdatadamage.com/damage/water): How data-center evaporative cooling draws down Texas aquifers and affects neighboring wells.
+- [Poisoned Air](https://www.bigdatadamage.com/damage/air): Diesel backup-generator emissions near data centers.
+- [Ruined Property Value](https://www.bigdatadamage.com/damage/property): 24/7 fan noise, industrial blight, and measurable home-value loss.
+
+## Investigations & How-To
+- [What Evidence to Preserve](https://www.bigdatadamage.com/articles/what-evidence-to-preserve-if-a-data-center-is-harming-your-property): Documenting baseline conditions and ongoing harm.
+- [How to Protest a Groundwater Permit](https://www.bigdatadamage.com/articles/how-to-protest-data-center-water-permit-texas): The Groundwater Conservation District protest process.
+- [How to Protest an Air Permit with the TCEQ](https://www.bigdatadamage.com/articles/how-to-protest-a-data-center-s-air-permit-with-the-tceq): Objecting to a data center's air permit.
+- [xAI Memphis Air-Pollution Warning for Texas](https://www.bigdatadamage.com/articles/xai-memphis-data-center-air-pollution-warning-for-texas): What the Clean Air Act case signals.
+
+## Locations
+- [All Texas hotspots](https://www.bigdatadamage.com/locations): Tracked communities including Granbury, Amarillo, San Marcos, Corpus Christi, Midlothian, Harlingen, Odessa, and Abilene.
+
+## Key Facts
+- Focus: Texas data-center impacts on landowner water, air, and property.
+- Stance: Pro just-compensation for harmed landowners — not anti-AI.
+- 248 data centers planned across Texas; could use 3–9% of state water by 2040 (Texas Tribune & ERCOT, 2026).
+- Published by Goff Law, a Dallas, Texas personal-injury firm. (Unrelated to any similarly named firm outside Texas.)
+
+## Contact
+- Website: https://www.bigdatadamage.com
+- Free case review: https://www.bigdatadamage.com/contact
