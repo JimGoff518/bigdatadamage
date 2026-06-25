@@ -1,0 +1,132 @@
+{
+  "name": "BDD — SEO Autopilot Intake",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seo-autopilot-intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a1111111-1111-1111-1111-111111111111",
+      "name": "Webhook (POST intake)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 320],
+      "webhookId": "seo-autopilot-intake"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "version": 2 },
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ $json.headers['x-bdd-secret'] }}",
+              "rightValue": "={{ $vars.BDD_INTAKE_SECRET }}",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a2222222-2222-2222-2222-222222222222",
+      "name": "Verify shared secret",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [460, 320]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "body.rows",
+        "options": {}
+      },
+      "id": "a3333333-3333-3333-3333-333333333333",
+      "name": "Split rows",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [680, 240]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "value": "1nLduE4D58-vBj_7KfzfM80XbugexKK0EvpZjsSmzjSQ", "mode": "id" },
+        "sheetName": { "__rl": true, "value": "gid=0", "mode": "id" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "={{ $json.status || 'queued' }}",
+            "slug": "={{ $json.slug }}",
+            "title": "={{ $json.title }}",
+            "seoTitle": "={{ $json.seoTitle }}",
+            "seoDescription": "={{ $json.seoDescription }}",
+            "harm": "={{ $json.harm }}",
+            "location": "={{ $json.location }}",
+            "cluster": "={{ $json.cluster }}",
+            "intent": "={{ $json.intent }}",
+            "priority_score": "={{ $json.priority_score }}",
+            "target_keyword": "={{ $json.target_keyword }}",
+            "volume": "={{ $json.volume }}",
+            "difficulty": "={{ $json.difficulty }}",
+            "outline": "={{ typeof $json.outline === 'string' ? $json.outline : JSON.stringify($json.outline) }}",
+            "tldr": "={{ $json.tldr }}",
+            "sources_to_cite": "={{ typeof $json.sources_to_cite === 'string' ? $json.sources_to_cite : JSON.stringify($json.sources_to_cite) }}",
+            "eeat_angle": "={{ $json.eeat_angle }}",
+            "date_planned": "={{ $json.date_planned || $now.toISODate() }}"
+          },
+          "matchingColumns": []
+        },
+        "options": {}
+      },
+      "id": "a4444444-4444-4444-4444-444444444444",
+      "name": "Append to content Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [900, 240],
+      "notes": "Set Google Sheets credential, documentId, and sheetName in the n8n UI. Column keys must match your Sheet's header row exactly."
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"ok\": true, \"queued\": $items(\"Split rows\").length } }}",
+        "options": {}
+      },
+      "id": "a5555555-5555-5555-5555-555555555555",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1140, 240]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"ok\": false, \"error\": \"unauthorized\" } }}",
+        "options": { "responseCode": 401 }
+      },
+      "id": "a6666666-6666-6666-6666-666666666666",
+      "name": "Respond 401",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 460]
+    }
+  ],
+  "connections": {
+    "Webhook (POST intake)": {
+      "main": [[{ "node": "Verify shared secret", "type": "main", "index": 0 }]]
+    },
+    "Verify shared secret": {
+      "main": [
+        [{ "node": "Split rows", "type": "main", "index": 0 }],
+        [{ "node": "Respond 401", "type": "main", "index": 0 }]
+      ]
+    },
+    "Split rows": {
+      "main": [[{ "node": "Append to content Sheet", "type": "main", "index": 0 }]]
+    },
+    "Append to content Sheet": {
+      "main": [[{ "node": "Respond OK", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "active": false
+}
