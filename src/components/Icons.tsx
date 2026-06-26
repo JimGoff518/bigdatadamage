@@ -1,6 +1,17 @@
 import type { SVGProps } from "react";
 
-type IconName = "water" | "air" | "home" | "phone" | "arrow" | "shield" | "doc" | "download";
+export type IconName =
+  | "water"
+  | "air"
+  | "home"
+  | "phone"
+  | "arrow"
+  | "shield"
+  | "doc"
+  | "download"
+  | "scale"
+  | "subsidence"
+  | "sound";
 
 const paths: Record<IconName, React.ReactNode> = {
   water: (
@@ -66,6 +77,31 @@ const paths: Record<IconName, React.ReactNode> = {
       strokeLinecap="round"
       strokeLinejoin="round"
     />
+  ),
+  // Icons below adapted from Tabler Icons (MIT License) — https://tabler.io/icons
+  scale: (
+    <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 20h10" />
+      <path d="M6 6l6 -1l6 1" />
+      <path d="M12 3v17" />
+      <path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0" />
+      <path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0" />
+    </g>
+  ),
+  subsidence: (
+    <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 20h16" />
+      <path d="M12 14V4" />
+      <path d="M12 14l4 -4" />
+      <path d="M12 14l-4 -4" />
+    </g>
+  ),
+  sound: (
+    <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 8a5 5 0 0 1 0 8" />
+      <path d="M17.7 5a9 9 0 0 1 0 14" />
+      <path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" />
+    </g>
   ),
 };
 
