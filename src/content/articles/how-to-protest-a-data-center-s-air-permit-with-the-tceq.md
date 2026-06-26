@@ -4,7 +4,6 @@ excerpt: "Learn the steps Texas landowners can take to protest a data center's a
 date: "2026-06-16"
 author: "Big Data Damage"
 harm: "air"
-image: "/images/articles/how-to-protest-a-data-center-s-air-permit-with-the-tceq.jpg"
 seoTitle: "Protest Data Center Air Permit Texas | TCEQ Air Permit Protest"
 seoDescription: "A detailed guide for Texas landowners on how to effectively protest a data center's air permit application with the TCEQ, covering key steps and deadlines."
 ---

@@ -5,7 +5,6 @@ date: "2024-06-19"
 author: "Big Data Damage"
 harm: "water"
 location: "corpus-christi"
-image: "/images/articles/corpus-christi-desalination-and-the-data-center-water-question.jpg"
 seoTitle: "Corpus Christi Data Centers: Desalination and Water Rights"
 seoDescription: "Explore the impact of data centers on Corpus Christi's water supply, the role of desalination, and how landowners can protect their water rights."
 ---

@@ -4,7 +4,6 @@ excerpt: "Understanding the health risks posed by diesel generator emissions fro
 date: "2026-06-25"
 author: "Big Data Damage"
 harm: "air"
-image: "/images/articles/diesel-generators-and-your-health-what-data-center-air-pollution-does-to-neighbo.jpg"
 seoTitle: "Data Center Diesel Generator Health Risks | Texas Air Pollution"
 seoDescription: "Learn about the health impacts of diesel generator emissions from data centers in Texas and how landowners can seek accountability for air pollution."
 ---

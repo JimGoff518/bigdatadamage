@@ -5,7 +5,6 @@ date: "2024-06-16"
 author: "Big Data Damage"
 harm: "water"
 location: "sulphur-springs"
-image: "/images/articles/sulphur-springs-data-centers-vs-dairy-country-a-hopkins-county-water-fight.jpg"
 seoTitle: "Sulphur Springs Data Centers & Water Use | Hopkins County Concerns"
 seoDescription: "Explore the potential water impacts of data centers on Sulphur Springs and Hopkins County's dairy industry, covering water usage, local aquifers, and landowner concerns."
 ---
