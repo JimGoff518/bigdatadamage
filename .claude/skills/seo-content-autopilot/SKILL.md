@@ -21,7 +21,9 @@ into the n8n content Sheet. **n8n/Gemini drafts the prose; you never do.**
 
 ## Non-negotiable content rules (bake these into every outline)
 
-These come from BDD's constraints and the SEO research — apply on every run.
+These come from BDD's constraints and the SEO research — apply on every run. The full on-page
+standard every article must meet lives in `docs/on-page-seo.md` (the canonical rulebook); read
+it and ensure each outline sets the drafting step up to satisfy the WRITER and PLANNER items.
 
 1. **IP firewall.** Original framing only. News and third-party facts are **link-out
    only** — never propose republishing or rewriting another source's article, and never
@@ -73,29 +75,33 @@ These come from BDD's constraints and the SEO research — apply on every run.
 - **Present the cluster map + ranked shortlist to the user and STOP.** Ask them to
   approve, trim, or reprioritize. Do not proceed without explicit approval.
 
-### Phase 4 — SERP-structured outlines (only for approved titles)
-For each approved title, produce an outline object containing:
-- `slug` (kebab-case), `title`, `seoTitle` (≤60 chars), `seoDescription` (≤155 chars)
-- `harm`, `location` (validated slugs)
-- `tldr` — 1–2 sentence summary guidance
-- `outline` — ordered H2/H3 list, each a content-capsule question, with a one-line note
-  on what the first-sentence answer must cover
-- `sources_to_cite` — specific primary sources / link-out targets to reference
-- `eeat_angle` — the attorney-perspective section to include
-- `cluster`, `intent`, `priority_score`, `target_keyword`, `volume`, `difficulty`
+### Phase 4 — Briefs for the draft pipeline (only for approved titles)
+The live n8n/Gemini draft step already enforces the full on-page rulebook
+(`docs/on-page-seo.md`): content-capsule headings, the 4–6 FAQ, answer-first, the E-E-A-T
+passage, internal links, length. So keep the brief lean — give the pipeline its inputs:
+- `title` — target keyword near the front, ≤~60 chars so the derived slug stays clean
+- `keyword` — the single target keyword
+- `harm`, `location` — validated slugs (location omitted only for statewide pieces)
+- `internal_links` — 3–5 real targets (existing article slugs, `/damage/[harm]`,
+  `/locations/[slug]`), comma-separated
+- `notes` — the angle, where the planning value goes: the 3–5 content-capsule H2 questions
+  to lead with, the specific primary sources to link out to, the attorney E-E-A-T angle,
+  and how to differentiate from existing articles (name them)
 
-### Phase 5 — Queue into the n8n Sheet (direct write)
-- Deliver rows to the content Sheet by POSTing the outline objects to the n8n intake
-  webhook. Contract (see `docs/ops/n8n-seo-autopilot-intake.md`):
+### Phase 5 — Queue into the live pipeline Sheet (direct write)
+- POST the briefs to the n8n intake webhook (see `docs/ops/n8n-seo-autopilot-intake.md`):
   - URL from `BDD_N8N_WEBHOOK_URL` (or `.claude/seo-autopilot.local.json` → `{ "webhookUrl": "..." }`).
   - Header `x-bdd-secret: <BDD_INTAKE_SECRET>` (shared secret; the webhook rejects without it).
-  - Body shape: `{ "rows": [ <one outline object per article> ] }`.
+  - Body shape: `{ "rows": [ { "status": "queued", "title", "keyword", "harm", "location",
+    "internal_links", "notes" } ] }`.
   - Expect `{ "ok": true }` back; surface any non-200 to the user.
-- Each row's `status` = `queued` so the existing n8n flow (Sheet → Gemini draft → PR →
-  approve email → deploy) picks it up. The human approval email remains the publish gate.
+- The webhook appends to the LIVE queue sheet the `bdd-draft` workflow reads; the existing
+  Tue/Fri draft → PR → approve-email gate stays the publish control.
+- The draft workflow takes **one queued row per scheduled run**, so queue at the natural
+  cadence rather than dumping a big batch (it also drains slowly by design).
 - **Fallback:** if no webhook URL is configured, write the rows to
-  `seo-autopilot-output/queue-<runlabel>.csv` (columns matching the Sheet) and tell the
-  user to import that batch manually. Never block on missing infra.
+  `seo-autopilot-output/queue-<runlabel>.csv` (the 7 columns below) and tell the user to
+  paste them into the queue sheet manually. Never block on missing infra.
 
 ## Velocity guardrail (state this every run)
 Protect the domain from looking spammy to Google:
@@ -105,10 +111,9 @@ Protect the domain from looking spammy to Google:
   Phase 1), not just net-new — refreshing old content is part of the strategy.
 - If asked to queue more than ~8 net-new in one batch, push back and explain the risk.
 
-## Sheet row schema (Phase 5 output)
-`status, slug, title, seoTitle, seoDescription, harm, location, cluster, intent,
-priority_score, target_keyword, volume, difficulty, outline, tldr, sources_to_cite,
-eeat_angle, date_planned`
+## Sheet row schema (Phase 5 output → live `bdd-draft` queue)
+`status | title | keyword | harm | location | internal_links | notes`
+(the sheet also has a `pr_url` column the pipeline fills in later — the skill leaves it blank)
 
 ## Off-limits (hard no — do not propose these even if asked)
 - YouTube-to-blog / video republishing (IP violation).

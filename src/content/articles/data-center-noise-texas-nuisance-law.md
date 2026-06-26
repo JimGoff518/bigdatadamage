@@ -89,6 +89,36 @@ None of this guarantees any particular outcome, but it builds a clear, contempor
 what is actually happening on your land. For a broader overview, see our [property harm hub](/damage/property)
 and our guide to [your rights](/your-rights).
 
+## Frequently Asked Questions
+
+### Can I sue a data center for noise in Texas?
+
+Possibly. Texas recognizes private nuisance claims when a facility's noise substantially and
+unreasonably interferes with the use and enjoyment of your property. Whether constant data center
+noise rises to that level is fact-specific, which is why documentation matters.
+
+### Is constant data center noise considered a nuisance under Texas law?
+
+It can be. Courts weigh whether the interference is substantial and unreasonable given the character
+of the area and the activity. Around-the-clock, low-frequency industrial noise is the kind of
+disturbance this framework is built to evaluate.
+
+### How loud does data center noise have to be to count?
+
+There is no single decibel cutoff. What matters is the effect on your use of your home — lost sleep,
+rooms you can no longer use, conversations drowned out — not the raw volume alone.
+
+### Can data center noise lower my property value?
+
+Yes. If chronic noise makes nearby homes harder to sell, or sellable only at a discount, that lost
+value — known as diminution of value — is a concrete economic injury separate from the daily annoyance.
+
+### What should I document if a data center is too loud?
+
+Keep a dated noise log (especially overnight), timestamped audio or video clips, notes on specific
+impacts, any communications with the operator or officials, and any property-value concerns such as
+a stalled sale.
+
 ## You don't have to figure this out alone
 
 Every property and every facility is different, and whether constant noise **could constitute a

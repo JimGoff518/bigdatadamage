@@ -1,20 +1,20 @@
 # n8n SEO Autopilot Intake — Setup
 
-This is the **intake webhook** that receives planned article rows from the
-`seo-content-autopilot` Claude skill and appends them to the content Sheet, where the
-existing draft pipeline (Sheet → Gemini → PR → approve email → deploy) picks them up.
+This is the **intake webhook** that receives planned article briefs from the
+`seo-content-autopilot` Claude skill and appends them to the **live** BDD Content Queue
+sheet (`1V-anSvUJ…`, tab `1271705953`) that the existing `bdd-draft` pipeline reads
+(Sheet → Gemini → PR → approve email → deploy). One sheet, one pipeline.
 
 ## The contract
 
-The skill sends:
+The skill sends briefs matching the live queue's 8-column schema
+(`status | title | keyword | harm | location | internal_links | notes | pr_url`; the skill
+writes the first 7, the pipeline fills `pr_url`):
 
 ```
 POST  <your n8n webhook URL>
 Header: x-bdd-secret: <shared secret>
-Body:   { "rows": [ { status, slug, title, seoTitle, seoDescription, harm, location,
-                       cluster, intent, priority_score, target_keyword, volume,
-                       difficulty, outline, tldr, sources_to_cite, eeat_angle,
-                       date_planned }, ... ] }
+Body:   { "rows": [ { status, title, keyword, harm, location, internal_links, notes }, ... ] }
 ```
 
 The webhook replies `{ "ok": true, "queued": <n> }` on success, or `401 { "ok": false }`
@@ -45,11 +45,11 @@ Webhook (POST /seo-autopilot-intake)
    (Workflows → ⋯ → Import from File).
 2. **Google Sheets node** — open *Append to content Sheet* and set:
    - your Google Sheets **credential**,
-   - **documentId** → the content Sheet (replace `REPLACE_WITH_SHEET_ID`),
-   - **sheetName** → the queue tab (default `Queue`).
-   - Confirm the column keys match your Sheet's **header row exactly**. If your headers
-     differ, rename either the Sheet headers or the keys in this node — and mirror any
-     change in the skill's row schema (`.claude/skills/seo-content-autopilot/SKILL.md`).
+   - **documentId** → the **live** queue sheet `1V-anSvUJt1bCTFEP0OYcmJRUMw11PXi5Z-jXA5n7G2Q`,
+   - **sheetName** → tab `1271705953` (the one `bdd-draft` reads),
+   - the 7 mapped columns are `status, title, keyword, harm, location, internal_links, notes`,
+     matching the live queue header row. Do NOT point this at a separate staging sheet, or
+     drafts won't fire.
 3. **Secret** — add an n8n **Variable** named `BDD_INTAKE_SECRET` (long random string).
    The IF node compares the `x-bdd-secret` header against `$vars.BDD_INTAKE_SECRET`.
 4. **Activate** the workflow and copy its **Production webhook URL**.
@@ -64,14 +64,14 @@ Webhook (POST /seo-autopilot-intake)
 curl -X POST "$BDD_N8N_WEBHOOK_URL" \
   -H "x-bdd-secret: $BDD_INTAKE_SECRET" \
   -H "content-type: application/json" \
-  -d '{"rows":[{"status":"queued","slug":"test-row-delete-me","title":"Test row",
-       "harm":"water","location":"granbury"}]}'
+  -d '{"rows":[{"status":"queued","title":"Test row — safe to delete","keyword":"test",
+       "harm":"water","location":"granbury","internal_links":"/damage/water","notes":"test"}]}'
 ```
 
-Expect `{"ok":true,"queued":1}` and a new `Queue` row. Delete the test row after.
+Expect `{"ok":true,"queued":1}` and a new row in the live queue. Delete the test row after.
 
 ## Notes
 - The human approval email in the existing pipeline stays the publish gate — this webhook
   only *queues*, it never publishes.
-- `outline` and `sources_to_cite` arrive as JSON if structured; the node stringifies them
-  so they land cleanly in a single cell for Gemini to read.
+- `internal_links` may arrive as a JSON array or a comma-separated string; the node
+  normalizes it to a single comma-separated cell for the draft prompt to read.
