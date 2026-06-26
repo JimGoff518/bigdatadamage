@@ -1,6 +1,17 @@
 import type { SVGProps } from "react";
 
-type IconName = "water" | "air" | "home" | "phone" | "arrow" | "shield" | "doc" | "download";
+export type IconName =
+  | "water"
+  | "air"
+  | "home"
+  | "phone"
+  | "arrow"
+  | "shield"
+  | "doc"
+  | "download"
+  | "scale"
+  | "subsidence"
+  | "sound";
 
 const paths: Record<IconName, React.ReactNode> = {
   water: (
@@ -66,6 +77,24 @@ const paths: Record<IconName, React.ReactNode> = {
       strokeLinecap="round"
       strokeLinejoin="round"
     />
+  ),
+  scale: (
+    <>
+      <path d="M12 5v13M8 18h8M5 8h14" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+      <path d="M5 8 3 12h4z M19 8 17 12h4z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+    </>
+  ),
+  subsidence: (
+    <>
+      <path d="M3 9h6v4h6V9h6" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" strokeLinecap="round" />
+      <path d="M12 3v3.5m-1.5-1.5L12 6.5l1.5-1.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </>
+  ),
+  sound: (
+    <>
+      <path d="M4 9v6h3l5 4V5L7 9H4Z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+      <path d="M15.5 9a4 4 0 0 1 0 6M18 7a7 7 0 0 1 0 10" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </>
   ),
 };
 
