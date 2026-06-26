@@ -18,41 +18,41 @@ const sections: Section[] = [
   {
     icon: "water",
     title: "The groundwater under your land is your property",
-    body: "This is the point most people miss. In Texas, the groundwater beneath your land is not just a resource the state rations out — it is your property. The Texas Supreme Court held that a landowner owns the groundwater in place beneath the surface as a vested real-property interest, the same way the law treats the oil and gas under your feet. That ownership has teeth: a court has held that severely restricting a landowner's permitted groundwater can amount to a regulatory taking that requires compensation. When a corporate facility next door pumps millions of gallons a day, it is competing with a property right the law recognizes as yours.",
+    body: "In Texas, the groundwater beneath your land is your property — not just a resource the state rations out. The Texas Supreme Court held that a landowner owns the groundwater in place as a vested real-property interest, the same way the law treats the oil and gas under your feet. And courts have held that severely restricting it can amount to a compensable regulatory taking.",
     authority:
       "Edwards Aquifer Authority v. Day, 369 S.W.3d 814 (Tex. 2012); Bragg v. Edwards Aquifer Authority, 421 S.W.3d 118 (Tex. App. 2013).",
   },
   {
     icon: "scale",
     title: "The Rule of Capture — and its real limits",
-    body: "Texas follows the “rule of capture”: a landowner may generally pump water from beneath their land even if it draws down a neighbor's well, and the Texas Supreme Court has repeatedly declined to replace that rule with a “reasonable use” standard. But the rule has never been absolute. A landowner may not pump maliciously to harm a neighbor, may not willfully waste water, and may be held liable for negligently causing a neighbor's land to sink. For an industrial site pumping at a scale no household ever could, those limits are not footnotes — they are where a landowner's leverage begins.",
+    body: "Texas follows the “rule of capture”: you may generally pump water from beneath your land even if it draws down a neighbor's well, and the courts have repeatedly declined to adopt a “reasonable use” rule. But the rule has never been absolute — no malicious pumping, no willful waste, and liability for negligently causing a neighbor's land to sink. For an industrial-scale operation, those limits are where a landowner's leverage begins.",
     authority:
       "Houston & Texas Central Railway Co. v. East (Tex. 1904); Sipriano v. Great Spring Waters of America, Inc., 1 S.W.3d 75 (Tex. 1999); City of Corpus Christi v. City of Pleasanton, 276 S.W.2d 798 (Tex. 1955); Friendswood Development Co. v. Smith-Southwest Industries, Inc., 576 S.W.2d 21 (Tex. 1978).",
   },
   {
     icon: "subsidence",
     title: "Subsidence — when the ground itself sinks",
-    body: "When an aquifer is over-pumped, the land above it can sink, cracking foundations, slabs, roads, and irrigation infrastructure. Texas law treats this as more than bad luck. The Texas Supreme Court held that a landowner who negligently causes subsidence on a neighbor's property can be liable for that damage — a harm separate from, and in addition to, the loss of the water itself. Aggressive, closely-spaced, high-volume pumping is exactly the conduct that can cross the line from lawful capture into negligence.",
+    body: "When an aquifer is over-pumped, the land above it can sink — cracking foundations, slabs, and roads. Texas law treats this as more than bad luck: a landowner who negligently causes subsidence on a neighbor's property can be liable for that damage, a harm separate from the loss of the water itself. High-volume, closely-spaced pumping is exactly the conduct that can cross from lawful capture into negligence.",
     authority: "Friendswood Development Co. v. Smith-Southwest Industries, Inc., 576 S.W.2d 21 (Tex. 1978).",
   },
   {
     icon: "sound",
     title: "Private nuisance — your peace and quiet at home",
-    body: "Owning land includes the right to actually use and enjoy it. When someone's activity substantially and unreasonably interferes with that use — through constant noise, dust, odor, fumes, or light — Texas law calls it a private nuisance. The Texas Supreme Court has recognized that conditions like foul odors, dust, noise, and bright lights can be a nuisance when they would substantially disturb a person of ordinary sensibilities, and Texas courts have specifically weighed industrial noise and light as nuisance. The round-the-clock, low-frequency hum of cooling fans that ruins sleep and makes a home hard to live in is precisely the kind of interference this law was built to address. (When people talk about a right to the “quiet enjoyment” of their home against a neighbor, this nuisance framework is usually the doctrine that actually applies.)",
+    body: "Owning land includes the right to use and enjoy it. When an activity substantially and unreasonably interferes — through constant noise, dust, odor, or light — Texas law calls it a private nuisance. The round-the-clock, low-frequency hum of cooling fans that ruins sleep and makes a home hard to live in is exactly the kind of interference it addresses — and the real doctrine behind a neighbor's “quiet enjoyment.”",
     authority:
       "Schneider National Carriers, Inc. v. Bates, 147 S.W.3d 264 (Tex. 2004); Rankin v. FPL Energy, LLC, 266 S.W.3d 506 (Tex. App. 2008).",
   },
   {
     icon: "doc",
     title: "Groundwater Conservation District (GCD) permits & protests",
-    body: "Most Texas groundwater is managed locally by Groundwater Conservation Districts. The Legislature did not create GCDs to rubber-stamp industry — it called them “the state's preferred method of groundwater management” precisely because they are meant to protect property rights while balancing conservation and development. GCDs can require permits and adopt rules to prevent waste and control subsidence, and the Texas Supreme Court has upheld that regulatory authority. For a landowner, the permit process is often the single most direct point of leverage — and it is usually most effective before a permit is finalized, not after.",
+    body: "Most Texas groundwater is managed locally by Groundwater Conservation Districts. The Legislature calls them the state's “preferred method of groundwater management” — meant to protect property rights, not rubber-stamp industry. GCDs can require permits and adopt rules to prevent waste and subsidence, and the permit process is often a landowner's most direct leverage, especially before a permit is finalized.",
     authority:
       "Tex. Water Code §§ 36.0015, 36.001; Barshop v. Medina County Underground Water Conservation District, 925 S.W.2d 618 (Tex. 1996); South Plains Lamesa Railroad v. High Plains Underground Water Conservation District No. 1, 52 S.W.3d 770 (Tex. App. 2001).",
   },
   {
     icon: "home",
     title: "Diminution of property value",
-    body: "Harm to your property is not only about comfort — it can be measured in dollars. Texas measures nuisance damages by the reduction in your property's market value, judged by its highest and best use, not merely its current use. Whether a nuisance is treated as “permanent” or “temporary” affects how that lost value is calculated. If a data center makes your home harder to sell, or sellable only at a steep discount, that lost value is a concrete, recognized financial injury — not just a feeling.",
+    body: "Harm to your property isn't only about comfort — it can be measured in dollars. Texas measures nuisance damages by the reduction in your property's market value, judged by its highest and best use. If a data center makes your home harder to sell, or sellable only at a discount, that lost value is a concrete, recognized injury — not just a feeling.",
     authority:
       "Meat Producers, Inc. v. McFarland, 476 S.W.2d 406 (Tex. Civ. App. 1972); Schneider National Carriers, Inc. v. Bates, 147 S.W.3d 264 (Tex. 2004).",
   },
