@@ -29,7 +29,7 @@ export function ArticleCard({ article }: { article: Article }) {
   return (
     <Link
       href={`/articles/${article.slug}`}
-      className="group flex flex-col rounded-md border border-line bg-panel p-5 shadow-card transition-all hover:-translate-y-1 hover:border-orange/60"
+      className="group flex h-full flex-col rounded-md border border-line bg-panel p-5 shadow-card transition-all hover:-translate-y-1 hover:border-orange/60"
     >
       {article.image && (
         <div className="relative -mx-5 -mt-5 mb-4 aspect-[16/9] overflow-hidden rounded-t-md">
@@ -50,7 +50,7 @@ export function ArticleCard({ article }: { article: Article }) {
         {article.title}
       </h3>
       <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-fg/65">{article.excerpt}</p>
-      <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-orange">
+      <span className="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-orange">
         Read more <Icon name="arrow" width={16} height={16} />
       </span>
     </Link>
