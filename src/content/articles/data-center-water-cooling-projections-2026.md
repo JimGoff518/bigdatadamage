@@ -4,11 +4,11 @@ excerpt: "Data center cooling can consume hundreds of thousands — even million
 date: "2026-06-15"
 author: "Big Data Damage"
 harm: "water"
-seoTitle: "Data Center Water Use & Cooling in Texas: 2026 Projections"
+seoTitle: "Data Center Water Usage in Texas: 2026 Projections"
 seoDescription: "How much water will Texas data centers use in 2026? See projected consumption, how cooling technology works, and the questions landowners and communities should ask."
 ---
 
-What used to be quiet ranch land now sits next to huge industrial buildings filled with servers, steel, and a constant hum that never really stops. Many of these buildings are data centers. They keep the internet working, store cloud files, and support artificial intelligence. That's important work. They also use a lot of water, often more than people expect.
+What used to be quiet ranch land now sits next to huge industrial buildings filled with servers, steel, and a constant hum that never really stops. Many of these buildings are data centers. They keep the internet working, store cloud files, and support artificial intelligence. That's important work. But **data center water usage** runs high — often far more than people expect.
 
 For rural landowners and nearby residents, the strain can feel immediate. Wells may drop. Creeks can thin out, and it can happen fast. Property values may change when heavy industry moves in next door, sometimes almost overnight, sometimes slowly and then all at once. These issues aren't theoretical anymore. Across Texas, some communities are already facing them.
 
@@ -81,7 +81,7 @@ For rural Texans, the risks include:
 - Increased land subsidence from over-pumping
 - Property value loss near industrial sites
 
-These impacts can appear slowly. By the time the damage is clear, contracts are signed and infrastructure is already built. Spotting water impacts early helps shape decisions before those changes lock in.
+These impacts can appear slowly. By the time the damage is clear, contracts are signed and infrastructure is already built. If your well is already struggling, see our guide on [what to do if your well runs dry](/articles/what-to-do-if-your-well-runs-dry), and our [water-harm hub](/damage/water) for the broader picture. Spotting water impacts early helps shape decisions before those changes lock in.
 
 ## Efficient Cooling Solutions and Local Leverage Points
 
@@ -97,6 +97,10 @@ Communities can also ask developers to explain:
 - Long-term aquifer impact studies
 
 Together, these actions allow growth to move forward while adding accountability. The Hill Country Alliance advises including data centers in regional water planning by treating them as direct water users.
+
+## What This Means for Your Rights as a Texas Landowner
+
+Heavy data center pumping is not only a planning problem — it can become a legal one. Texas groundwater runs under the [rule of capture](/articles/rule-of-capture-explained), which gives the biggest pumper wide latitude. But that rule has limits: pumping that is wasteful, or that causes [land subsidence](/articles/data-center-subsidence-texas-land) and damages a neighbor's property, can create liability. If a facility's water use dries your well or sinks your land, you may have options — from challenging a permit before a Groundwater Conservation District to documenting the harm for a possible claim. This is general information, not legal advice; for your specific situation, we offer a [free, confidential review](/contact).
 
 ## Frequently Asked Questions
 
