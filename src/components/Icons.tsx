@@ -78,23 +78,30 @@ const paths: Record<IconName, React.ReactNode> = {
       strokeLinejoin="round"
     />
   ),
+  // Icons below adapted from Tabler Icons (MIT License) — https://tabler.io/icons
   scale: (
-    <>
-      <path d="M12 5v13M8 18h8M5 8h14" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-      <path d="M5 8 3 12h4z M19 8 17 12h4z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-    </>
+    <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 20h10" />
+      <path d="M6 6l6 -1l6 1" />
+      <path d="M12 3v17" />
+      <path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0" />
+      <path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0" />
+    </g>
   ),
   subsidence: (
-    <>
-      <path d="M3 9h6v4h6V9h6" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" strokeLinecap="round" />
-      <path d="M12 3v3.5m-1.5-1.5L12 6.5l1.5-1.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </>
+    <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 20h16" />
+      <path d="M12 14V4" />
+      <path d="M12 14l4 -4" />
+      <path d="M12 14l-4 -4" />
+    </g>
   ),
   sound: (
-    <>
-      <path d="M4 9v6h3l5 4V5L7 9H4Z" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-      <path d="M15.5 9a4 4 0 0 1 0 6M18 7a7 7 0 0 1 0 10" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-    </>
+    <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 8a5 5 0 0 1 0 8" />
+      <path d="M17.7 5a9 9 0 0 1 0 14" />
+      <path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" />
+    </g>
   ),
 };
 
