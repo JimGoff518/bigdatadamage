@@ -22,7 +22,28 @@ const nextConfig: NextConfig = {
   // CSP allows inline styles/scripts because Next.js injects inline runtime;
   // tighten to nonces later if desired. HSTS omits `preload` deliberately —
   // do not preload until every subdomain is HTTPS.
+  //
+  // The map (MapLibre GL + CARTO Positron basemap) needs three allowances:
+  //   - connect-src: fetch the CARTO basemap style/tiles/glyphs/sprite (our own
+  //     water GeoJSON is same-origin, covered by 'self').
+  //   - worker-src blob:: MapLibre spins up web workers from blob: URLs.
+  //   - 'unsafe-eval' in DEV only: React's dev-mode debugging uses eval(); it is
+  //     never added in production (React doesn't use eval there).
   async headers() {
+    const isDev = process.env.NODE_ENV !== "production";
+    const csp = [
+      "default-src 'self'",
+      "img-src 'self' data: blob: https:",
+      "style-src 'self' 'unsafe-inline'",
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+      "worker-src 'self' blob:",
+      "connect-src 'self' https://basemaps.cartocdn.com https://*.basemaps.cartocdn.com https://*.cartocdn.com",
+      "font-src 'self'",
+      "frame-src https://www.youtube-nocookie.com",
+      "frame-ancestors 'self'",
+      "base-uri 'self'",
+    ].join("; ");
+
     return [
       {
         source: "/:path*",
@@ -38,11 +59,7 @@ const nextConfig: NextConfig = {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains",
           },
-          {
-            key: "Content-Security-Policy",
-            value:
-              "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; frame-src https://www.youtube-nocookie.com; frame-ancestors 'self'; base-uri 'self'",
-          },
+          { key: "Content-Security-Policy", value: csp },
         ],
       },
     ];
