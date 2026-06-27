@@ -1,0 +1,16 @@
+{
+  "category": "statute",
+  "title": "SB 7 — Texas Water Supply & Infrastructure Financing",
+  "billNumber": "SB 7",
+  "session": "89R (2025)",
+  "jurisdiction": "Texas",
+  "status": "in-effect",
+  "chamber": "senate",
+  "harm": ["water"],
+  "summary": "A package of financing, administrative, and infrastructure measures aimed at Texas's current and projected water shortages, expanding state water-supply funding and long-term planning.",
+  "whyItMatters": "It frames how Texas pays to secure future water — the backdrop against which heavy new water users like data centers compete with farms, ranches, and households for a limited supply.",
+  "sourceUrl": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=SB7",
+  "sourceName": "Texas Legislature Online",
+  "lastAction": "Enacted, 89th Legislature (2025)",
+  "dateFound": "2026-06-27"
+}
