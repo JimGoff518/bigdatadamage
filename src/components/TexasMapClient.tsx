@@ -59,7 +59,7 @@ export function TexasMapClient({
   const [ready, setReady] = useState(false);
   const [showWater, setShowWater] = useState(true);
   const [showFacilities, setShowFacilities] = useState(true);
-  const [showCounties, setShowCounties] = useState(false);
+  const [showCounties, setShowCounties] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
