@@ -1,0 +1,259 @@
+{
+  "generatedAt": "2026-06-28",
+  "source": "USGS Public-Supply Water Service Areas (2017, DOI 10.5066/P9I22Z24); US Census county boundaries (public domain). Analysis by BigDataDamage.",
+  "counties": {
+    "Dallas County": {
+      "county": "Dallas County",
+      "totalDataCenters": 13,
+      "operating": 9,
+      "underConstruction": 3,
+      "proposed": 1,
+      "permitted": 0,
+      "inWaterDistrict": 13,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 1756623
+    },
+    "Bexar County": {
+      "county": "Bexar County",
+      "totalDataCenters": 11,
+      "operating": 5,
+      "underConstruction": 6,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 11,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 1332916
+    },
+    "Taylor County": {
+      "county": "Taylor County",
+      "totalDataCenters": 9,
+      "operating": 0,
+      "underConstruction": 9,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 0,
+      "affectedDistricts": 0,
+      "populationInAffectedDistricts": 0
+    },
+    "Travis County": {
+      "county": "Travis County",
+      "totalDataCenters": 7,
+      "operating": 4,
+      "underConstruction": 3,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 7,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 925976
+    },
+    "Ellis County": {
+      "county": "Ellis County",
+      "totalDataCenters": 6,
+      "operating": 4,
+      "underConstruction": 2,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 6,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 28000
+    },
+    "Bell County": {
+      "county": "Bell County",
+      "totalDataCenters": 5,
+      "operating": 2,
+      "underConstruction": 2,
+      "proposed": 1,
+      "permitted": 0,
+      "inWaterDistrict": 5,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 248916
+    },
+    "Milam County": {
+      "county": "Milam County",
+      "totalDataCenters": 4,
+      "operating": 1,
+      "underConstruction": 3,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 0,
+      "affectedDistricts": 0,
+      "populationInAffectedDistricts": 0
+    },
+    "Denton County": {
+      "county": "Denton County",
+      "totalDataCenters": 3,
+      "operating": 2,
+      "underConstruction": 1,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 3,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 142326
+    },
+    "Harris County": {
+      "county": "Harris County",
+      "totalDataCenters": 3,
+      "operating": 1,
+      "underConstruction": 2,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 3,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 248311
+    },
+    "Navarro County": {
+      "county": "Navarro County",
+      "totalDataCenters": 3,
+      "operating": 0,
+      "underConstruction": 3,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 3,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 35071
+    },
+    "Bosque County": {
+      "county": "Bosque County",
+      "totalDataCenters": 2,
+      "operating": 0,
+      "underConstruction": 2,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 0,
+      "affectedDistricts": 0,
+      "populationInAffectedDistricts": 0
+    },
+    "Collin County": {
+      "county": "Collin County",
+      "totalDataCenters": 2,
+      "operating": 1,
+      "underConstruction": 1,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 0,
+      "affectedDistricts": 0,
+      "populationInAffectedDistricts": 0
+    },
+    "Bastrop County": {
+      "county": "Bastrop County",
+      "totalDataCenters": 1,
+      "operating": 1,
+      "underConstruction": 0,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 1,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 14319
+    },
+    "Brazos County": {
+      "county": "Brazos County",
+      "totalDataCenters": 1,
+      "operating": 1,
+      "underConstruction": 0,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 1,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 159517
+    },
+    "Cameron County": {
+      "county": "Cameron County",
+      "totalDataCenters": 1,
+      "operating": 0,
+      "underConstruction": 0,
+      "proposed": 1,
+      "permitted": 0,
+      "inWaterDistrict": 0,
+      "affectedDistricts": 0,
+      "populationInAffectedDistricts": 0
+    },
+    "Ector County": {
+      "county": "Ector County",
+      "totalDataCenters": 1,
+      "operating": 1,
+      "underConstruction": 0,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 1,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 122647
+    },
+    "El Paso County": {
+      "county": "El Paso County",
+      "totalDataCenters": 1,
+      "operating": 1,
+      "underConstruction": 0,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 0,
+      "affectedDistricts": 0,
+      "populationInAffectedDistricts": 0
+    },
+    "Freestone County": {
+      "county": "Freestone County",
+      "totalDataCenters": 1,
+      "operating": 0,
+      "underConstruction": 1,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 0,
+      "affectedDistricts": 0,
+      "populationInAffectedDistricts": 0
+    },
+    "Hill County": {
+      "county": "Hill County",
+      "totalDataCenters": 1,
+      "operating": 0,
+      "underConstruction": 1,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 1,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 8456
+    },
+    "Lubbock County": {
+      "county": "Lubbock County",
+      "totalDataCenters": 1,
+      "operating": 0,
+      "underConstruction": 1,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 1,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 231538
+    },
+    "Nueces County": {
+      "county": "Nueces County",
+      "totalDataCenters": 1,
+      "operating": 0,
+      "underConstruction": 0,
+      "proposed": 1,
+      "permitted": 0,
+      "inWaterDistrict": 0,
+      "affectedDistricts": 0,
+      "populationInAffectedDistricts": 0
+    },
+    "Potter County": {
+      "county": "Potter County",
+      "totalDataCenters": 1,
+      "operating": 1,
+      "underConstruction": 0,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 0,
+      "affectedDistricts": 0,
+      "populationInAffectedDistricts": 0
+    },
+    "Williamson County": {
+      "county": "Williamson County",
+      "totalDataCenters": 1,
+      "operating": 0,
+      "underConstruction": 1,
+      "proposed": 0,
+      "permitted": 0,
+      "inWaterDistrict": 0,
+      "affectedDistricts": 0,
+      "populationInAffectedDistricts": 0
+    }
+  }
+}

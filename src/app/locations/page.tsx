@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { Icon } from "@/components/Icons";
 import { TexasMap } from "@/components/TexasMap";
+import { ImpactStats } from "@/components/ImpactStats";
 import { FacilityList } from "@/components/FacilityList";
 import { locations } from "@/content/locations";
 
@@ -31,6 +32,12 @@ export default function LocationsPage() {
             <div className="mx-auto mt-4 max-w-2xl">
               <TexasMap />
             </div>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="mt-8">
+            <ImpactStats />
           </div>
         </Reveal>
 

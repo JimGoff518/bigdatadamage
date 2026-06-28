@@ -1,0 +1,10 @@
+{
+  "totalDataCenters": 79,
+  "inWaterDistrict": 56,
+  "notInWaterDistrict": 23,
+  "distinctAffectedDistricts": 13,
+  "populationServedByAffectedDistricts": 5254616,
+  "countiesWithDataCenters": 23,
+  "generatedAt": "2026-06-28",
+  "source": "USGS Public-Supply Water Service Areas (2017, DOI 10.5066/P9I22Z24); US Census county boundaries (public domain). Analysis by BigDataDamage."
+}
