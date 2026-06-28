@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { ArticleCard } from "@/components/cards";
+import { LocalCoverage } from "@/components/LocalCoverage";
 import { Icon } from "@/components/Icons";
 import { locations, getLocation } from "@/content/locations";
 import { getArticlesByLocation } from "@/lib/articles";
@@ -89,6 +90,8 @@ export default async function LocationHub(props: PageProps<"/locations/[slug]">)
             </div>
           </>
         )}
+
+        <LocalCoverage slug={loc.slug} city={loc.city} />
 
         <div className="cta-band mt-14 flex flex-col items-start gap-4 rounded-md p-8 text-night sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-2xl font-bold">Affected in {loc.city}? Let&apos;s talk.</h2>
