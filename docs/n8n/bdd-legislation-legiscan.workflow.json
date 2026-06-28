@@ -59,6 +59,16 @@
     },
     {
       "parameters": {
+        "jsCode": "// LegiScan best practice: USE THE HASHES. Skip any bill whose change_hash matches\n// what we saw last run (data unchanged) so we don't re-spend getBill queries or\n// re-open a PR for a bill whose review PR is still pending. State persists in the\n// workflow static data between runs.\nconst sd = $getWorkflowStaticData('global');\nsd.hashes = sd.hashes || {};\nconst out = [];\nfor (const it of $input.all()) {\n  const j = it.json;\n  if (!j || !j.bill_id) continue;\n  const prev = sd.hashes[j.bill_id];\n  if (prev && prev === j.change_hash) continue; // unchanged -> use cache, skip\n  sd.hashes[j.bill_id] = j.change_hash;          // record new/updated hash\n  out.push({ json: j });\n}\nreturn out;"
+      },
+      "id": "11111111-2222-3333-4444-000000000016",
+      "name": "Filter changed (hash)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 150, 200 ]
+    },
+    {
+      "parameters": {
         "url": "=https://api.legiscan.com/?op=getBill&id={{ $json.bill_id }}",
         "authentication": "predefinedCredentialType",
         "nodeCredentialType": "httpQueryAuth",
@@ -236,7 +246,8 @@
     "Run now (manual)": { "main": [ [ { "node": "Build queries", "type": "main", "index": 0 }, { "node": "Get existing legislation", "type": "main", "index": 0 } ] ] },
     "Build queries": { "main": [ [ { "node": "LegiScan: getSearch", "type": "main", "index": 0 } ] ] },
     "LegiScan: getSearch": { "main": [ [ { "node": "Collect bills", "type": "main", "index": 0 } ] ] },
-    "Collect bills": { "main": [ [ { "node": "LegiScan: getBill", "type": "main", "index": 0 } ] ] },
+    "Collect bills": { "main": [ [ { "node": "Filter changed (hash)", "type": "main", "index": 0 } ] ] },
+    "Filter changed (hash)": { "main": [ [ { "node": "LegiScan: getBill", "type": "main", "index": 0 } ] ] },
     "LegiScan: getBill": { "main": [ [ { "node": "Gemini: summarize", "type": "main", "index": 0 } ] ] },
     "Gemini: summarize": { "main": [ [ { "node": "Build legislation file", "type": "main", "index": 0 } ] ] },
     "Build legislation file": { "main": [ [ { "node": "New?", "type": "main", "index": 0 } ] ] },
