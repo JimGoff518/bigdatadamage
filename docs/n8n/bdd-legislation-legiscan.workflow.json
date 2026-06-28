@@ -1,0 +1,247 @@
+{
+  "name": "BDD — Legislation Tracker (LegiScan)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [ { "field": "weeks", "triggerAtDay": [ 4 ], "triggerAtHour": 7 } ] }
+      },
+      "id": "11111111-2222-3333-4444-000000000001",
+      "name": "Schedule (weekly Thu 7am)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [ -640, 360 ]
+    },
+    {
+      "parameters": {},
+      "id": "11111111-2222-3333-4444-000000000002",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [ -640, 560 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// One LegiScan full-text query per item. Tuned to the BDD beat: data centers,\n// water/groundwater, eminent domain/transmission, large electric loads.\nconst queries = [\n  'data center',\n  'data center water',\n  'groundwater conservation district',\n  'eminent domain transmission line',\n  'large load electric'\n];\nreturn queries.map(q => ({ json: { query: q } }));"
+      },
+      "id": "11111111-2222-3333-4444-000000000003",
+      "name": "Build queries",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ -400, 360 ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.legiscan.com/?key={{ $vars.LEGISCAN_KEY }}&op=getSearch&state=TX&year=2&query={{ encodeURIComponent($json.query) }}",
+        "options": {}
+      },
+      "id": "11111111-2222-3333-4444-000000000004",
+      "name": "LegiScan: getSearch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ -180, 360 ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 4000,
+      "notes": "API key is an n8n Variable: Settings > Variables > LEGISCAN_KEY. Free key from legiscan.com. year=2 = current TX session."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect unique bills across all getSearch responses. The searchresult object\n// has a 'summary' key plus numbered keys (0,1,2,...) each holding one bill hit.\nconst items = $input.all();\nconst seen = {};\nconst out = [];\nfor (const it of items) {\n  const sr = it.json && it.json.searchresult;\n  if (!sr) continue;\n  for (const k of Object.keys(sr)) {\n    if (k === 'summary') continue;\n    const r = sr[k];\n    if (!r || !r.bill_id) continue;\n    if (seen[r.bill_id]) continue;\n    seen[r.bill_id] = true;\n    out.push({ json: {\n      bill_id: r.bill_id,\n      bill_number: r.bill_number,\n      title: r.title,\n      change_hash: r.change_hash,\n      last_action: r.last_action,\n      last_action_date: r.last_action_date,\n      url: r.url,\n      relevance: r.relevance\n    }});\n  }\n}\nreturn out;"
+      },
+      "id": "11111111-2222-3333-4444-000000000005",
+      "name": "Collect bills",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 40, 360 ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.legiscan.com/?key={{ $vars.LEGISCAN_KEY }}&op=getBill&id={{ $json.bill_id }}",
+        "options": {}
+      },
+      "id": "11111111-2222-3333-4444-000000000006",
+      "name": "LegiScan: getBill",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 260, 360 ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 4000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  contents: [{ parts: [{ text:\n    \"You write neutral, factual tracker entries for BigDataDamage.com, a Texas public-interest watchdog. Summarize this Texas bill for worried, non-expert landowners. Frame on accountability and just compensation, never anti-technology. IN YOUR OWN WORDS — never copy the bill text. Return STRICT JSON with keys: summary (2-3 plain sentences on what the bill actually does), whyItMatters (one factual sentence on the impact on Texas landowners), harm (array, any of: water, air, property; [] if none). Do not invent provisions. BILL TITLE: \" + ($('LegiScan: getBill').item.json.bill?.title || '') + \"\\nBILL DESCRIPTION: \" + ($('LegiScan: getBill').item.json.bill?.description || '')\n  }]}],\n  generationConfig: { temperature: 0.2, responseMimeType: \"application/json\" }\n}) }}",
+        "options": {}
+      },
+      "id": "11111111-2222-3333-4444-000000000007",
+      "name": "Gemini: summarize",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 480, 360 ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "credentials": { "googlePalmApi": { "id": "REPLACE_ME", "name": "Google Gemini(PaLM) Api account" } }
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/contents/src/content/legislation?ref=main",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {}
+      },
+      "id": "11111111-2222-3333-4444-000000000008",
+      "name": "Get existing legislation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ -180, 600 ],
+      "onError": "continueRegularOutput",
+      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } },
+      "notes": "Runs once per trigger; 'Build legislation file' reads its output via $() to dedupe by slug."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Combine getBill detail + Gemini summary + the search hit into one validated\n// legislation JSON file, mapping LegiScan's numeric status to our vocabulary.\nlet g = {};\ntry {\n  const t = ($json.candidates?.[0]?.content?.parts?.[0]?.text || '{}').trim().replace(/^```(json)?/i, '').replace(/```$/, '').trim();\n  g = JSON.parse(t);\n} catch (e) { g = {}; }\n\nconst bill = ($('LegiScan: getBill').item.json && $('LegiScan: getBill').item.json.bill) || {};\nconst search = $('Collect bills').item.json || {};\n\n// LegiScan progress: 1 Introduced, 2 Engrossed, 3 Enrolled, 4 Passed, 5 Vetoed, 6 Failed.\nconst MAP = { 1: { c: 'bill', s: 'filed' }, 2: { c: 'bill', s: 'passed' }, 3: { c: 'bill', s: 'passed' }, 4: { c: 'statute', s: 'in-effect' }, 5: { c: 'bill', s: 'failed' }, 6: { c: 'bill', s: 'failed' } };\nconst m = MAP[bill.status] || { c: 'bill', s: 'filed' };\n\nconst rawNum = (bill.bill_number || search.bill_number || '').toString();\nconst billNumber = rawNum.replace(/^([A-Za-z]+)0*(\\d+)$/, '$1 $2');\nconst sessionName = (bill.session && (bill.session.session_name || bill.session.session_title)) || '';\nconst sessionTag = (sessionName.match(/\\d+\\w?/) || [''])[0];\nconst harm = Array.isArray(g.harm) ? g.harm.filter(h => ['water', 'air', 'property'].includes(h)) : [];\nconst summary = (g.summary || '').toString().trim();\nif (!summary) return [];\n\nconst slug = ('tx-' + (sessionTag || 'session') + '-' + rawNum).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');\n\nconst existing = $('Get existing legislation').all()\n  .flatMap(it => Array.isArray(it.json) ? it.json : [it.json])\n  .map(f => (f && f.name ? String(f.name).replace(/\\.json$/, '') : ''))\n  .filter(Boolean);\nconst isNew = !existing.includes(slug);\n\nconst obj = {\n  category: m.c,\n  title: (billNumber + ' — ' + (bill.title || search.title || '')).slice(0, 90),\n  billNumber: billNumber,\n  session: sessionName || undefined,\n  jurisdiction: 'Texas',\n  status: m.s,\n  chamber: /^s/i.test(rawNum) ? 'senate' : 'house',\n  harm: harm,\n  summary: summary,\n  whyItMatters: (g.whyItMatters || '').toString().trim() || undefined,\n  sourceUrl: bill.state_link || search.url || bill.url,\n  sourceName: 'Texas Legislature Online',\n  lastAction: search.last_action || undefined,\n  lastActionDate: search.last_action_date || undefined,\n  legiscanId: bill.bill_id || search.bill_id,\n  dateFound: new Date().toISOString().slice(0, 10)\n};\nconst contentB64 = Buffer.from(JSON.stringify(obj, null, 2) + '\\n', 'utf8').toString('base64');\nreturn [{ json: { slug, path: 'src/content/legislation/' + slug + '.json', title: obj.title, contentB64, isNew, billNumber } }];"
+      },
+      "id": "11111111-2222-3333-4444-000000000009",
+      "name": "Build legislation file",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 700, 360 ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose", "version": 2 },
+          "conditions": [ { "id": "new1", "leftValue": "={{ $json.isNew }}", "rightValue": true, "operator": { "type": "boolean", "operation": "true", "singleValue": true } } ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "11111111-2222-3333-4444-000000000010",
+      "name": "New?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [ 920, 360 ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/git/ref/heads/main",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "options": {}
+      },
+      "id": "11111111-2222-3333-4444-000000000011",
+      "name": "GitHub: main SHA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1140, 280 ],
+      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/git/refs",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"ref\": \"refs/heads/legislation/\" + $('Build legislation file').item.json.slug, \"sha\": $json.object.sha } }}",
+        "options": {}
+      },
+      "id": "11111111-2222-3333-4444-000000000012",
+      "name": "GitHub: create branch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1360, 280 ],
+      "onError": "continueRegularOutput",
+      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://api.github.com/repos/JimGoff518/bigdatadamage/contents/{{ $('Build legislation file').item.json.path }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"message\": \"Legislation: \" + $('Build legislation file').item.json.title, \"content\": $('Build legislation file').item.json.contentB64, \"branch\": \"legislation/\" + $('Build legislation file').item.json.slug } }}",
+        "options": {}
+      },
+      "id": "11111111-2222-3333-4444-000000000013",
+      "name": "GitHub: commit file",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1580, 280 ],
+      "onError": "continueRegularOutput",
+      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.github.com/repos/JimGoff518/bigdatadamage/pulls",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "Accept", "value": "application/vnd.github+json" } ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"title\": \"Legislation: \" + $('Build legislation file').item.json.title, \"head\": \"legislation/\" + $('Build legislation file').item.json.slug, \"base\": \"main\", \"body\": \"Auto-drafted by the LegiScan tracker. VERIFY the statute/bill description against the official record (Claude + Descrybe) before merging.\" } }}",
+        "options": {}
+      },
+      "id": "11111111-2222-3333-4444-000000000014",
+      "name": "GitHub: open PR",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 1800, 280 ],
+      "onError": "continueRegularOutput",
+      "credentials": { "githubApi": { "id": "REPLACE_ME", "name": "GitHub account" } }
+    },
+    {
+      "parameters": {
+        "sendTo": "jim@gofflawdfw.com",
+        "subject": "=New legislation draft: {{ $('Build legislation file').item.json.title }}",
+        "message": "=<h2>New legislation entry drafted: {{ $('Build legislation file').item.json.title }}</h2><p><a href=\"{{ $json.html_url }}\">Open the PR &amp; preview on GitHub</a></p><p style=\"color:#6b7280;font-size:13px\">Before merging: have the statute/bill description fact-checked (Claude + Descrybe) against the official record.</p>",
+        "options": { "appendAttribution": false }
+      },
+      "id": "11111111-2222-3333-4444-000000000015",
+      "name": "Email me to review",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [ 2020, 280 ],
+      "credentials": { "gmailOAuth2": { "id": "REPLACE_ME", "name": "Gmail account 3" } }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule (weekly Thu 7am)": { "main": [ [ { "node": "Build queries", "type": "main", "index": 0 }, { "node": "Get existing legislation", "type": "main", "index": 0 } ] ] },
+    "Run now (manual)": { "main": [ [ { "node": "Build queries", "type": "main", "index": 0 }, { "node": "Get existing legislation", "type": "main", "index": 0 } ] ] },
+    "Build queries": { "main": [ [ { "node": "LegiScan: getSearch", "type": "main", "index": 0 } ] ] },
+    "LegiScan: getSearch": { "main": [ [ { "node": "Collect bills", "type": "main", "index": 0 } ] ] },
+    "Collect bills": { "main": [ [ { "node": "LegiScan: getBill", "type": "main", "index": 0 } ] ] },
+    "LegiScan: getBill": { "main": [ [ { "node": "Gemini: summarize", "type": "main", "index": 0 } ] ] },
+    "Gemini: summarize": { "main": [ [ { "node": "Build legislation file", "type": "main", "index": 0 } ] ] },
+    "Build legislation file": { "main": [ [ { "node": "New?", "type": "main", "index": 0 } ] ] },
+    "New?": { "main": [ [ { "node": "GitHub: main SHA", "type": "main", "index": 0 } ], [] ] },
+    "GitHub: main SHA": { "main": [ [ { "node": "GitHub: create branch", "type": "main", "index": 0 } ] ] },
+    "GitHub: create branch": { "main": [ [ { "node": "GitHub: commit file", "type": "main", "index": 0 } ] ] },
+    "GitHub: commit file": { "main": [ [ { "node": "GitHub: open PR", "type": "main", "index": 0 } ] ] },
+    "GitHub: open PR": { "main": [ [ { "node": "Email me to review", "type": "main", "index": 0 } ] ] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "meta": { "templateCredsSetupCompleted": true },
+  "tags": []
+}

@@ -1,0 +1,111 @@
+{
+  "name": "BDD — Legislation Radar (news leads)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [ { "field": "weeks", "triggerAtDay": [ 4 ], "triggerAtHour": 8 } ] }
+      },
+      "id": "22222222-3333-4444-5555-000000000001",
+      "name": "Schedule (weekly Thu 8am)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [ -640, 360 ]
+    },
+    {
+      "parameters": {},
+      "id": "22222222-3333-4444-5555-000000000002",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [ -640, 540 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Google News RSS queries aimed at Texas LEGISLATIVE activity the LegiScan flow\n// can't see: local ordinances/moratoriums, and new state bills before they index.\nconst DQ = String.fromCharCode(34);\nconst QUERIES = [\n  'Texas ' + DQ + 'data center' + DQ + ' (bill OR legislation OR ordinance OR moratorium)',\n  'Texas (groundwater OR water) (bill OR legislation OR ' + DQ + 'conservation district' + DQ + ')',\n  'Texas (county OR city) ' + DQ + 'data center' + DQ + ' (ordinance OR moratorium OR zoning OR pause)',\n  'Texas legislature (data center OR ' + DQ + 'large load' + DQ + ' OR eminent domain) (prefiled OR 2027)'\n];\nreturn QUERIES.map(q => ({ json: { url: 'https://news.google.com/rss/search?q=' + encodeURIComponent(q) + '&hl=en-US&gl=US&ceid=US:en', query: q } }));"
+      },
+      "id": "22222222-3333-4444-5555-000000000003",
+      "name": "Build query feeds",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ -400, 360 ]
+    },
+    {
+      "parameters": { "url": "={{ $json.url }}", "options": {} },
+      "id": "22222222-3333-4444-5555-000000000004",
+      "name": "Google News RSS",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [ -180, 360 ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect RSS articles into one numbered text block + a lookup list so the\n// filter sees all headlines at once and cites each by index (real link mapped\n// back later by sourceIndex — no URL hallucination).\nconst items = $input.all();\nconst headlines = [];\nfor (const it of items) {\n  const j = it.json || {};\n  const title = String(j.title || '').trim();\n  if (!title) continue;\n  const url = String(j.link || j.guid || '').trim();\n  const snippet = String(j.contentSnippet || j.content || '').replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').trim().slice(0, 280);\n  let source = String(j.creator || '').trim();\n  if (!source && title.includes(' - ')) source = title.split(' - ').pop().trim();\n  headlines.push({ i: headlines.length, title, snippet, url, source });\n}\nconst text = headlines.map(h => h.i + ') ' + h.title + (h.snippet ? ' \\u2014 ' + h.snippet : '')).join('\\n');\nreturn [{ json: { headlines, text } }];"
+      },
+      "id": "22222222-3333-4444-5555-000000000005",
+      "name": "Collect headlines",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 40, 360 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  contents: [{ parts: [{ text:\n    \"You are screening Texas news headlines for genuine LEGISLATIVE developments relevant to data centers, water, or landowner rights: specific state BILLS, STATUTES, or LOCAL ORDINANCES/MORATORIUMS (city or county). IGNORE: opinion pieces, national/market-trend stories, court rulings, agency actions, and anything not about a Texas law/bill/ordinance. Return STRICT JSON: an array of objects with keys: headline (short), kind (one of: bill, statute, ordinance), why (ONE sentence on why it matters to landowners, in your own words), sourceIndex (the integer of the headline). If none qualify, return []. HEADLINES:\\n\" + $('Collect headlines').first().json.text\n  }]}],\n  generationConfig: { temperature: 0, responseMimeType: \"application/json\" }\n}) }}",
+        "options": {}
+      },
+      "id": "22222222-3333-4444-5555-000000000006",
+      "name": "Gemini: filter leads",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 260, 360 ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "credentials": { "googlePalmApi": { "id": "REPLACE_ME", "name": "Google Gemini(PaLM) Api account" } }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Turn the filtered leads into a single email digest. Maps each lead back to its\n// real source URL by sourceIndex. Writes NO tracker entries — leads only.\nconst resp = $json;\nlet text = '';\ntry { text = resp.candidates[0].content.parts[0].text || ''; } catch (e) { text = ''; }\ntext = text.trim().replace(/^```(json)?/i, '').replace(/```$/, '').trim();\nlet leads = [];\ntry { leads = JSON.parse(text); } catch (e) {\n  const m = text.match(/\\[([\\s\\S]*)\\]/);\n  if (m) { try { leads = JSON.parse(m[0]); } catch (e2) { leads = []; } }\n}\nif (!Array.isArray(leads)) leads = [];\nconst headlines = $('Collect headlines').first().json.headlines || [];\n\nconst rows = leads.map(l => {\n  const src = headlines[l.sourceIndex] || {};\n  const url = (src.url && /^https?:\\/\\//i.test(src.url)) ? src.url : '';\n  if (!url) return '';\n  const kind = String(l.kind || 'lead');\n  return '<li style=\"margin-bottom:12px\"><strong>[' + kind + ']</strong> ' + (l.headline || src.title || '') + '<br><span style=\"color:#555\">' + (l.why || '') + '</span><br><a href=\"' + url + '\">' + (src.source || 'source') + ' &raquo;</a></li>';\n}).filter(Boolean);\n\nconst date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });\nlet html;\nif (rows.length === 0) {\n  html = '<h2>Legislation radar \\u2014 ' + date + '</h2><p>No new Texas legislative leads (bills, statutes, or local ordinances) this week.</p>';\n} else {\n  html = '<h2>Legislation radar \\u2014 ' + date + '</h2><p>' + rows.length + ' possible development(s). These are LEADS only \\u2014 curate a verified /legislation entry from any that check out (local ordinances are not in LegiScan).</p><ul style=\"padding-left:18px\">' + rows.join('') + '</ul>';\n}\nreturn [{ json: { emailBodyHtml: html, leadCount: rows.length } }];"
+      },
+      "id": "22222222-3333-4444-5555-000000000007",
+      "name": "Build digest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 480, 360 ]
+    },
+    {
+      "parameters": {
+        "sendTo": "jim@gofflawdfw.com",
+        "subject": "=Legislation radar: {{ $json.leadCount }} lead(s)",
+        "message": "={{ $json.emailBodyHtml }}",
+        "options": { "appendAttribution": false }
+      },
+      "id": "22222222-3333-4444-5555-000000000008",
+      "name": "Email leads",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [ 700, 360 ],
+      "credentials": { "gmailOAuth2": { "id": "REPLACE_ME", "name": "Gmail account 3" } }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule (weekly Thu 8am)": { "main": [ [ { "node": "Build query feeds", "type": "main", "index": 0 } ] ] },
+    "Run now (manual)": { "main": [ [ { "node": "Build query feeds", "type": "main", "index": 0 } ] ] },
+    "Build query feeds": { "main": [ [ { "node": "Google News RSS", "type": "main", "index": 0 } ] ] },
+    "Google News RSS": { "main": [ [ { "node": "Collect headlines", "type": "main", "index": 0 } ] ] },
+    "Collect headlines": { "main": [ [ { "node": "Gemini: filter leads", "type": "main", "index": 0 } ] ] },
+    "Gemini: filter leads": { "main": [ [ { "node": "Build digest", "type": "main", "index": 0 } ] ] },
+    "Build digest": { "main": [ [ { "node": "Email leads", "type": "main", "index": 0 } ] ] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "meta": { "templateCredsSetupCompleted": true },
+  "tags": []
+}
