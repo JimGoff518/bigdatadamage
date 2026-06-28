@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "build:water": "node scripts/build-water-service-areas.mjs",
-    "build:counties": "node scripts/build-texas-counties.mjs"
+    "build:counties": "node scripts/build-texas-counties.mjs",
+    "build:impact": "node scripts/impact/build-impact-data.mjs"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.20",
