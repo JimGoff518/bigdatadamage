@@ -31,7 +31,9 @@
     },
     {
       "parameters": {
-        "url": "=https://api.legiscan.com/?key={{ $vars.LEGISCAN_KEY }}&op=getSearch&state=TX&year=2&query={{ encodeURIComponent($json.query) }}",
+        "url": "=https://api.legiscan.com/?op=getSearch&state=TX&year=2&query={{ encodeURIComponent($json.query) }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpQueryAuth",
         "options": {}
       },
       "id": "11111111-2222-3333-4444-000000000004",
@@ -42,7 +44,8 @@
       "retryOnFail": true,
       "maxTries": 3,
       "waitBetweenTries": 4000,
-      "notes": "API key is an n8n Variable: Settings > Variables > LEGISCAN_KEY. Free key from legiscan.com. year=2 = current TX session."
+      "credentials": { "httpQueryAuth": { "id": "REPLACE_ME", "name": "LegiScan API key" } },
+      "notes": "Auth = Query Auth credential 'LegiScan API key' (param Name=key, Value=your LegiScan API key). Free key from legiscan.com. year=2 = current TX session."
     },
     {
       "parameters": {
@@ -56,7 +59,9 @@
     },
     {
       "parameters": {
-        "url": "=https://api.legiscan.com/?key={{ $vars.LEGISCAN_KEY }}&op=getBill&id={{ $json.bill_id }}",
+        "url": "=https://api.legiscan.com/?op=getBill&id={{ $json.bill_id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "httpQueryAuth",
         "options": {}
       },
       "id": "11111111-2222-3333-4444-000000000006",
@@ -66,7 +71,8 @@
       "position": [ 260, 360 ],
       "retryOnFail": true,
       "maxTries": 3,
-      "waitBetweenTries": 4000
+      "waitBetweenTries": 4000,
+      "credentials": { "httpQueryAuth": { "id": "REPLACE_ME", "name": "LegiScan API key" } }
     },
     {
       "parameters": {

@@ -13,10 +13,12 @@ Two importable workflows that feed the `/legislation` page (Phase 1) the same JS
 ## Prerequisite: a (free) LegiScan API key
 
 1. Register at <https://legiscan.com/legiscan> → get an API key.
-2. In n8n: **Settings → Variables** → add `LEGISCAN_KEY` = your key. The LegiScan HTTP nodes read
-   `{{ $vars.LEGISCAN_KEY }}`, so the key never lives in the workflow file.
-   - If Variables aren't available on your plan, paste the key directly into the two
-     `LegiScan: getSearch` / `getBill` node URLs instead (and don't commit that copy back).
+2. In n8n: **Credentials → New → "Query Auth"** → set **Name = `key`**, **Value = your LegiScan API
+   key** → save it as **"LegiScan API key"**. (LegiScan takes the key as a `?key=...` URL parameter,
+   which is exactly what Query Auth adds — so the key never lives in the workflow file.)
+   - Variables (`$vars`) are NOT used — they require the n8n Pro plan. The Query Auth credential works
+     on any plan. On import, the two `LegiScan: getSearch` / `getBill` nodes will flag this credential;
+     just pick "LegiScan API key" on each.
 
 ## Import & wire
 
