@@ -1,0 +1,19 @@
+{
+  "category": "bill",
+  "title": "DEMO — SB 1234 Groundwater Protection (illustration only)",
+  "billNumber": "SB 1234",
+  "session": "90R (2027)",
+  "jurisdiction": "Texas",
+  "status": "in-committee",
+  "stage": "committee",
+  "chamber": "senate",
+  "harm": ["water", "property"],
+  "summary": "EXAMPLE ENTRY — not a real bill. Shows how a bill currently in committee renders: a partial, color-ramped tracer, hover-a-dot dates, and a live 'watch the hearing' link.",
+  "whyItMatters": "Illustration of the in-committee state — the stage where most landowner protections stall.",
+  "sourceUrl": "https://capitol.texas.gov/",
+  "sourceName": "Texas Legislature Online",
+  "lastAction": "Referred to committee",
+  "lastActionDate": "2027-02-03",
+  "stageDates": { "filed": "2027-01-12", "committee": "2027-02-03" },
+  "dateFound": "2026-06-28"
+}

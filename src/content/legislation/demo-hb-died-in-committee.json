@@ -1,0 +1,19 @@
+{
+  "category": "bill",
+  "title": "DEMO — HB 5678 Data Center Water Disclosure (illustration only)",
+  "billNumber": "HB 5678",
+  "session": "89R (2025)",
+  "jurisdiction": "Texas",
+  "status": "failed",
+  "stage": "committee",
+  "chamber": "house",
+  "harm": ["water"],
+  "summary": "EXAMPLE ENTRY — not a real bill. Shows how a bill that DIED in committee renders: the tracer stops at a red marker — the accountability story at a glance.",
+  "whyItMatters": "Illustration of a landowner-protection bill that never got a floor vote.",
+  "sourceUrl": "https://capitol.texas.gov/",
+  "sourceName": "Texas Legislature Online",
+  "lastAction": "Left pending in committee",
+  "lastActionDate": "2025-05-09",
+  "stageDates": { "filed": "2025-02-14", "committee": "2025-04-02" },
+  "dateFound": "2026-06-28"
+}

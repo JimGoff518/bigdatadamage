@@ -40,6 +40,7 @@ export type LegislationItem = {
   legiscanId?: number; // bills — used by the pipeline to dedup/update on re-runs
   stage?: string; // explicit lifecycle stage key (overrides the status-derived one)
   stageNote?: string; // optional one-line caption, e.g. "In House committee"
+  stageDates?: Record<string, string>; // optional ISO date each stage was reached (keyed by stage key)
   dateFound?: string; // ISO date the entry was added
 };
 
@@ -125,6 +126,10 @@ export function getLegislation(): LegislationItem[] {
         legiscanId: typeof d.legiscanId === "number" ? d.legiscanId : undefined,
         stage: typeof d.stage === "string" ? d.stage : undefined,
         stageNote: typeof d.stageNote === "string" ? d.stageNote : undefined,
+        stageDates:
+          d.stageDates && typeof d.stageDates === "object" && !Array.isArray(d.stageDates)
+            ? d.stageDates
+            : undefined,
         dateFound: typeof d.dateFound === "string" ? d.dateFound : undefined,
       });
     } catch {
@@ -162,25 +167,33 @@ export function getLegislationItem(slug: string): LegislationItem | undefined {
 // the coarser `status`. Faithful to the "how a bill becomes law" flow.
 // ---------------------------------------------------------------------------
 
-export type LifecycleStage = { key: string; label: string; blurb: string };
+// Each stage carries its own color so the tracer reads as a journey (a
+// golden-hour ramp: cool dawn → warm sunset → green "it's law").
+export type LifecycleStage = { key: string; label: string; blurb: string; color: string };
 
 export const BILL_TRACK: LifecycleStage[] = [
-  { key: "filed", label: "Filed", blurb: "Introduced and read the first time, then referred to a committee." },
-  { key: "committee", label: "Committee", blurb: "Studied in committee — a public hearing, then a committee report." },
-  { key: "chamber1", label: "1st chamber", blurb: "Debated and passed on second and third reading in its first chamber." },
-  { key: "chamber2", label: "2nd chamber", blurb: "Sent to the other chamber to repeat committee and floor votes." },
-  { key: "conference", label: "Conference", blurb: "If the chambers disagree, a conference committee reconciles the versions." },
-  { key: "enrolled", label: "Enrolled", blurb: "Passed both chambers and signed by the Speaker and Lieutenant Governor." },
-  { key: "governor", label: "Governor", blurb: "Sent to the governor to sign, allow to become law, or veto." },
-  { key: "law", label: "Law", blurb: "Enacted and in effect as Texas law." },
+  { key: "filed", label: "Filed", color: "#3f7cac", blurb: "Introduced and read the first time, then referred to a committee." },
+  { key: "committee", label: "Committee", color: "#4e8c7d", blurb: "Studied in committee — a public hearing, then a committee report." },
+  { key: "chamber1", label: "1st chamber", color: "#7e9b3e", blurb: "Debated and passed on second and third reading in its first chamber." },
+  { key: "chamber2", label: "2nd chamber", color: "#c6a02e", blurb: "Sent to the other chamber to repeat committee and floor votes." },
+  { key: "conference", label: "Conference", color: "#d97a13", blurb: "If the chambers disagree, a conference committee reconciles the versions." },
+  { key: "enrolled", label: "Enrolled", color: "#c2560a", blurb: "Passed both chambers and signed by the Speaker and Lieutenant Governor." },
+  { key: "governor", label: "Governor", color: "#a8410a", blurb: "Sent to the governor to sign, allow to become law, or veto." },
+  { key: "law", label: "Law", color: "#3f7d34", blurb: "Enacted and in effect as Texas law." },
 ];
 
 export const ORDINANCE_TRACK: LifecycleStage[] = [
-  { key: "proposed", label: "Proposed", blurb: "Brought before the city or county as a proposed ordinance." },
-  { key: "hearing", label: "Hearing", blurb: "Studied with public input on its local impact." },
-  { key: "vote", label: "Vote", blurb: "Put to a vote by the council or commissioners court." },
-  { key: "adopted", label: "Adopted", blurb: "Approved and in effect locally." },
+  { key: "proposed", label: "Proposed", color: "#3f7cac", blurb: "Brought before the city or county as a proposed ordinance." },
+  { key: "hearing", label: "Hearing", color: "#4e8c7d", blurb: "Studied with public input on its local impact." },
+  { key: "vote", label: "Vote", color: "#c6a02e", blurb: "Put to a vote by the council or commissioners court." },
+  { key: "adopted", label: "Adopted", color: "#3f7d34", blurb: "Approved and in effect locally." },
 ];
+
+// Where to watch live committee testimony, by chamber.
+export const HEARING_VIDEO = {
+  house: "https://house.texas.gov/videos",
+  senate: "https://senate.texas.gov/av-live.php",
+} as const;
 
 export type Lifecycle = {
   track: LifecycleStage[];
