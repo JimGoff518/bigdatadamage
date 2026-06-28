@@ -3,8 +3,9 @@
 // IP rule: we never host, download, or re-cut footage. We embed each station's
 // OWN official YouTube upload (privacy-enhanced nocookie player) and link out to
 // the original. Captions are BigDataDamage's own words — never transcript text.
-// Only include videos uploaded by the station's official channel (verified via
-// yt-dlp metadata: channel == "WFAA" | "CBS TEXAS").
+// Only include videos uploaded by an official station channel, verified via
+// yt-dlp metadata. The full allowlist of official source channels (handles +
+// markets) lives in docs/coverage-sources.md.
 
 export type CoverageVideo = {
   id: string; // YouTube video id
