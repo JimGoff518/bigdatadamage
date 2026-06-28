@@ -1,0 +1,16 @@
+{
+  "category": "statute",
+  "title": "SB 6 — Large-Load Grid Interconnection (Data Centers)",
+  "billNumber": "SB 6",
+  "session": "89R (2025)",
+  "jurisdiction": "Texas",
+  "status": "in-effect",
+  "chamber": "senate",
+  "summary": "Overhauls how very large electricity users — explicitly including data centers — connect to and operate on the Texas grid (ERCOT). It sets a default 75-megawatt threshold for a 'large load,' requires transmission screening studies and a screening fee, lets ERCOT directly curtail these loads during grid emergencies, and adds disclosure and review requirements for on-site (co-located) generation.",
+  "whyItMatters": "Data centers' enormous power demand drives much of the strain landowners feel on electricity and water. SB 6 is Texas's first major attempt to make large loads share grid costs and give up power during emergencies.",
+  "sourceUrl": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=SB6",
+  "sourceName": "Texas Legislature Online",
+  "lastAction": "Signed by the governor",
+  "lastActionDate": "2025-06-20",
+  "dateFound": "2026-06-27"
+}

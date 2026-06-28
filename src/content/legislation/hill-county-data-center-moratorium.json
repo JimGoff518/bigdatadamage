@@ -1,0 +1,14 @@
+{
+  "category": "ordinance",
+  "title": "Hill County — One-Year Data Center Construction Pause",
+  "jurisdiction": "Hill County",
+  "status": "adopted",
+  "harm": ["water", "property"],
+  "summary": "Hill County approved a one-year pause on new data center construction, with county leaders citing concerns over water use, power demand, noise, and public safety.",
+  "whyItMatters": "It is among the first Texas counties to try to slow data center development — a test of how much power rural counties actually have to protect residents.",
+  "sourceUrl": "https://www.texastribune.org/2026/05/12/texas-hill-county-approves-data-center-construction-pause-ai/",
+  "sourceName": "The Texas Tribune",
+  "lastAction": "Pause approved",
+  "lastActionDate": "2026-05-12",
+  "dateFound": "2026-06-27"
+}

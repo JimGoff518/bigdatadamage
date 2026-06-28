@@ -1,0 +1,19 @@
+{
+  "_comment": "TEMPLATE — filenames starting with _ are ignored by the loader and never render. Copy this shape for real entries. STRICT SCOPE: legislation only — bills, statutes, and local ordinances. NO court rulings or agency actions. Every entry needs a title, a plain-English summary in our OWN words, a known category + status, and a public sourceUrl. Never republish source text; summarize and link out.",
+  "category": "bill",
+  "title": "EXAMPLE — HB 0000 Short Descriptive Title (delete me)",
+  "billNumber": "HB 0000",
+  "session": "89R (2025)",
+  "jurisdiction": "Texas",
+  "status": "filed",
+  "chamber": "house",
+  "harm": ["water"],
+  "summary": "One short paragraph, in our own words, on what the bill/statute/ordinance does.",
+  "whyItMatters": "One or two factual sentences on how it affects Texas landowners.",
+  "sourceUrl": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB0000",
+  "sourceName": "Texas Legislature Online",
+  "lastAction": "Filed",
+  "lastActionDate": "2025-01-01",
+  "legiscanId": 0,
+  "dateFound": "2026-06-27"
+}

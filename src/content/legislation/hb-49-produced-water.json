@@ -1,0 +1,17 @@
+{
+  "category": "statute",
+  "title": "HB 49 — Produced Water Reuse & Liability Limit",
+  "billNumber": "HB 49",
+  "session": "89R (2025)",
+  "jurisdiction": "Texas",
+  "status": "in-effect",
+  "chamber": "house",
+  "harm": ["water"],
+  "summary": "Sets rules for treating and beneficially reusing produced water — the salty wastewater from oil and gas operations — and limits the tort liability of those who treat, transport, or use it. The liability limit does not cover gross negligence, intentional misconduct, or violations of Railroad Commission rules or TCEQ permits, and it does not change a producer's existing liability to landowners.",
+  "whyItMatters": "As industry and data centers eye treated produced water as a new supply, this law shapes who bears the risk if reuse causes harm — while leaving landowners' existing claims intact.",
+  "sourceUrl": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB49",
+  "sourceName": "Texas Legislature Online",
+  "lastAction": "Effective",
+  "lastActionDate": "2025-09-01",
+  "dateFound": "2026-06-27"
+}
