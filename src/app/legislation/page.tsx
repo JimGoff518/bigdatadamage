@@ -81,25 +81,7 @@ export default function LegislationPage() {
           Texas holds regular legislative sessions in odd-numbered years; the next is in 2027.
           During the interim this page tracks enacted laws and local action, and fills in as bills
           are filed. Summaries are our own words, for general information only and not legal advice —
-          follow each link for the official record. Bill and statute data is sourced via the{" "}
-          <a
-            href="https://legiscan.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-orange"
-          >
-            LegiScan
-          </a>{" "}
-          API (© LegiScan LLC), licensed under{" "}
-          <a
-            href="https://creativecommons.org/licenses/by/4.0/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-orange"
-          >
-            CC BY 4.0
-          </a>
-          .
+          follow each link for the official record.
         </p>
       </section>
     </>
