@@ -153,6 +153,14 @@ export const locations: Location[] = [
     intro:
       "West Texas water is scarce and precious. New data center projects near Abilene put pressure on already-stressed supplies.",
   },
+  {
+    slug: "laredo",
+    city: "Laredo",
+    county: "Webb County",
+    region: "South Texas",
+    intro:
+      "Energy Abundance Development Corp. has proposed “Data City,” a 50,000-acre AI data-center campus near Laredo billed as one of the largest in the world. It lands in a county already strained over water: Laredo draws nearly all of its supply from the Rio Grande, holds only hours of stored water, and has been hunting for backup sources amid extreme drought. The developer has not disclosed how much water the project would use.",
+  },
 ];
 
 export const getLocation = (slug: string) => locations.find((l) => l.slug === slug);
