@@ -132,23 +132,21 @@ textarea:focus-visible {
 .lifecycle-dot {
   position: absolute; top: 50%; transform: translate(-50%, -50%);
   width: 10px; height: 10px; border-radius: 9999px;
-  background: var(--color-line);
+  /* Per-stage color comes from the inline --dot custom property. */
+  background: var(--dot, var(--color-line));
 }
-.lifecycle-dot.is-done { background: var(--color-orange); }
-.lifecycle-dot.is-todo { box-shadow: 0 0 0 2px var(--color-panel); }
+.lifecycle-dot.is-todo { background: var(--color-line); box-shadow: 0 0 0 2px var(--color-panel); }
 .lifecycle-dot.is-current {
-  background: var(--color-orange);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-orange) 25%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--dot, var(--color-orange)) 25%, transparent);
   animation: lifecycle-pulse 2400ms ease-in-out infinite;
 }
 .lifecycle-dot.is-terminal {
-  background: var(--color-danger);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-danger) 25%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--dot, var(--color-danger)) 25%, transparent);
 }
 @keyframes lifecycle-fill { from { width: 0; } }
 @keyframes lifecycle-pulse {
-  0%, 100% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-orange) 25%, transparent); }
-  50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--color-orange) 6%, transparent); }
+  0%, 100% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--dot, var(--color-orange)) 25%, transparent); }
+  50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--dot, var(--color-orange)) 6%, transparent); }
 }
 @media (prefers-reduced-motion: reduce) {
   .lifecycle-fill { animation: none; }
