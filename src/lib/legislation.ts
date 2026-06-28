@@ -38,6 +38,8 @@ export type LegislationItem = {
   lastAction?: string; // e.g. "Signed by the governor"
   lastActionDate?: string; // ISO date of the last action
   legiscanId?: number; // bills — used by the pipeline to dedup/update on re-runs
+  stage?: string; // explicit lifecycle stage key (overrides the status-derived one)
+  stageNote?: string; // optional one-line caption, e.g. "In House committee"
   dateFound?: string; // ISO date the entry was added
 };
 
@@ -121,6 +123,8 @@ export function getLegislation(): LegislationItem[] {
         lastAction: typeof d.lastAction === "string" ? d.lastAction : undefined,
         lastActionDate: typeof d.lastActionDate === "string" ? d.lastActionDate : undefined,
         legiscanId: typeof d.legiscanId === "number" ? d.legiscanId : undefined,
+        stage: typeof d.stage === "string" ? d.stage : undefined,
+        stageNote: typeof d.stageNote === "string" ? d.stageNote : undefined,
         dateFound: typeof d.dateFound === "string" ? d.dateFound : undefined,
       });
     } catch {
@@ -144,4 +148,85 @@ export function getLegislationByCategory(): {
     category,
     items: all.filter((i) => i.category === category),
   })).filter((group) => group.items.length > 0);
+}
+
+export function getLegislationItem(slug: string): LegislationItem | undefined {
+  return getLegislation().find((i) => i.slug === slug);
+}
+
+// ---------------------------------------------------------------------------
+// Lifecycle tracker — where an item sits in the legislative process.
+// Two tracks: the Texas BILL process (also used by enacted statutes, which are
+// just completed bills) and the local ORDINANCE process. The current position
+// comes from an explicit `stage` key when curated, otherwise it's derived from
+// the coarser `status`. Faithful to the "how a bill becomes law" flow.
+// ---------------------------------------------------------------------------
+
+export type LifecycleStage = { key: string; label: string; blurb: string };
+
+export const BILL_TRACK: LifecycleStage[] = [
+  { key: "filed", label: "Filed", blurb: "Introduced and read the first time, then referred to a committee." },
+  { key: "committee", label: "Committee", blurb: "Studied in committee — a public hearing, then a committee report." },
+  { key: "chamber1", label: "1st chamber", blurb: "Debated and passed on second and third reading in its first chamber." },
+  { key: "chamber2", label: "2nd chamber", blurb: "Sent to the other chamber to repeat committee and floor votes." },
+  { key: "conference", label: "Conference", blurb: "If the chambers disagree, a conference committee reconciles the versions." },
+  { key: "enrolled", label: "Enrolled", blurb: "Passed both chambers and signed by the Speaker and Lieutenant Governor." },
+  { key: "governor", label: "Governor", blurb: "Sent to the governor to sign, allow to become law, or veto." },
+  { key: "law", label: "Law", blurb: "Enacted and in effect as Texas law." },
+];
+
+export const ORDINANCE_TRACK: LifecycleStage[] = [
+  { key: "proposed", label: "Proposed", blurb: "Brought before the city or county as a proposed ordinance." },
+  { key: "hearing", label: "Hearing", blurb: "Studied with public input on its local impact." },
+  { key: "vote", label: "Vote", blurb: "Put to a vote by the council or commissioners court." },
+  { key: "adopted", label: "Adopted", blurb: "Approved and in effect locally." },
+];
+
+export type Lifecycle = {
+  track: LifecycleStage[];
+  currentIndex: number; // furthest stage reached (index into track)
+  terminal: boolean; // true if it died/failed here rather than advancing
+  terminalLabel?: string; // e.g. "Failed", "Rejected"
+};
+
+// Map the coarse status onto a track index when no explicit stage is given.
+function deriveIndex(status: LegislationStatus, ordinance: boolean): number {
+  if (ordinance) {
+    switch (status) {
+      case "filed": return 0;
+      case "in-committee": return 1;
+      case "passed": return 2;
+      case "adopted": case "enacted": case "in-effect": return 3;
+      case "failed": return 1; // most die at the hearing/vote stage
+      default: return 0;
+    }
+  }
+  switch (status) {
+    case "filed": return 0;
+    case "in-committee": return 1;
+    case "passed": return 3; // cleared the legislature (both chambers)
+    case "signed": return 6;
+    case "enacted": case "in-effect": case "adopted": return 7;
+    case "failed": return 1; // most bills die in committee
+    default: return 0;
+  }
+}
+
+export function getLifecycle(item: LegislationItem): Lifecycle {
+  const ordinance = item.category === "ordinance";
+  const track = ordinance ? ORDINANCE_TRACK : BILL_TRACK;
+  const keys = track.map((s) => s.key);
+
+  const currentIndex =
+    item.stage && keys.includes(item.stage)
+      ? keys.indexOf(item.stage)
+      : deriveIndex(item.status, ordinance);
+
+  const terminal = item.status === "failed";
+  return {
+    track,
+    currentIndex,
+    terminal,
+    terminalLabel: terminal ? (ordinance ? "Rejected" : "Failed") : undefined,
+  };
 }

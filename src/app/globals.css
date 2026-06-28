@@ -112,3 +112,45 @@ textarea:focus-visible {
     linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
   background-size: 46px 46px;
 }
+
+/* Legislative lifecycle tracker — tracer line with animated fill + glowing
+   current stage. Fill width comes from an inline --fill custom property. */
+.lifecycle { position: relative; }
+.lifecycle-inner { position: relative; height: 14px; margin: 0 6px; }
+.lifecycle-rail {
+  position: absolute; left: 0; right: 0; top: 50%;
+  height: 3px; transform: translateY(-50%);
+  border-radius: 2px; background: var(--color-line);
+}
+.lifecycle-fill {
+  position: absolute; left: 0; top: 0; height: 100%;
+  width: var(--fill); border-radius: 2px;
+  background: var(--color-orange);
+  animation: lifecycle-fill 1100ms ease-out both;
+}
+.lifecycle-fill.is-terminal { background: var(--color-danger); }
+.lifecycle-dot {
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  width: 10px; height: 10px; border-radius: 9999px;
+  background: var(--color-line);
+}
+.lifecycle-dot.is-done { background: var(--color-orange); }
+.lifecycle-dot.is-todo { box-shadow: 0 0 0 2px var(--color-panel); }
+.lifecycle-dot.is-current {
+  background: var(--color-orange);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-orange) 25%, transparent);
+  animation: lifecycle-pulse 2400ms ease-in-out infinite;
+}
+.lifecycle-dot.is-terminal {
+  background: var(--color-danger);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-danger) 25%, transparent);
+}
+@keyframes lifecycle-fill { from { width: 0; } }
+@keyframes lifecycle-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-orange) 25%, transparent); }
+  50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--color-orange) 6%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lifecycle-fill { animation: none; }
+  .lifecycle-dot.is-current { animation: none; }
+}

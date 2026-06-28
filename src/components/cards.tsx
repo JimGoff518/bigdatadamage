@@ -6,6 +6,7 @@ import type { Location } from "@/content/locations";
 import type { LegislationItem } from "@/lib/legislation";
 import { topics } from "@/content/topics";
 import { LEGISLATION_STATUS_META } from "@/lib/legislation";
+import { LifecycleTracker } from "@/components/LifecycleTracker";
 import { Icon } from "@/components/Icons";
 
 export function formatDate(iso: string) {
@@ -112,15 +113,13 @@ export function LocationCard({ location }: { location: Location }) {
 }
 
 // A single tracked piece of Texas legislation (bill, statute, or local
-// ordinance). The whole card links out to the official record — we never
-// republish source text, only summarize in our own words and point to it.
+// ordinance). The card links to the item's detail page (which shows the full
+// lifecycle and links out to the official record). Summaries are our own words.
 export function LegislationCard({ item }: { item: LegislationItem }) {
   const status = LEGISLATION_STATUS_META[item.status];
   return (
-    <a
-      href={item.sourceUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Link
+      href={`/legislation/${item.slug}`}
       className="group flex flex-col rounded-md border border-line bg-panel p-5 shadow-card transition-all hover:-translate-y-1 hover:border-orange/60"
     >
       <div className="flex flex-wrap items-center gap-2">
@@ -140,7 +139,11 @@ export function LegislationCard({ item }: { item: LegislationItem }) {
       <h3 className="mt-3 text-lg font-bold leading-snug text-fg group-hover:text-orange">
         {item.title}
       </h3>
-      <p className="mt-2 text-sm leading-relaxed text-fg/70">{item.summary}</p>
+
+      {/* The lifecycle tracer — where this item sits in the process. */}
+      <LifecycleTracker item={item} variant="card" />
+
+      <p className="mt-4 text-sm leading-relaxed text-fg/70">{item.summary}</p>
 
       {item.whyItMatters && (
         <p className="mt-3 border-l-2 border-orange/50 pl-3 text-sm leading-relaxed text-fg/60">
@@ -158,7 +161,7 @@ export function LegislationCard({ item }: { item: LegislationItem }) {
       )}
 
       <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-orange">
-        View the official record <Icon name="arrow" width={16} height={16} />
+        See where it stands <Icon name="arrow" width={16} height={16} />
       </span>
       {item.lastAction && (
         <span className="mt-2 text-xs text-fg-dim">
@@ -166,6 +169,6 @@ export function LegislationCard({ item }: { item: LegislationItem }) {
           {item.lastActionDate ? ` · ${formatDate(item.lastActionDate)}` : ""}
         </span>
       )}
-    </a>
+    </Link>
   );
 }
