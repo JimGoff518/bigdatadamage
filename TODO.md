@@ -14,6 +14,24 @@ Running backlog of features and ideas not yet built. Newest decisions at top.
 
 ## Backlog
 
+### Laredo / "Data City" follow-ups (added 2026-06-28)
+Webb County / Laredo location shipped LIVE to the map (`slug: laredo`, commit c687a40). Facts
+verified — see memory `ref-laredo-data-city`. Remaining work:
+
+- [ ] **Verify the live page** at `/locations/laredo` once the Vercel deploy lands.
+- [ ] **Flesh out the location page** beyond the one-line intro (ties to the "Harden location
+  pages" backlog item): nearby/planned facilities, Webb County/Rio Grande water specifics,
+  related reporting, next-step CTA.
+- [ ] **Content opportunity — the "accountability gap":** a 50,000-acre data campus proposed in a
+  city with ~hours of stored water and **no disclosed water-use figure**. Strong BDD-positioned
+  story (ties to fair-share/disclosure reform recs, `ref-datacenter-water-policy`). Could be an
+  article and/or a `/legislation` entry. Original words + link-out only (IP constraint).
+- [ ] **Add Laredo local TV coverage embeds** (per the location-embeds pattern) when official
+  KGNS/Border-market clips are found.
+- [ ] **Pin specifics when filings surface:** exact parcel/location within Webb County, project
+  water demand (currently NDA), financing/groundbreaking status — and flip `hot: true` if Data
+  City breaks ground.
+
 ### YouTube video embeds — DONE, awaiting content (2026-06-14)
 Reusable lazy `VideoEmbed` component is built & verified (typecheck/lint/build green). Works on
 any page; cookie-less youtube-nocookie, click-to-load facade (SEO/Core-Web-Vitals friendly).
