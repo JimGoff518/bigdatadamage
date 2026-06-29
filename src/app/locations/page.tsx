@@ -41,6 +41,24 @@ export default function LocationsPage() {
           </div>
         </Reveal>
 
+        {/* Link to the citable water-impact analysis */}
+        <Reveal className="mt-6">
+          <Link
+            href="/water-impact"
+            className="group flex items-center justify-between gap-3 rounded-md border border-orange/40 bg-panel px-5 py-4 shadow-card transition-colors hover:border-orange"
+          >
+            <span>
+              <span className="block font-semibold text-fg group-hover:text-orange">
+                The data: 56 of 79 tracked data centers sit inside a Texas water system
+              </span>
+              <span className="block text-sm text-fg-dim">
+                See our sourced water-impact analysis — 13 systems serving 5.25M Texans.
+              </span>
+            </span>
+            <Icon name="arrow" width={18} height={18} className="shrink-0 text-orange" />
+          </Link>
+        </Reveal>
+
         {/* Communities — below the map */}
         <div className="mt-10">
           <p className="eyebrow text-[11px] text-hazard">Communities</p>
