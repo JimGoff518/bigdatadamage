@@ -18,7 +18,7 @@ Running backlog of features and ideas not yet built. Newest decisions at top.
 Webb County / Laredo location shipped LIVE to the map (`slug: laredo`, commit c687a40). Facts
 verified — see memory `ref-laredo-data-city`. Remaining work:
 
-- [ ] **Verify the live page** at `/locations/laredo` once the Vercel deploy lands.
+- [x] **Verify the live page** at `/locations/laredo` — DONE: confirmed live 2026-06-28 (intro + verified facts render).
 - [ ] **Flesh out the location page** beyond the one-line intro (ties to the "Harden location
   pages" backlog item): nearby/planned facilities, Webb County/Rio Grande water specifics,
   related reporting, next-step CTA.
