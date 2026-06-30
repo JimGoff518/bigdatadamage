@@ -1,0 +1,14 @@
+{
+  "name": "Lancium Childress Clean Campus",
+  "operator": "Lancium LLC (Shenandoah, TX)",
+  "city": "Childress",
+  "county": "Childress",
+  "lat": 34.4115,
+  "lng": -100.2255,
+  "status": "proposed",
+  "harm": ["water"],
+  "sourceUrl": "https://www.childresstx.us/pages/tax-abatements",
+  "sourceName": "Childress County — tax abatement records (Lancium reinvestment zone, Feb 25, 2025)",
+  "note": "Lancium's planned gigawatt-scale 'Childress Clean Campus.' Childress County established a Lancium reinvestment zone on Feb 25, 2025 (county records ~3,719 acres; Lancium describes ~3,000). Lancium's claim of a 1 GW ERCOT-approved interconnect is the company's own and not independently confirmed here. Coordinates are approximate (Childress community level). (Our summary; see source.)",
+  "dateFound": "2026-06-29"
+}

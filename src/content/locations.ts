@@ -30,6 +30,15 @@ export const locations: Location[] = [
       "Fermi America's enormous “Project Matador” AI campus is rising on thousands of acres near Amarillo, drawing on the already-declining Ogallala Aquifer. Residents have protested over what heavy water use could mean for farms, ranches, and the city's supply.",
   },
   {
+    slug: "childress",
+    city: "Childress",
+    county: "Childress County",
+    region: "Texas Panhandle",
+    hot: true,
+    intro:
+      "Childress, a small town at the edge of the Texas Panhandle, has drawn a cluster of power- and water-hungry projects amid a punishing drought: an IREN facility repurposed from crypto-mining to AI compute, a large solar park, and Lancium's proposed “Childress Clean Campus.” Residents fear that adding hyperscale demand will fall on an already-stressed supply — Greenbelt Lake, the region's main reservoir, has dropped to historic lows. A grassroots campaign is pressing county and state officials to slow further data-center approvals.",
+  },
+  {
     slug: "san-marcos",
     city: "San Marcos",
     county: "Hays County",

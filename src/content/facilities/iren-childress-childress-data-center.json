@@ -1,0 +1,14 @@
+{
+  "name": "IREN Childress Campus (Horizon 1)",
+  "operator": "IREN (formerly Iris Energy) — IE US Hardware 1-4 Inc.",
+  "city": "Childress",
+  "county": "Childress",
+  "lat": 34.4264,
+  "lng": -100.2099,
+  "status": "operating",
+  "harm": ["water", "air"],
+  "sourceUrl": "https://www.datacenterdynamics.com/en/news/iren-plans-75mw-liquid-cooled-ai-data-center-in-texas/",
+  "sourceName": "Data Center Dynamics — IREN 75MW liquid-cooled AI build (Feb 2025)",
+  "note": "IREN (formerly Iris Energy) runs a Childress campus that began as a Bitcoin-mining site and is adding AI compute — a ~75MW liquid-cooled build it calls 'Horizon 1.' IREN says the design is closed-loop. Reported acreage figures vary; coordinates are approximate (Childress community level). (Our summary; see source.)",
+  "dateFound": "2026-06-29"
+}
