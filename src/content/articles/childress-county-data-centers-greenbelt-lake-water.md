@@ -29,18 +29,19 @@ Public descriptions of the campus's total acreage vary from one source to the ne
 
 The second project is much larger and still in development. **Lancium**, a power-and-land developer headquartered in Shenandoah, Texas (north of Houston), is planning a gigawatt-scale campus it calls the **"Childress Clean Campus."** Childress County established a Lancium reinvestment zone for the project on **February 25, 2025**; county records put the zone near **3,700 acres**, and Lancium describes the campus as about 3,000 acres.
 
-Lancium's marketing materials advertise a "one-gigawatt interconnect fully approved by ERCOT." We have not independently confirmed that approval through ERCOT's own records, so we treat it as the company's own claim rather than an established fact. On water, Lancium executives have publicly responded to concerns by describing a strategy of tapping deeper aquifers and returning treated water to the local supply — a framing reported by Inside Climate News in April 2026. Residents organizing against the project counter that any new wells ultimately serve the company's own enormous demand first. Both things can be true at once, which is exactly why the specifics matter.
+Lancium's marketing materials advertise a "one-gigawatt interconnect fully approved by ERCOT." We have not independently confirmed that approval through ERCOT's own records, so we treat it as the company's own claim rather than an established fact. On water, Lancium's CEO, Michael McNamara, addressed concerns at an **April 9, 2026** Texas House State Affairs Committee hearing. As reported by Inside Climate News, he described the Childress facility drawing only about **11,000 gallons a day** for its own use while **returning roughly 1 million gallons a day to the Red River Water Authority** by tapping and treating deeper aquifers — water, he said, that local farmers and authorities "haven't had the cash to acquire." Residents organizing against the project counter that any new wells ultimately serve the company's own enormous demand first. It is a treat-and-return arrangement built around a data center, not a civic gift — which is exactly why the specifics matter.
 
 ## What the viral post gets right — and what it overstates
 
 Much of the public alarm in Childress traces to a widely shared social-media post urging residents to fight the projects. A lot of it is grounded in real, verifiable facts: Greenbelt Lake really is near 6% full, the IREN and Lancium projects are real, and the county really did create a tax-favored reinvestment zone for Lancium.
 
-Some of the post's headline numbers, however, do not hold up cleanly:
+Some of the post's headline numbers, however, are misread — or describe a different hearing:
 
-*   It claims Childress County approved a **62% tax abatement on a $20 billion investment that will create only 57 jobs**. We have not been able to confirm those specific figures in the county's published records, and they appear to risk **conflating the Childress project with a separate Lancium campus in neighboring Hall County**, where commissioners reportedly approved a roughly 75% abatement structured over ten phases.
-*   The "1 gigawatt, ERCOT-approved" line is Lancium's own marketing claim, not a confirmed regulatory fact.
+*   **The "62% on a $20 billion investment for only 57 jobs" claim has real numbers but the wrong meaning.** Childress County's executed [Lancium tax-abatement agreement](https://www.childresstx.us/pages/tax-abatements) (Phase 1, March 10, 2025) does use "62%" and "$20 billion" — but the abatement is *tiered*, not flat: it abates **62% of the first $20 billion** of the project's certified appraised value, **plus 80% of any value above that**. The county's own worked example puts the blended rate around **66%**. The "$20 billion" is the threshold where the rate steps up — **not a promised investment total**; the agreement commits to no fixed dollar figure, only a first-phase minimum of **90,000 square feet and 90 megawatts** built by the end of 2027. And the **"57 jobs" figure appears nowhere in the county's records.** This is a Chapter 312 *value-based* abatement — it ties the tax break to appraised property value, not to any job count. (The separate IREN / Iris Energy abatement in the same county is a flat **100%** break on an estimated **$197.5 million**, 100-megawatt build, with annual payments to local schools and a per-megawatt fee in lieu of taxes.)
+*   **The "June 23 testimony about digging wells for Childress" points to the wrong hearing.** Lancium's CEO made his Childress water remarks at the **April 9, 2026** House State Affairs hearing described above; the June 23, 2026 hearing was a different committee — House Natural Resources — where Lancium did not testify.
+*   **The "1 gigawatt, ERCOT-approved" line is Lancium's own marketing claim,** not a confirmed regulatory fact.
 
-None of that makes the underlying worry wrong. Whether a multibillion-dollar, water- and power-hungry facility delivers enough lasting local benefit to justify a large, long-term tax break is a fair and important question. But the exact terms should be read from the **Childress County Commissioners Court's own minutes and abatement agreements** before anyone relies on them — which is precisely the standard we hold ourselves to.
+None of that makes the underlying worry wrong. Whether a giant, water- and power-hungry project that commits to no specific job count is worth a decade-plus of abated property taxes is a fair and important question — and one residents are right to ask out loud. What we've done here is point you to the actual documents so the debate runs on real terms rather than a viral soundbite. (The post may also be blending the Childress deal with a separate Lancium "Clean Campus" reported in neighboring **Hall County**, a different project with different terms.)
 
 It's also worth being clear about framing. The loudest version of this debate calls for an outright ban on data centers. Our focus is narrower and, we think, more durable: making sure landowners whose water, land, or quiet enjoyment is harmed are protected and fairly compensated, and that the public can see the real terms of these deals.
 
@@ -64,13 +65,23 @@ Greenbelt Lake is already near record lows for reasons that predate the data cen
 IREN describes its newer Childress AI facility as using a closed-loop cooling system that needs water mainly for an initial fill rather than continuous use. That is the company's description. Even closed-loop facilities can still rely on water for other needs, and total campus water use depends on the mix of older and newer systems on site, so "no water" is better understood as "low ongoing cooling water, per the operator" than as zero.
 
 ### Did Childress County give away too much in its tax deal?
-We can't answer that from the viral numbers alone — the widely shared "62% / $20 billion / 57 jobs" figures are unconfirmed and may mix up the Childress project with a separate one in Hall County. The honest answer is that you should read the actual Childress County Commissioners Court minutes and the signed abatement agreement, which set out the real percentage, investment, and job commitments.
+Now that the signed agreement is public, the real picture is clearer than the viral version. The Childress County Lancium abatement is *tiered* — 62% of the first $20 billion of certified appraised value, then 80% above that (a blended rate the county itself estimates around 66%) — over a 10-year abatement window, and it commits Lancium to no fixed investment total and no specific number of permanent jobs (it is a value-based Chapter 312 deal). Whether that trade is a good one for the county is a fair debate; the point is that it should be argued from the actual agreement, which anyone can read on the [county's tax-abatement page](https://www.childresstx.us/pages/tax-abatements).
 
 ### Is this about banning data centers?
 No. Our position is not anti-technology or anti-data-center. It is that landowners harmed by these projects — through water loss, property-value decline, noise, or air impacts — deserve protection and fair compensation, and that the terms of public subsidies should be transparent.
 
 ### What can I do if I think a data center is affecting my property?
 Start by documenting conditions: well levels, noise, dust, and any changes over time. Attend the public meetings where these projects are discussed. And if you believe your water or property is being harmed, you can [contact us for a free, no-obligation case review](/contact).
+
+## Check the records yourself
+
+Don't take our word for it — or the viral post's. These are the primary, official sources for the facts above, so Childress residents can read them directly:
+
+*   **Greenbelt Lake's current level** — [Water Data for Texas: Greenbelt Lake](https://waterdatafortexas.org/reservoirs/individual/greenbelt) (Texas Water Development Board; updated daily).
+*   **The actual tax-abatement agreements** — the signed Lancium and IREN / Iris Energy agreements and the reinvestment-zone documents are posted on the [Childress County tax-abatement page](https://www.childresstx.us/pages/tax-abatements).
+*   **The April 9, 2026 House State Affairs hearing**, where Lancium testified on water — [official hearing notice (PDF)](https://capitol.texas.gov/tlodocs/89R/schedules/pdf/C4502026040910001.PDF); the video is in the Texas House Committee Broadcast Archives at [house.texas.gov](https://house.texas.gov/).
+*   **The June 23, 2026 House Natural Resources hearing** on data-center water use — [official agenda](https://capitol.texas.gov/tlodocs/89R/schedules/html/C3902026062310001.HTM).
+*   **Childress County government** (commissioners court agendas and contacts) — [childresstx.us](https://www.childresstx.us/).
 
 ## Protecting your water and property
 
