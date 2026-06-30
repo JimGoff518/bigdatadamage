@@ -20,3 +20,14 @@ Fields: `WSA_NAME` (system name), `TPOPSRV` (population served), `WSA_SQKM` (are
 
 Fields: `NAME` ("Hood"), `NAMELSAD` ("Hood County"), `GEOID`.
 
+## texas-gcds.geojson — source & license
+
+- **Dataset:** Texas Water Development Board, *Groundwater Conservation Districts* (`TWDB_GCD_NOV2019`; source data from the Texas Commission on Environmental Quality).
+- **URL:** https://www.twdb.texas.gov/mapping/gisdata.asp
+- **Currency:** boundaries current as of **November 2019** (101 districts).
+- **License:** Texas public-government data. TWDB asserts no copyright or redistribution restriction; the data is provided under a liability disclaimer only. Attribution used in-map: "Groundwater districts: TWDB/TCEQ (approximate, 2019)."
+- **Accuracy caveat (MUST surface in UI):** TWDB states these boundaries are **approximate and may not accurately depict legal descriptions.** Do not present them as authoritative jurisdiction.
+- **Processing:** reprojected to WGS84, kept name fields only (`DISTNAME`→`GCD_NAME`, `SHORTNAM`→`GCD_SHORT`), simplified, coordinates rounded. Regenerate with `npm run build:gcds` (see `scripts/build-gcds.mjs`).
+
+Fields: `GCD_NAME` (full district name), `GCD_SHORT` (short label, e.g. "Uvalde County UWCD").
+

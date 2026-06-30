@@ -11,12 +11,16 @@ const BASEMAP = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
 const WATER_URL = "/geo/texas-water-service-areas.geojson";
 // US Census county boundaries (public domain), clipped to Texas.
 const COUNTY_URL = "/geo/texas-counties.geojson";
+// TWDB groundwater conservation district boundaries (Texas public data, Nov 2019).
+// APPROXIMATE — TWDB states they may not depict legal descriptions.
+const GCD_URL = "/geo/texas-gcds.geojson";
 
 // Hex values mirror the Golden-Hour theme vars in globals.css (MapLibre paints to
 // canvas and can't read CSS variables).
 const WATER_COLOR = "#356d92"; // --color-teal
 const CITY_COLOR = "#a84a00"; // --color-orange
 const COUNTY_COLOR = "#8a6d3b"; // warm brown county hairlines
+const GCD_COLOR = "#5b7553"; // muted sage — distinct from teal water + brown county
 const PAPER = "#fbf7ee"; // --color-paper (pin stroke)
 
 // status -> label + pin color, mirrors FACILITY_STATUS_META in lib/facilities.ts.
@@ -60,6 +64,7 @@ export function TexasMapClient({
   const [showWater, setShowWater] = useState(true);
   const [showFacilities, setShowFacilities] = useState(true);
   const [showCounties, setShowCounties] = useState(true);
+  const [showGcds, setShowGcds] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -94,7 +99,8 @@ export function TexasMapClient({
         new maplibregl.AttributionControl({
           compact: true,
           customAttribution:
-            "Water service areas: USGS, public domain (DOI 10.5066/P9I22Z24)",
+            "Water service areas: USGS, public domain (DOI 10.5066/P9I22Z24). " +
+            "Groundwater districts: TWDB/TCEQ (approximate, 2019).",
         }),
         "bottom-right",
       );
@@ -156,6 +162,30 @@ export function TexasMapClient({
             "text-color": "#5f5443",
             "text-halo-color": "#fbf7ee",
             "text-halo-width": 1.2,
+          },
+        });
+
+        // --- Groundwater conservation districts (toggled, default off) ---
+        // TWDB/TCEQ boundaries are APPROXIMATE (see popup caveat). Drawn below the
+        // communities/facilities so pins and city rings stay clickable on top.
+        map.addSource("gcds", { type: "geojson", data: GCD_URL });
+        map.addLayer({
+          id: "gcd-fill", // invisible — captures clicks for the GCD popup
+          type: "fill",
+          source: "gcds",
+          layout: { visibility: "none" },
+          paint: { "fill-color": GCD_COLOR, "fill-opacity": 0.1 },
+        });
+        map.addLayer({
+          id: "gcd-line",
+          type: "line",
+          source: "gcds",
+          layout: { visibility: "none" },
+          paint: {
+            "line-color": GCD_COLOR,
+            "line-opacity": 0.6,
+            "line-width": 0.9,
+            "line-dasharray": [2, 1],
           },
         });
 
@@ -299,6 +329,34 @@ export function TexasMapClient({
             .addTo(map);
         });
 
+        map.on("click", "gcd-fill", (e) => {
+          if (!map) return;
+          // Pins, communities, water, and counties take priority — only show the
+          // GCD popup when the click didn't land on one of those.
+          const priority = [
+            "facilities",
+            "cities",
+            "water-fill",
+            "county-fill",
+          ].filter((l) => map!.getLayer(l));
+          if (map.queryRenderedFeatures(e.point, { layers: priority }).length)
+            return;
+          const f = e.features?.[0] as MapGeoJSONFeature | undefined;
+          if (!f) return;
+          const p = f.properties ?? {};
+          const name = String(p.GCD_SHORT || p.GCD_NAME || "Groundwater district");
+          popup
+            .setLngLat(e.lngLat)
+            .setHTML(
+              `<div style="font-family:system-ui,sans-serif;font-size:13px;color:#2a2218">
+                 <strong>${esc(name)}</strong><br/>
+                 <span style="color:#5f5443">Groundwater conservation district — regulates groundwater pumping here</span><br/>
+                 <span style="color:#8a7a5c;font-size:11px">Approximate boundary (TWDB/TCEQ, 2019) — not a legal description</span>
+               </div>`,
+            )
+            .addTo(map);
+        });
+
         for (const layer of ["facilities", "cities", "water-fill"]) {
           map.on("mouseenter", layer, () => {
             if (map) map.getCanvas().style.cursor = "pointer";
@@ -347,6 +405,15 @@ export function TexasMapClient({
     }
   }, [showCounties, ready]);
 
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    const v = showGcds ? "visible" : "none";
+    for (const id of ["gcd-fill", "gcd-line"]) {
+      if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", v);
+    }
+  }, [showGcds, ready]);
+
   return (
     <div>
       <div className="relative">
@@ -354,7 +421,7 @@ export function TexasMapClient({
           ref={containerRef}
           className="h-[460px] w-full overflow-hidden rounded-md border border-line sm:h-[560px]"
           role="application"
-          aria-label="Interactive map of Texas data center facilities and public water-service areas. The communities we cover are also listed as links below the map."
+          aria-label="Interactive map of Texas data center facilities, public water-service areas, and groundwater conservation districts. The communities we cover are also listed as links below the map."
         />
         {/* Layer toggles */}
         <fieldset className="absolute right-2 top-2 rounded-md border border-line bg-paper/95 px-3 py-2 text-sm shadow-card backdrop-blur">
@@ -385,6 +452,15 @@ export function TexasMapClient({
               className="accent-[#8a6d3b]"
             />
             County lines
+          </label>
+          <label className="flex items-center gap-2 py-0.5 text-fg">
+            <input
+              type="checkbox"
+              checked={showGcds}
+              onChange={(e) => setShowGcds(e.target.checked)}
+              className="accent-[#5b7553]"
+            />
+            Groundwater districts
           </label>
         </fieldset>
       </div>
@@ -421,6 +497,13 @@ export function TexasMapClient({
             style={{ borderColor: COUNTY_COLOR }}
           />
           County line
+        </li>
+        <li className="flex items-center gap-2 text-sm text-fg-dim">
+          <span
+            className="inline-block h-0 w-4 self-center border-t-2 border-dashed"
+            style={{ borderColor: GCD_COLOR }}
+          />
+          Groundwater district (approx.)
         </li>
       </ul>
     </div>

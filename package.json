@@ -9,6 +9,7 @@
     "lint": "eslint",
     "build:water": "node scripts/build-water-service-areas.mjs",
     "build:counties": "node scripts/build-texas-counties.mjs",
+    "build:gcds": "node scripts/build-gcds.mjs",
     "build:impact": "node scripts/impact/build-impact-data.mjs"
   },
   "dependencies": {
