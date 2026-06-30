@@ -17,7 +17,6 @@ export const site = {
 export const nav = [
   { label: "The Damage", href: "/damage" },
   { label: "By Location", href: "/locations" },
-  { label: "Water Impact", href: "/water-impact" },
   { label: "Your Rights", href: "/your-rights" },
   { label: "Legislation", href: "/legislation" },
   { label: "Resources", href: "/resources" },

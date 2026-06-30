@@ -16,6 +16,13 @@ const nextConfig: NextConfig = {
         destination: "/articles/data-center-water-cooling-projections-2026",
         permanent: true,
       },
+      // The standalone /water-impact page was folded into /locations. 308 keeps
+      // any inbound links and search equity pointed at the live content.
+      {
+        source: "/water-impact",
+        destination: "/locations",
+        permanent: true,
+      },
     ];
   },
   // Baseline security headers (GEO audit 2026-06-25 — was HSTS-only).

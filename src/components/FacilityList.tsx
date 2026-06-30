@@ -21,7 +21,7 @@ export function FacilityList() {
   const counties = [...byCounty.keys()].sort((a, b) => a.localeCompare(b));
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-20">
+    <section id="tracker" className="mx-auto max-w-6xl px-4 pb-20">
       <div className="rounded-md border border-line bg-panel p-6 shadow-card sm:p-8">
         <p className="eyebrow text-[11px] text-hazard">The tracker</p>
         <h2 className="mt-2 text-2xl font-bold text-fg">

@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/Reveal";
 import { Icon } from "@/components/Icons";
 import { TexasMap } from "@/components/TexasMap";
-import { ImpactStats } from "@/components/ImpactStats";
+import { WaterImpact } from "@/components/WaterImpact";
 import { FacilityList } from "@/components/FacilityList";
 import { locations } from "@/content/locations";
 
@@ -35,29 +35,8 @@ export default function LocationsPage() {
           </div>
         </Reveal>
 
-        <Reveal>
-          <div className="mt-8">
-            <ImpactStats />
-          </div>
-        </Reveal>
-
-        {/* Link to the citable water-impact analysis */}
-        <Reveal className="mt-6">
-          <Link
-            href="/water-impact"
-            className="group flex items-center justify-between gap-3 rounded-md border border-orange/40 bg-panel px-5 py-4 shadow-card transition-colors hover:border-orange"
-          >
-            <span>
-              <span className="block font-semibold text-fg group-hover:text-orange">
-                The data: 56 of 79 tracked data centers sit inside a Texas water system
-              </span>
-              <span className="block text-sm text-fg-dim">
-                See our sourced water-impact analysis — 13 systems serving 5.25M Texans.
-              </span>
-            </span>
-            <Icon name="arrow" width={18} height={18} className="shrink-0 text-orange" />
-          </Link>
-        </Reveal>
+        {/* Water-impact analysis — the sourced, citable data block */}
+        <WaterImpact />
 
         {/* Communities — below the map */}
         <div className="mt-10">
