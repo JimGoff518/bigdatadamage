@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-28",
-  "source": "USGS Public-Supply Water Service Areas (2017, DOI 10.5066/P9I22Z24); US Census county boundaries (public domain). Analysis by BigDataDamage.",
+  "generatedAt": "2026-06-30",
+  "source": "USGS Public-Supply Water Service Areas (2017, DOI 10.5066/P9I22Z24); US Census county boundaries (public domain); TWDB/TCEQ groundwater conservation districts (approximate, 2019). Analysis by BigDataDamage.",
   "facilities": {
     "alamo-data-center-bexar-data-center": {
       "slug": "alamo-data-center-bexar-data-center",
@@ -11,7 +11,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "ale60-data-center-bexar-data-center": {
       "slug": "ale60-data-center-bexar-data-center",
@@ -22,7 +24,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "austin-data-center-2-llc-travis-data-center": {
       "slug": "austin-data-center-2-llc-travis-data-center",
@@ -33,7 +37,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF AUSTIN WATER & WASTEWATER",
-      "waterDistrictPopulationServed": 925976
+      "waterDistrictPopulationServed": 925976,
+      "inGcd": false,
+      "gcdName": null
     },
     "bastrop-project-one-bastrop-data-center": {
       "slug": "bastrop-project-one-bastrop-data-center",
@@ -44,7 +50,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF BASTROP",
-      "waterDistrictPopulationServed": 14319
+      "waterDistrictPopulationServed": 14319,
+      "inGcd": true,
+      "gcdName": "Lost Pines GCD"
     },
     "c1-bosque-i-bosque-data-center": {
       "slug": "c1-bosque-i-bosque-data-center",
@@ -55,7 +63,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "Middle Trinity GCD"
     },
     "c1-bosque-ii-llc-bosque-data-center": {
       "slug": "c1-bosque-ii-llc-bosque-data-center",
@@ -66,7 +76,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "Middle Trinity GCD"
     },
     "c1-dallas-allen-lot-1-llc-collin-data-center": {
       "slug": "c1-dallas-allen-lot-1-llc-collin-data-center",
@@ -77,7 +89,9 @@
       "status": "operating",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "North Texas GCD"
     },
     "c1-richardson-llc-data-center-dallas-data-center": {
       "slug": "c1-richardson-llc-data-center-dallas-data-center",
@@ -88,7 +102,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "cipher-mining-technologies-inc-odessa-site-ector-data-center": {
       "slug": "cipher-mining-technologies-inc-odessa-site-ector-data-center",
@@ -99,7 +115,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF ODESSA",
-      "waterDistrictPopulationServed": 122647
+      "waterDistrictPopulationServed": 122647,
+      "inGcd": false,
+      "gcdName": null
     },
     "cutten-data-center-harris-data-center": {
       "slug": "cutten-data-center-harris-data-center",
@@ -110,7 +128,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF HOUSTON",
-      "waterDistrictPopulationServed": 248311
+      "waterDistrictPopulationServed": 248311,
+      "inGcd": true,
+      "gcdName": "Harris-Galveston Coastal Subsidence District"
     },
     "cyrusone-llc-houston-west-iii-data-center-harris-data-center": {
       "slug": "cyrusone-llc-houston-west-iii-data-center-harris-data-center",
@@ -121,7 +141,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF HOUSTON",
-      "waterDistrictPopulationServed": 248311
+      "waterDistrictPopulationServed": 248311,
+      "inGcd": true,
+      "gcdName": "Harris-Galveston Coastal Subsidence District"
     },
     "denton-data-center-denton-data-center": {
       "slug": "denton-data-center-denton-data-center",
@@ -132,7 +154,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF DENTON",
-      "waterDistrictPopulationServed": 142326
+      "waterDistrictPopulationServed": 142326,
+      "inGcd": true,
+      "gcdName": "North Texas GCD"
     },
     "dfw-04-data-center-collin-data-center": {
       "slug": "dfw-04-data-center-collin-data-center",
@@ -143,7 +167,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "North Texas GCD"
     },
     "dfw-10-ellis-data-center": {
       "slug": "dfw-10-ellis-data-center",
@@ -154,7 +180,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF WAXAHACHIE",
-      "waterDistrictPopulationServed": 28000
+      "waterDistrictPopulationServed": 28000,
+      "inGcd": true,
+      "gcdName": "Prairielands GCD"
     },
     "dfw-11-ellis-data-center": {
       "slug": "dfw-11-ellis-data-center",
@@ -165,7 +193,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF WAXAHACHIE",
-      "waterDistrictPopulationServed": 28000
+      "waterDistrictPopulationServed": 28000,
+      "inGcd": true,
+      "gcdName": "Prairielands GCD"
     },
     "dfw-12-ellis-data-center": {
       "slug": "dfw-12-ellis-data-center",
@@ -176,7 +206,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF WAXAHACHIE",
-      "waterDistrictPopulationServed": 28000
+      "waterDistrictPopulationServed": 28000,
+      "inGcd": true,
+      "gcdName": "Prairielands GCD"
     },
     "dfw-37-dallas-data-center": {
       "slug": "dfw-37-dallas-data-center",
@@ -187,7 +219,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "dfw-9-ellis-data-center": {
       "slug": "dfw-9-ellis-data-center",
@@ -198,7 +232,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF WAXAHACHIE",
-      "waterDistrictPopulationServed": 28000
+      "waterDistrictPopulationServed": 28000,
+      "inGcd": true,
+      "gcdName": "Prairielands GCD"
     },
     "dfw02-lancaster-stack-dallas-data-center": {
       "slug": "dfw02-lancaster-stack-dallas-data-center",
@@ -209,7 +245,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "digital-garland-dallas-data-center": {
       "slug": "digital-garland-dallas-data-center",
@@ -220,7 +258,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "digital-realty-trust-inc-dallas-data-center": {
       "slug": "digital-realty-trust-inc-dallas-data-center",
@@ -231,7 +271,9 @@
       "status": "proposed",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "duos-potter-data-center": {
       "slug": "duos-potter-data-center",
@@ -242,7 +284,9 @@
       "status": "operating",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "Panhandle GCD"
     },
     "ecx-aus11-16-travis-data-center": {
       "slug": "ecx-aus11-16-travis-data-center",
@@ -253,7 +297,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF AUSTIN WATER & WASTEWATER",
-      "waterDistrictPopulationServed": 925976
+      "waterDistrictPopulationServed": 925976,
+      "inGcd": false,
+      "gcdName": null
     },
     "edc-austin-llc-travis-data-center": {
       "slug": "edc-austin-llc-travis-data-center",
@@ -264,7 +310,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF AUSTIN WATER & WASTEWATER",
-      "waterDistrictPopulationServed": 925976
+      "waterDistrictPopulationServed": 925976,
+      "inGcd": false,
+      "gcdName": null
     },
     "edgeconnex-au02-travis-data-center": {
       "slug": "edgeconnex-au02-travis-data-center",
@@ -275,7 +323,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF AUSTIN WATER & WASTEWATER",
-      "waterDistrictPopulationServed": 925976
+      "waterDistrictPopulationServed": 925976,
+      "inGcd": false,
+      "gcdName": null
     },
     "eneus-energy-cameron-data-center": {
       "slug": "eneus-energy-cameron-data-center",
@@ -286,7 +336,9 @@
       "status": "proposed",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "fluidstack-abernathy-data-center-lubbock-data-center": {
       "slug": "fluidstack-abernathy-data-center-lubbock-data-center",
@@ -297,7 +349,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "LUBBOCK PUBLIC WATER SYSTEM",
-      "waterDistrictPopulationServed": 231538
+      "waterDistrictPopulationServed": 231538,
+      "inGcd": true,
+      "gcdName": "High Plains UWCD No.1"
     },
     "freestone-data-center-freestone-data-center": {
       "slug": "freestone-data-center-freestone-data-center",
@@ -308,7 +362,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "Mid-East Texas GCD"
     },
     "giga-texas-datacenter-travis-data-center": {
       "slug": "giga-texas-datacenter-travis-data-center",
@@ -319,7 +375,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF AUSTIN WATER & WASTEWATER",
-      "waterDistrictPopulationServed": 925976
+      "waterDistrictPopulationServed": 925976,
+      "inGcd": false,
+      "gcdName": null
     },
     "hackberry-data-center-denton-data-center": {
       "slug": "hackberry-data-center-denton-data-center",
@@ -330,7 +388,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF DENTON",
-      "waterDistrictPopulationServed": 142326
+      "waterDistrictPopulationServed": 142326,
+      "inGcd": true,
+      "gcdName": "North Texas GCD"
     },
     "hockley-data-center-harris-data-center": {
       "slug": "hockley-data-center-harris-data-center",
@@ -341,7 +401,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF HOUSTON",
-      "waterDistrictPopulationServed": 248311
+      "waterDistrictPopulationServed": 248311,
+      "inGcd": true,
+      "gcdName": "Harris-Galveston Coastal Subsidence District"
     },
     "hut-8-nueces-data-center": {
       "slug": "hut-8-nueces-data-center",
@@ -352,7 +414,9 @@
       "status": "proposed",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "hutto-data-center-campus-llc-williamson-data-center": {
       "slug": "hutto-data-center-campus-llc-williamson-data-center",
@@ -363,7 +427,22 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
+    },
+    "iren-childress-childress-data-center": {
+      "slug": "iren-childress-childress-data-center",
+      "name": "IREN Childress Campus (Horizon 1)",
+      "operator": "IREN (formerly Iris Energy) — IE US Hardware 1-4 Inc.",
+      "city": "Childress",
+      "county": "Childress County",
+      "status": "operating",
+      "inWaterDistrict": true,
+      "waterDistrictName": "GREENBELT MIWA",
+      "waterDistrictPopulationServed": 11610,
+      "inGcd": true,
+      "gcdName": "Gateway GCD"
     },
     "lancium-abilene-clean-campus-ii-taylor-data-center": {
       "slug": "lancium-abilene-clean-campus-ii-taylor-data-center",
@@ -374,7 +453,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "lancium-abilene-clean-campus-iii-taylor-data-center": {
       "slug": "lancium-abilene-clean-campus-iii-taylor-data-center",
@@ -385,7 +466,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "lancium-abilene-clean-campus-iv-taylor-data-center": {
       "slug": "lancium-abilene-clean-campus-iv-taylor-data-center",
@@ -396,7 +479,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "lancium-abilene-clean-campus-taylor-data-center": {
       "slug": "lancium-abilene-clean-campus-taylor-data-center",
@@ -407,7 +492,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "lancium-abilene-clean-campus-v-taylor-data-center": {
       "slug": "lancium-abilene-clean-campus-v-taylor-data-center",
@@ -418,7 +505,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "lancium-abilene-clean-campus-vi-taylor-data-center": {
       "slug": "lancium-abilene-clean-campus-vi-taylor-data-center",
@@ -429,7 +518,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "lancium-abilene-clean-campus-vii-taylor-data-center": {
       "slug": "lancium-abilene-clean-campus-vii-taylor-data-center",
@@ -440,7 +531,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "lancium-abilene-clean-campus-viii-taylor-data-center": {
       "slug": "lancium-abilene-clean-campus-viii-taylor-data-center",
@@ -451,7 +544,22 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
+    },
+    "lancium-childress-clean-campus-childress-data-center": {
+      "slug": "lancium-childress-clean-campus-childress-data-center",
+      "name": "Lancium Childress Clean Campus",
+      "operator": "Lancium LLC (Shenandoah, TX)",
+      "city": "Childress",
+      "county": "Childress County",
+      "status": "proposed",
+      "inWaterDistrict": false,
+      "waterDistrictName": null,
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "Gateway GCD"
     },
     "lewisville-dfw38-denton-data-center": {
       "slug": "lewisville-dfw38-denton-data-center",
@@ -462,7 +570,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF DENTON",
-      "waterDistrictPopulationServed": 142326
+      "waterDistrictPopulationServed": 142326,
+      "inGcd": true,
+      "gcdName": "North Texas GCD"
     },
     "linkedin-richardson-texas-data-center-dallas-data-center": {
       "slug": "linkedin-richardson-texas-data-center-dallas-data-center",
@@ -473,7 +583,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "meta-bell-data-center": {
       "slug": "meta-bell-data-center",
@@ -484,7 +596,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "BELL COUNTY WCID 1",
-      "waterDistrictPopulationServed": 248916
+      "waterDistrictPopulationServed": 248916,
+      "inGcd": true,
+      "gcdName": "Clearwater UWCD"
     },
     "meta-el-paso-data-center": {
       "slug": "meta-el-paso-data-center",
@@ -495,7 +609,9 @@
       "status": "operating",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "microsoft-corporation-sat-15-17-bexar-data-center": {
       "slug": "microsoft-corporation-sat-15-17-bexar-data-center",
@@ -506,7 +622,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "microsoft-corporation-sat-80-85-bexar-data-center": {
       "slug": "microsoft-corporation-sat-80-85-bexar-data-center",
@@ -517,7 +635,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "microsoft-corporation-sat-89-90-bexar-data-center": {
       "slug": "microsoft-corporation-sat-89-90-bexar-data-center",
@@ -528,7 +648,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "microsoft-corporation-sat09-sat13-bexar-data-center": {
       "slug": "microsoft-corporation-sat09-sat13-bexar-data-center",
@@ -539,7 +661,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "microsoft-san-antonio-sat14-bexar-data-center": {
       "slug": "microsoft-san-antonio-sat14-bexar-data-center",
@@ -550,7 +674,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "milam-county-data-center-milam-data-center": {
       "slug": "milam-county-data-center-milam-data-center",
@@ -561,7 +687,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "Post Oak Savannah GCD"
     },
     "nexus-data-centers-hill-data-center": {
       "slug": "nexus-data-centers-hill-data-center",
@@ -572,7 +700,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "AQUILLA WSD",
-      "waterDistrictPopulationServed": 8456
+      "waterDistrictPopulationServed": 8456,
+      "inGcd": true,
+      "gcdName": "Prairielands GCD"
     },
     "ntt-global-data-centers-americas-dallas-tx2-dallas-data-center": {
       "slug": "ntt-global-data-centers-americas-dallas-tx2-dallas-data-center",
@@ -583,7 +713,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "ntt-global-data-centers-americas-dallas-tx3-dallas-data-center": {
       "slug": "ntt-global-data-centers-americas-dallas-tx3-dallas-data-center",
@@ -594,7 +726,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "ntt-global-data-centers-americas-dallas-tx4-dallas-data-center": {
       "slug": "ntt-global-data-centers-americas-dallas-tx4-dallas-data-center",
@@ -605,7 +739,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "oppidan-bell-data-center": {
       "slug": "oppidan-bell-data-center",
@@ -616,7 +752,9 @@
       "status": "proposed",
       "inWaterDistrict": true,
       "waterDistrictName": "BELL COUNTY WCID 1",
-      "waterDistrictPopulationServed": 248916
+      "waterDistrictPopulationServed": 248916,
+      "inGcd": true,
+      "gcdName": "Clearwater UWCD"
     },
     "oracle-taylor-data-center": {
       "slug": "oracle-taylor-data-center",
@@ -627,7 +765,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": false,
+      "gcdName": null
     },
     "powercampus-dallas-by-lancaster-data-center-campus-lp-dallas-data-center": {
       "slug": "powercampus-dallas-by-lancaster-data-center-campus-lp-dallas-data-center",
@@ -638,7 +778,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "project-watertower-dallas-data-center": {
       "slug": "project-watertower-dallas-data-center",
@@ -649,7 +791,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "qts-irving-dc3-data-center-dallas-data-center": {
       "slug": "qts-irving-dc3-data-center-dallas-data-center",
@@ -660,7 +804,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "red-oak-texas-data-center-2-ellis-data-center": {
       "slug": "red-oak-texas-data-center-2-ellis-data-center",
@@ -671,7 +817,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF WAXAHACHIE",
-      "waterDistrictPopulationServed": 28000
+      "waterDistrictPopulationServed": 28000,
+      "inGcd": true,
+      "gcdName": "Prairielands GCD"
     },
     "red-oak-texas-data-center-ellis-data-center": {
       "slug": "red-oak-texas-data-center-ellis-data-center",
@@ -682,7 +830,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF WAXAHACHIE",
-      "waterDistrictPopulationServed": 28000
+      "waterDistrictPopulationServed": 28000,
+      "inGcd": true,
+      "gcdName": "Prairielands GCD"
     },
     "rellis-campus-data-and-research-center-brazos-data-center": {
       "slug": "rellis-campus-data-and-research-center-brazos-data-center",
@@ -693,7 +843,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF BRYAN",
-      "waterDistrictPopulationServed": 159517
+      "waterDistrictPopulationServed": 159517,
+      "inGcd": true,
+      "gcdName": "Brazos Valley GCD"
     },
     "riot-corsicana-data-center-02-navarro-data-center": {
       "slug": "riot-corsicana-data-center-02-navarro-data-center",
@@ -704,7 +856,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF CORSICANA",
-      "waterDistrictPopulationServed": 35071
+      "waterDistrictPopulationServed": 35071,
+      "inGcd": false,
+      "gcdName": null
     },
     "riot-corsicana-data-center-i-navarro-data-center": {
       "slug": "riot-corsicana-data-center-i-navarro-data-center",
@@ -715,7 +869,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF CORSICANA",
-      "waterDistrictPopulationServed": 35071
+      "waterDistrictPopulationServed": 35071,
+      "inGcd": false,
+      "gcdName": null
     },
     "riot-corsicana-data-center-navarro-data-center": {
       "slug": "riot-corsicana-data-center-navarro-data-center",
@@ -726,7 +882,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF CORSICANA",
-      "waterDistrictPopulationServed": 35071
+      "waterDistrictPopulationServed": 35071,
+      "inGcd": false,
+      "gcdName": null
     },
     "riot-rockdale-data-center-1-milam-data-center": {
       "slug": "riot-rockdale-data-center-1-milam-data-center",
@@ -737,7 +895,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "Post Oak Savannah GCD"
     },
     "riot-rockdale-milam-data-center": {
       "slug": "riot-rockdale-milam-data-center",
@@ -748,7 +908,9 @@
       "status": "under-construction",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "Post Oak Savannah GCD"
     },
     "rowan-bell-data-center": {
       "slug": "rowan-bell-data-center",
@@ -759,7 +921,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "BELL COUNTY WCID 1",
-      "waterDistrictPopulationServed": 248916
+      "waterDistrictPopulationServed": 248916,
+      "inGcd": true,
+      "gcdName": "Clearwater UWCD"
     },
     "rowan-digital-bexar-data-center": {
       "slug": "rowan-digital-bexar-data-center",
@@ -770,7 +934,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "san-antonio-data-center-ii-bexar-data-center": {
       "slug": "san-antonio-data-center-ii-bexar-data-center",
@@ -781,7 +947,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "san-antonio-data-center-iii-bexar-data-center": {
       "slug": "san-antonio-data-center-iii-bexar-data-center",
@@ -792,7 +960,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "sdc-austin-tandem-data-center-travis-data-center": {
       "slug": "sdc-austin-tandem-data-center-travis-data-center",
@@ -803,7 +973,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF AUSTIN WATER & WASTEWATER",
-      "waterDistrictPopulationServed": 925976
+      "waterDistrictPopulationServed": 925976,
+      "inGcd": false,
+      "gcdName": null
     },
     "sdc-satb1-bexar-data-center": {
       "slug": "sdc-satb1-bexar-data-center",
@@ -814,7 +986,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "SAN ANTONIO WATER SYSTEM",
-      "waterDistrictPopulationServed": 1332916
+      "waterDistrictPopulationServed": 1332916,
+      "inGcd": true,
+      "gcdName": "Edwards Aquifer Authority"
     },
     "state-farm-richardson-data-center-dallas-data-center": {
       "slug": "state-farm-richardson-data-center-dallas-data-center",
@@ -825,7 +999,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "DALLAS WATER UTILITY",
-      "waterDistrictPopulationServed": 1756623
+      "waterDistrictPopulationServed": 1756623,
+      "inGcd": false,
+      "gcdName": null
     },
     "switch-aus-4-travis-data-center": {
       "slug": "switch-aus-4-travis-data-center",
@@ -836,7 +1012,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "CITY OF AUSTIN WATER & WASTEWATER",
-      "waterDistrictPopulationServed": 925976
+      "waterDistrictPopulationServed": 925976,
+      "inGcd": false,
+      "gcdName": null
     },
     "temple-data-center-bell-data-center": {
       "slug": "temple-data-center-bell-data-center",
@@ -847,7 +1025,9 @@
       "status": "under-construction",
       "inWaterDistrict": true,
       "waterDistrictName": "BELL COUNTY WCID 1",
-      "waterDistrictPopulationServed": 248916
+      "waterDistrictPopulationServed": 248916,
+      "inGcd": true,
+      "gcdName": "Clearwater UWCD"
     },
     "temple-green-data-center-bell-data-center": {
       "slug": "temple-green-data-center-bell-data-center",
@@ -858,7 +1038,9 @@
       "status": "operating",
       "inWaterDistrict": true,
       "waterDistrictName": "BELL COUNTY WCID 1",
-      "waterDistrictPopulationServed": 248916
+      "waterDistrictPopulationServed": 248916,
+      "inGcd": true,
+      "gcdName": "Clearwater UWCD"
     },
     "whinstone-us-data-center-milam-data-center": {
       "slug": "whinstone-us-data-center-milam-data-center",
@@ -869,7 +1051,9 @@
       "status": "operating",
       "inWaterDistrict": false,
       "waterDistrictName": null,
-      "waterDistrictPopulationServed": null
+      "waterDistrictPopulationServed": null,
+      "inGcd": true,
+      "gcdName": "Post Oak Savannah GCD"
     }
   }
 }

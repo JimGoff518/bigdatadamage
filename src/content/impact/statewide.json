@@ -1,10 +1,12 @@
 {
-  "totalDataCenters": 79,
-  "inWaterDistrict": 56,
-  "notInWaterDistrict": 23,
-  "distinctAffectedDistricts": 13,
-  "populationServedByAffectedDistricts": 5254616,
-  "countiesWithDataCenters": 23,
-  "generatedAt": "2026-06-28",
-  "source": "USGS Public-Supply Water Service Areas (2017, DOI 10.5066/P9I22Z24); US Census county boundaries (public domain). Analysis by BigDataDamage."
+  "totalDataCenters": 81,
+  "inWaterDistrict": 57,
+  "notInWaterDistrict": 24,
+  "distinctAffectedDistricts": 14,
+  "populationServedByAffectedDistricts": 5266226,
+  "countiesWithDataCenters": 24,
+  "inGcd": 44,
+  "distinctGcds": 13,
+  "generatedAt": "2026-06-30",
+  "source": "USGS Public-Supply Water Service Areas (2017, DOI 10.5066/P9I22Z24); US Census county boundaries (public domain); TWDB/TCEQ groundwater conservation districts (approximate, 2019). Analysis by BigDataDamage."
 }

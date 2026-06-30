@@ -19,6 +19,12 @@ const sources: { name: string; detail: string; href: string }[] = [
     href: "https://doi.org/10.5066/P9I22Z24",
   },
   {
+    name: "TWDB Groundwater Conservation Districts (2019)",
+    detail:
+      "Texas Water Development Board / TCEQ boundaries of the Chapter 36 districts that regulate groundwater pumping. Boundaries are approximate and do not represent legal descriptions.",
+    href: "https://www.twdb.texas.gov/mapping/gisdata.asp",
+  },
+  {
     name: "Big Data Damage facility tracker",
     detail:
       "Our source-linked inventory of tracked Texas data centers — every facility placed by coordinate and backed by a public record or news report (listed below).",
@@ -32,6 +38,7 @@ const limits: string[] = [
   "The USGS service-area layer reflects 2017 boundaries; some systems have changed since.",
   "Our tracker is a curated, source-linked inventory of known Texas data centers, not an exhaustive census of every facility in the state.",
   "Population figures are the total served by each water system, not the number of people affected by a data center.",
+  "Groundwater conservation district boundaries (TWDB/TCEQ) are approximate, reflect 2019 data, and do not represent legal jurisdictional descriptions — confirm a parcel's district with the district directly.",
 ];
 
 export function WaterImpact() {
@@ -71,6 +78,11 @@ export function WaterImpact() {
       label: "sit outside any mapped service area — typically well-reliant land",
       source: "Tracked facilities with no overlapping USGS service area",
     },
+    {
+      value: String(s.inGcd),
+      label: "fall inside a groundwater conservation district's jurisdiction",
+      source: "Overlay vs. TWDB groundwater conservation districts (approximate, 2019)",
+    },
   ];
 
   const exposure: { label: string; value: number; tone: "orange" | "teal" }[] = [
@@ -104,11 +116,15 @@ export function WaterImpact() {
     dateModified: s.generatedAt,
     license: "https://creativecommons.org/licenses/by/4.0/",
     spatialCoverage: { "@type": "Place", name: "Texas, USA" },
-    isBasedOn: "https://doi.org/10.5066/P9I22Z24",
+    isBasedOn: [
+      "https://doi.org/10.5066/P9I22Z24",
+      "https://www.twdb.texas.gov/mapping/gisdata.asp",
+    ],
     variableMeasured: [
       "Data centers inside a public water-supply service area",
       "Distinct public water systems containing a data center",
       "Population served by affected water systems",
+      "Data centers inside a groundwater conservation district's jurisdiction",
     ],
   };
 
@@ -125,7 +141,7 @@ export function WaterImpact() {
             Our original analysis of where Texas data centers land relative to the public water
             systems Texans depend on. Every figure is sourced and reproducible — use it, cite it.
           </p>
-          <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line lg:grid-cols-5">
+          <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line lg:grid-cols-3">
             {stats.map((stat) => (
               <div key={stat.label} className="flex h-full flex-col bg-panel p-5">
                 <div className="font-display text-3xl font-bold text-orange sm:text-4xl">{stat.value}</div>
@@ -207,8 +223,9 @@ export function WaterImpact() {
           <h3 className="mt-2 text-lg font-bold text-fg">How we measured this</h3>
           <p className="mt-2 text-sm leading-relaxed text-fg/80">
             We took the coordinates of every data center in our tracker and tested, point-by-point,
-            which ones fall inside a mapped public water-supply service area. Population figures are
-            the total each affected system reports serving. Analysis last computed {updatedLabel}.
+            which ones fall inside a mapped public water-supply service area — and, separately, inside
+            a groundwater conservation district&apos;s jurisdiction. Population figures are the total
+            each affected water system reports serving. Analysis last computed {updatedLabel}.
           </p>
 
           <h4 className="mt-5 text-sm font-bold uppercase tracking-wide text-fg">Sources</h4>

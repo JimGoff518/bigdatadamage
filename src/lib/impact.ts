@@ -18,6 +18,8 @@ export interface StatewideImpact {
   distinctAffectedDistricts: number;
   populationServedByAffectedDistricts: number;
   countiesWithDataCenters: number;
+  inGcd: number;
+  distinctGcds: number;
   generatedAt: string;
   source: string;
 }
@@ -44,6 +46,8 @@ export interface FacilityImpact {
   inWaterDistrict: boolean;
   waterDistrictName: string | null;
   waterDistrictPopulationServed: number | null;
+  inGcd: boolean;
+  gcdName: string | null;
 }
 
 export const statewideImpact = statewideData as unknown as StatewideImpact;

@@ -32,7 +32,8 @@ const DEST = "carto-dw-ac-iq24z7xp.shared.data_centers";
 const GENERATED_AT = new Date().toISOString().slice(0, 10);
 const SOURCE =
   "USGS Public-Supply Water Service Areas (2017, DOI 10.5066/P9I22Z24); " +
-  "US Census county boundaries (public domain). Analysis by BigDataDamage.";
+  "US Census county boundaries (public domain); TWDB/TCEQ groundwater " +
+  "conservation districts (approximate, 2019). Analysis by BigDataDamage.";
 
 const sh = (cmd) => execSync(cmd, { stdio: "inherit" });
 const json = (sql) =>
@@ -95,6 +96,8 @@ writeFileSync(
       distinctAffectedDistricts: sw.distinct_affected_districts,
       populationServedByAffectedDistricts: sw.pop_served_affected,
       countiesWithDataCenters: sw.counties_with_dcs,
+      inGcd: sw.dcs_in_gcd,
+      distinctGcds: sw.distinct_gcds,
       generatedAt: GENERATED_AT,
       source: SOURCE,
     },
@@ -134,6 +137,8 @@ for (const r of json(`SELECT * FROM ${DS}.impact_by_facility ORDER BY slug`)) {
     inWaterDistrict: r.in_water_district,
     waterDistrictName: r.water_district_name,
     waterDistrictPopulationServed: r.water_district_pop,
+    inGcd: r.in_gcd,
+    gcdName: r.gcd_short || r.gcd_name || null,
   };
 }
 writeFileSync(

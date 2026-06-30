@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-28",
-  "source": "USGS Public-Supply Water Service Areas (2017, DOI 10.5066/P9I22Z24); US Census county boundaries (public domain). Analysis by BigDataDamage.",
+  "generatedAt": "2026-06-30",
+  "source": "USGS Public-Supply Water Service Areas (2017, DOI 10.5066/P9I22Z24); US Census county boundaries (public domain); TWDB/TCEQ groundwater conservation districts (approximate, 2019). Analysis by BigDataDamage.",
   "counties": {
     "Dallas County": {
       "county": "Dallas County",
@@ -122,6 +122,17 @@
       "inWaterDistrict": 0,
       "affectedDistricts": 0,
       "populationInAffectedDistricts": 0
+    },
+    "Childress County": {
+      "county": "Childress County",
+      "totalDataCenters": 2,
+      "operating": 1,
+      "underConstruction": 0,
+      "proposed": 1,
+      "permitted": 0,
+      "inWaterDistrict": 1,
+      "affectedDistricts": 1,
+      "populationInAffectedDistricts": 11610
     },
     "Collin County": {
       "county": "Collin County",

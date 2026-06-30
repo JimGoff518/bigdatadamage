@@ -1,6 +1,7 @@
 -- BDD CARTO Impact Analysis — core (DO-free) metrics
 -- Creates three output tables in carto-dw-ac-iq24z7xp.shared
--- Inputs: data_centers (79 pts), texas-water-service-areas (2234 polys), tx_counties (254 polys)
+-- Inputs: data_centers (pts), texas-water-service-areas (2234 polys), tx_counties (254 polys),
+--         gcds (101 groundwater conservation district polys; TWDB/TCEQ, approximate, 2019)
 
 -- 1) PER-FACILITY ------------------------------------------------------------
 CREATE OR REPLACE TABLE `carto-dw-ac-iq24z7xp`.shared.impact_by_facility AS
@@ -26,6 +27,15 @@ dc_water AS (  -- containing water service area (each DC verified in <=1)
   FROM dc JOIN `carto-dw-ac-iq24z7xp`.shared.`texas-water-service-areas` w
     ON ST_INTERSECTS(dc.geom, w.geom)
   GROUP BY dc.slug
+),
+dc_gcd AS (  -- containing groundwater conservation district (a DC sits in 0 or 1)
+  SELECT dc.slug,
+         ANY_VALUE(g.gcd_name) AS gcd_name,
+         ANY_VALUE(g.gcd_short) AS gcd_short,
+         COUNT(*) AS n_gcds
+  FROM dc JOIN `carto-dw-ac-iq24z7xp`.shared.gcds g
+    ON ST_INTERSECTS(dc.geom, g.geom)
+  GROUP BY dc.slug
 )
 SELECT
   dc.slug, dc.name, dc.operator, dc.city, dc.status,
@@ -35,10 +45,14 @@ SELECT
   (dcw.slug IS NOT NULL) AS in_water_district,
   dcw.water_district_name,
   dcw.water_district_id,
-  dcw.water_district_pop
+  dcw.water_district_pop,
+  (dcg.slug IS NOT NULL) AS in_gcd,
+  dcg.gcd_name,
+  dcg.gcd_short
 FROM dc
 LEFT JOIN dc_county cty USING (slug)
-LEFT JOIN dc_water dcw USING (slug);
+LEFT JOIN dc_water dcw USING (slug)
+LEFT JOIN dc_gcd dcg USING (slug);
 
 -- 2) PER-COUNTY --------------------------------------------------------------
 CREATE OR REPLACE TABLE `carto-dw-ac-iq24z7xp`.shared.impact_by_county AS
@@ -89,4 +103,6 @@ SELECT
   (SELECT dd.distinct_affected_districts FROM dd) AS distinct_affected_districts,
   (SELECT CAST(ROUND(dd.pop_served_affected) AS INT64) FROM dd) AS pop_served_affected,
   (SELECT COUNT(DISTINCT county) FROM f) AS counties_with_dcs,
+  (SELECT COUNTIF(in_gcd) FROM f) AS dcs_in_gcd,
+  (SELECT COUNT(DISTINCT gcd_name) FROM f WHERE in_gcd) AS distinct_gcds,
   DATE('2026-06-28') AS generated_at;
