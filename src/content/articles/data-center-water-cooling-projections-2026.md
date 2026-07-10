@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "water"
 seoTitle: "Data Center Water Usage in Texas: 2026 Projections"
 seoDescription: "How much water will Texas data centers use in 2026? See projected consumption, how cooling technology works, and the questions landowners and communities should ask."
+image: "/images/data-center-interior.jpg"
 ---
 
 What used to be quiet ranch land now sits next to huge industrial buildings filled with servers, steel, and a constant hum that never really stops. Many of these buildings are data centers. They keep the internet working, store cloud files, and support artificial intelligence. That's important work. But **data center water usage** runs high — often far more than people expect.

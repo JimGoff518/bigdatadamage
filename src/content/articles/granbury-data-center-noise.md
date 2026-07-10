@@ -7,6 +7,7 @@ harm: "property"
 location: "granbury"
 seoTitle: "Granbury Data Center Noise Lawsuit Info | Hood County, TX"
 seoDescription: "Constant fan noise from a data center or crypto mine near Granbury? Learn how Texas nuisance and property-value law may apply to Hood County landowners."
+image: "/images/location-granbury.jpg"
 ---
 
 In Hood County, the roar never seems to stop. Residents near large computing facilities around

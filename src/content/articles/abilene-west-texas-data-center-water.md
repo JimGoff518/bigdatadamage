@@ -7,6 +7,7 @@ harm: "water"
 location: "abilene"
 seoTitle: "Abilene Data Center Water Use: Risks for West Texas"
 seoDescription: "Abilene data center water demand is rising in a drought-stressed region. Learn how the Seymour Aquifer, private wells, and ranches could be affected, and your options."
+image: "/images/location-abilene.jpg"
 ---
 
 In West Texas, water has always been the difference between a working ranch and dry dirt. Around Abilene and Taylor County, families have learned to ration every gallon, watch the sky, and nurse wells through years of drought. Now a new kind of neighbor is moving in: large data centers that can drink millions of gallons a year. For a region where supply is already thin, that is a serious question worth asking out loud.

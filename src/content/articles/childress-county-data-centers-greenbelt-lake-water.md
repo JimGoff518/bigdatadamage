@@ -7,6 +7,7 @@ harm: "water"
 location: "childress"
 seoTitle: "Childress County Data Centers & Greenbelt Lake Water | Landowner Guide"
 seoDescription: "IREN and Lancium are building data centers near Childress as Greenbelt Lake nears record lows. What Childress County landowners should know about water, tax abatements, and their rights."
+image: "/images/location-childress.jpg"
 ---
 
 Childress is a small county seat at the eastern edge of the Texas Panhandle, the kind of ranching-and-railroad town where water has always been the limiting resource. In the last two years it has also become a magnet for some of the most power- and water-hungry industrial projects in the state: data centers. Two separate developments — one already operating, one still on the drawing board — are now taking shape around Childress at the same moment its main reservoir sits near record lows.

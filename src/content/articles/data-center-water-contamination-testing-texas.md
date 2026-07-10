@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "water"
 seoTitle: "Well Water Testing Near Data Centers in Texas: A Guide"
 seoDescription: "Worried about well water contamination near a Texas data center? Learn the warning signs, what to test for, and why a baseline test matters for documentation."
+image: "/images/water-splash.jpg"
 ---
 
 You turn on the kitchen tap and the water looks a little cloudy. Maybe it tastes different than it did last year. Maybe there is a new metallic smell. And maybe, a few hundred yards down the road, heavy construction has been grinding away for months on a sprawling new data center.

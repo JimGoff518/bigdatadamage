@@ -7,6 +7,7 @@ harm: "air"
 location: "midlothian"
 seoTitle: "Midlothian Data Center Air Pollution & Diesel Generators | Ellis County TX"
 seoDescription: "Concerned about diesel generator emissions from a data center near Midlothian? Learn how Texas air permits and the TCEQ factor into landowner concerns."
+image: "/images/location-midlothian.jpg"
 ---
 
 **Midlothian** already sits in one of North Texas's busiest industrial corridors. As data centers

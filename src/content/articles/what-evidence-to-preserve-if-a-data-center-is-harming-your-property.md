@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "property"
 seoTitle: "Documenting Data Center Property Damage | Evidence Preservation Guide"
 seoDescription: "A step-by-step guide for landowners on how to collect and preserve evidence of property damage from nearby data centers, including photos, reports, and logs."
+image: "/images/soil-hands.jpg"
 ---
 
 When a large industrial facility like a data center is built near your property, concerns about potential impacts on your land, well-being, and property value are understandable. While data centers are often presented as clean and quiet operations, their extensive resource demands and continuous operation can sometimes lead to measurable harms to neighboring properties. These can include increased noise, altered air quality, impacts on water resources, or changes in local infrastructure and traffic.

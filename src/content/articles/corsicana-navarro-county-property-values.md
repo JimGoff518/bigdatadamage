@@ -7,6 +7,7 @@ harm: "property"
 location: "corsicana"
 seoTitle: "Corsicana Data Center Property Value | Navarro County"
 seoDescription: "How large data center projects near Corsicana and across Navarro County could affect property values, what owners can document, and how to tell annoyance from loss."
+image: "/images/location-corsicana.jpg"
 ---
 
 You bought land outside Corsicana for the quiet. Then a notice arrives: a multi-acre data center campus is planned down the road. Suddenly you're wondering what that does to the value of the home or acreage you worked years to own.

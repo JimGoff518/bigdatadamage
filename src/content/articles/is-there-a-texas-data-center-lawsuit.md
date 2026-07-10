@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "property"
 seoTitle: "Is There a Texas Data Center Lawsuit? Your Options"
 seoDescription: "Exploring a Texas data center lawsuit? Learn the general legal avenues landowners may have, from nuisance claims to water and property value disputes."
+image: "/images/harm-property.jpg"
 ---
 
 A new data center rises near your land. The hum never stops. Your well runs low. Your once-quiet acreage suddenly feels industrial. It is natural to ask one question: **is there a Texas data center lawsuit I could be part of, or one I could bring myself?**

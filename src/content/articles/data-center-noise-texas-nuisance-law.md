@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "property"
 seoTitle: "Data Center Noise Nuisance Texas Law | Landowner Guide"
 seoDescription: "Constant data center fan noise on your land? Learn how Texas nuisance law, quiet enjoyment, and property-value loss may apply — and what to document now."
+image: "/images/harm-property.jpg"
 ---
 
 It starts as a faint hum. Then you notice it at night, with the windows open. Within weeks, the

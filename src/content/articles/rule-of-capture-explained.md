@@ -7,6 +7,7 @@ harm: "water"
 featured: true
 seoTitle: "Texas Rule of Capture Explained | Groundwater Rights & Data Centers"
 seoDescription: "Plain-English guide to the Texas Rule of Capture, its exceptions, and what landowners can do when a data center's wells drain their groundwater."
+image: "/images/harm-water.jpg"
 ---
 
 If you own land in Texas and a data center starts pumping groundwater next to you, the first

@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "water"
 seoTitle: "Protest a Data Center Water Permit in Texas: A Guide"
 seoDescription: "Learn how Texas landowners can protest a data center groundwater permit at their Groundwater Conservation District, why early action matters, and what to gather."
+image: "/images/harm-water.jpg"
 ---
 
 A new data center moves in down the road. Then you hear it wants to pump millions of gallons of groundwater a year to keep its servers cool. If your well draws from the same aquifer, that is not a distant headline. It is your water.

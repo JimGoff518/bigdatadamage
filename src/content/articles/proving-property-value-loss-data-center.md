@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "property"
 seoTitle: "Data Center Lowered My Property Value in Texas? Proof"
 seoDescription: "A data center next door may lower your Texas property value. Learn what diminution of value means and the appraisal, sales, and broker evidence that can prove it."
+image: "/images/location-red-oak.jpg"
 ---
 
 You bought your place for the quiet, the space, or the long-term investment. Then a data center went up nearby — humming around the clock, lit up at night, with trucks rolling in and a fenced industrial wall where open land used to be. Now you are wondering the same thing many Texas landowners ask: did this thing just cost me money?

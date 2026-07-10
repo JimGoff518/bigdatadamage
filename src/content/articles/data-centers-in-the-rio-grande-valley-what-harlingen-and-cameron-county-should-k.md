@@ -7,6 +7,7 @@ harm: "water"
 location: "harlingen"
 seoTitle: "Harlingen Data Center Water Impact | Rio Grande Valley Water Scarcity"
 seoDescription: "Concerned about a Harlingen data center? Learn how these facilities could impact water resources in the Rio Grande Valley and Cameron County, a region already facing water scarcity."
+image: "/images/location-harlingen.jpg"
 ---
 
 The Rio Grande Valley (RGV) is a vibrant region known for its agriculture, cross-border commerce, and growing population. Communities like Harlingen, located in Cameron County, are experiencing development pressures, including the potential arrival of large-scale industrial projects such as data centers. While these facilities promise jobs and economic growth, it's crucial for landowners and residents to understand their significant resource demands, especially concerning water in a region already grappling with scarcity.

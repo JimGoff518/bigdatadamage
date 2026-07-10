@@ -7,6 +7,7 @@ harm: "water"
 location: "amarillo"
 seoTitle: "Amarillo Data Center Water Use & Ogallala Aquifer | Landowner Guide"
 seoDescription: "Learn how Amarillo data centers might impact the Ogallala Aquifer and your property. Essential information for Potter County landowners about water rights and conservation."
+image: "/images/location-amarillo.jpg"
 ---
 
 For generations, the Ogallala Aquifer has been the lifeblood of the Texas Panhandle, a vast underground reservoir supporting the region's robust agricultural economy and providing critical water for communities like Amarillo. Farmers rely on its waters to irrigate crops that feed the nation, while ranchers depend on it for livestock. This precious resource, however, is not limitless, and its slow recharge rate means that every new demand places additional strain on an already stressed system.

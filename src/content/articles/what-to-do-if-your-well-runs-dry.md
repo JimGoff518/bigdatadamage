@@ -7,6 +7,7 @@ harm: "water"
 location: "corsicana"
 seoTitle: "Well Running Dry Near a Data Center? A Texas Landowner's Guide"
 seoDescription: "Step-by-step guide for Texas landowners whose wells are dropping near a data center: document, test, check permits, and understand your options."
+image: "/images/water-drought.jpg"
 ---
 
 If your well has started dropping since a data center or other heavy-water facility moved in

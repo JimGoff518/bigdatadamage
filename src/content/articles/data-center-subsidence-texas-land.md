@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "water"
 seoTitle: "Subsidence & Data Center Pumping in Texas: Your Land"
 seoDescription: "When a data center over-pumps an aquifer, neighboring Texas land can sink and crack. Learn how subsidence works, why it may be actionable, and what to document."
+image: "/images/property-cracked-wall.jpg"
 ---
 
 You did not feel an earthquake. But the cracks in your foundation keep widening, your driveway is splitting, and a door that closed fine last year now scrapes the frame. Then you learn a large data center down the road has been pumping millions of gallons of groundwater to cool its servers.

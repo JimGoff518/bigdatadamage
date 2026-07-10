@@ -7,6 +7,7 @@ harm: "property"
 location: "red-oak"
 seoTitle: "Red Oak Data Center Property Value: Ellis County Risk"
 seoDescription: "How a Red Oak data center could affect Ellis County home and land values, why this corridor draws projects, and what homeowners may want to document now."
+image: "/images/location-red-oak.jpg"
 ---
 
 You bought in Red Oak for a reason. Maybe it was the acreage, the quiet, the room to breathe just far enough south of Dallas. Now there is talk of a data center moving in nearby, and you are wondering one very practical thing: what happens to what my place is worth?

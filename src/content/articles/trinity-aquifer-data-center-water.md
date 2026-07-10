@@ -7,6 +7,7 @@ harm: "water"
 location: "red-oak"
 seoTitle: "Trinity Aquifer Data Center Water Loss | Red Oak & Ellis County TX"
 seoDescription: "Data centers near Red Oak draw heavily on the Trinity Aquifer. Learn what groundwater drawdown means for Ellis County landowners and what options exist."
+image: "/images/harm-water.jpg"
 ---
 
 The **Trinity Aquifer** supplies wells across North Central Texas, including the fast-growing

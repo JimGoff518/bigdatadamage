@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "water"
 seoTitle: "Texas Data Center Rules: Power & Water Impact (2026)"
 seoDescription: "Texas tightened data center rules in June 2026 as 248 planned facilities strain the grid and water. What it means for landowners, wells, and electric bills."
+image: "/images/location-sweetwater.jpg"
 ---
 
 The scale of the data center rush in Texas is now coming into focus — and so is the pushback.

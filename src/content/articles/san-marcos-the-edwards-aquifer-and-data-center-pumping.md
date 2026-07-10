@@ -7,6 +7,7 @@ harm: "water"
 location: "san-marcos"
 seoTitle: "San Marcos Data Center Water Use & Edwards Aquifer Impact"
 seoDescription: "Explore the critical link between data center water demands in San Marcos and the delicate ecosystem of the Edwards Aquifer, San Marcos Springs, and its endangered species."
+image: "/images/location-san-marcos.jpg"
 ---
 
 San Marcos, Texas, is renowned for its natural springs, clear rivers, and the unique ecology supported by the Edwards Aquifer. This vibrant city and its surrounding areas draw their lifeblood directly from the aquifer, which feeds the iconic San Marcos Springs—the source of the San Marcos River. However, with the increasing interest in developing large-scale data centers in Texas, concerns are rising about the potential for significant water demands to impact this sensitive and crucial water source.

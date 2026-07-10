@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "air"
 seoTitle: "xAI Memphis Data Center Pollution: A Warning for Texas Landowners"
 seoDescription: "The DOJ moved to dismiss a Clean Air Act suit over xAI's unpermitted gas turbines near Memphis. Here is what the case means for Texas landowners near data centers."
+image: "/images/harm-air.jpg"
 ---
 
 A fight unfolding just east of the Texas line should have the attention of every Texan who lives near a data center, or expects to soon. In mid-June 2026, the U.S. Department of Justice asked a federal court to step into a pollution lawsuit against **xAI**, Elon Musk's artificial-intelligence company, and to throw it out. The case is about a data center. It is also about something larger: what happens to the people next door when a powerful facility skips the permitting process and the federal government decides to look the other way.

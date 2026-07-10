@@ -7,6 +7,7 @@ harm: "water"
 location: "amarillo"
 seoTitle: "Project Matador Water Deal: What Amarillo Should Know"
 seoDescription: "Fermi America's Project Matador locks in up to 900 million gallons a year near Amarillo. See what the water and tax deal means for Panhandle landowners."
+image: "/images/texas-wheat.jpg"
 ---
 
 Project Matador, Fermi America's enormous AI and power campus rising near Pantex in Carson County, now has the deals it needs to start pulling Amarillo's water. The City of Amarillo has agreed to supply the campus with municipal water, and Carson County has approved a long-term tax arrangement. For landowners across the Panhandle, the question is simple and serious: what happens to the region's water, and to the people who depend on it, when one private campus this large moves in?

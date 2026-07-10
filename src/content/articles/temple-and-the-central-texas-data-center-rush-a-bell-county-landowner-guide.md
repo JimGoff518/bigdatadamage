@@ -4,7 +4,8 @@ excerpt: "As data center development accelerates in Central Texas, landowners ne
 date: "June 26, 2026"
 author: "Big Data Damage"
 harm: "property"
-location: "Temple"
+location: "temple"
+image: "/images/location-temple.jpg"
 ---
 
 imageQuery: large data center building rural texas

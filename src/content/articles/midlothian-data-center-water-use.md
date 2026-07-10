@@ -7,6 +7,7 @@ harm: "water"
 location: "midlothian"
 seoTitle: "Midlothian Data Center Water Use & Aquifer Risk"
 seoDescription: "Data centers are eyeing Midlothian's industrial corridor. Learn how their water demand may strain the Trinity Aquifer and what Texas groundwater rules mean for you."
+image: "/images/harm-water.jpg"
 ---
 
 Midlothian has long been a workhorse of Texas industry. Cement kilns, steel mills, and heavy manufacturing have defined the corridor along the U.S. 67 and Highway 287 spine for decades. Now a new kind of plant is moving in, and it does not make steel or cement. It makes computing power, and it can drink a remarkable amount of water doing it.

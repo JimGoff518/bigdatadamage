@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "air"
 seoTitle: "Protest Data Center Air Permit Texas | TCEQ Air Permit Protest"
 seoDescription: "A detailed guide for Texas landowners on how to effectively protest a data center's air permit application with the TCEQ, covering key steps and deadlines."
+image: "/images/air-smokestack.jpg"
 ---
 
 When a data center proposes to build or expand in your community, one of the most critical regulatory hurdles it must clear is obtaining an air permit from the Texas Commission on Environmental Quality (TCEQ). These permits are designed to limit air pollution, but the permit application process is complex, and it’s up to affected landowners to scrutinize proposals and raise concerns. Understanding how to navigate the TCEQ air permit protest process is vital for protecting your property and the air quality in your community.

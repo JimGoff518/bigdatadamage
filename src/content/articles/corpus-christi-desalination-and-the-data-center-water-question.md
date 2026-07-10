@@ -7,6 +7,7 @@ harm: "water"
 location: "corpus-christi"
 seoTitle: "Corpus Christi Data Centers: Desalination and Water Rights"
 seoDescription: "Explore the impact of data centers on Corpus Christi's water supply, the role of desalination, and how landowners can protect their water rights."
+image: "/images/location-corpus-christi.jpg"
 ---
 
 Corpus Christi, a vibrant hub on the Texas Gulf Coast, faces a complex and often challenging relationship with water. As a major energy hub and growing population center, the city's demand for water is substantial, historically relying on a system of reservoirs fed by the Nueces River basin. However, persistent drought conditions and increasing industrial needs have pushed the city to explore and invest heavily in desalination as a future water source.

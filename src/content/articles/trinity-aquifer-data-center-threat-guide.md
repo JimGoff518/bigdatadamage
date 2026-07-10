@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "water"
 seoTitle: "Trinity Aquifer Data Center Threat | Texas Landowner Guide"
 seoDescription: "Data centers are clustering across North-Central Texas, pulling from the Trinity Aquifer. Learn why it's vulnerable, how drawdown spreads, and what landowners should know."
+image: "/images/water-drought.jpg"
 ---
 
 Across North-Central Texas, families turn on a tap and trust that water will flow. For hundreds of thousands of people, that water comes from the **Trinity Aquifer** — and a wave of water-hungry data centers is now testing how much it can give.

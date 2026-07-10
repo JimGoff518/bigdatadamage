@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "air"
 seoTitle: "Data Center Air Pollution in Texas: Diesel Emissions"
 seoDescription: "How Texas data centers create air pollution through diesel backup generators, what they emit, how TCEQ permits them, and what nearby residents can document."
+image: "/images/air-smokestack.jpg"
 ---
 
 You may never hear the servers humming behind the fences. But when a data center fires up its diesel generators, you can often smell it, sometimes see the haze, and occasionally feel it in your chest. For many Texas landowners living near these sprawling facilities, the air is where the harm shows up first.

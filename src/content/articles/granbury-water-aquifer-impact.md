@@ -7,6 +7,7 @@ harm: "water"
 location: "granbury"
 seoTitle: "Granbury Data Center Water & Hood County Wells | Texas"
 seoDescription: "Worried a data center or crypto mine near Granbury is drawing down your well? Learn how Trinity Aquifer pumping and Texas groundwater rules affect Hood County."
+image: "/images/harm-water.jpg"
 ---
 
 Turn on a faucet almost anywhere in **Hood County** and the water likely started underground, in the

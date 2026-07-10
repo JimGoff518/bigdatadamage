@@ -7,6 +7,7 @@ harm: "water"
 location: "odessa"
 seoTitle: "Odessa Data Center Water Use in Permian Basin | Big Data Damage"
 seoDescription: "Explore the significant water challenges posed by data centers in arid Odessa, Texas, including competition with oil fields and the risk of subsidence for landowners."
+image: "/images/location-odessa.jpg"
 ---
 
 Odessa, Texas, situated in the heart of the vast and arid Permian Basin, faces unique challenges as it becomes a potential site for large-scale data center development. This region is a critical hub for the nation's energy production, and its water resources are already strained by the needs of a growing population, agriculture, and the dominant oil and gas industry. The introduction of data centers, with their substantial and continuous demand for water, adds another layer of complexity to the area's already precarious water balance.

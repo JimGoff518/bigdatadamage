@@ -7,6 +7,7 @@ harm: "water"
 location: "sulphur-springs"
 seoTitle: "Sulphur Springs Data Centers & Water Use | Hopkins County Concerns"
 seoDescription: "Explore the potential water impacts of data centers on Sulphur Springs and Hopkins County's dairy industry, covering water usage, local aquifers, and landowner concerns."
+image: "/images/location-sulphur-springs.jpg"
 ---
 
 Hopkins County, Texas, is renowned for its rich agricultural heritage, particularly its thriving dairy industry. Green pastures and active farms are a hallmark of the region, relying heavily on consistent and clean water supplies to sustain livestock, grow feed, and operate daily. However, a new industry is eyeing Texas rural communities like Sulphur Springs: large-scale data centers.

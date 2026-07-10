@@ -6,6 +6,7 @@ author: "Big Data Damage"
 harm: "property"
 seoTitle: "Crypto Mine vs Data Center in Texas: Key Differences"
 seoDescription: "Crypto mine vs data center in Texas: how they differ in purpose and hardware, why mines are louder, and the water, grid, and nuisance concerns neighbors face."
+image: "/images/data-center-interior.jpg"
 ---
 
 You see a big metal building going up on the rural lot down the road. Maybe rows of shipping-container-sized boxes. Maybe a low warehouse humming behind a new fence. Is it a crypto mine or a data center? To a worried neighbor, the question matters, because the two facilities can affect your land, your sleep, and your property value in different ways.
