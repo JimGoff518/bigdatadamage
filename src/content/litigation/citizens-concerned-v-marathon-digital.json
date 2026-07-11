@@ -1,0 +1,22 @@
+{
+  "category": "nuisance",
+  "caption": "Citizens Concerned About Wolf Hollow v. Marathon Digital Holdings, Inc.",
+  "court": "Hood County District Court, Texas",
+  "jurisdiction": "Texas (state court)",
+  "county": "Hood County",
+  "filedDate": "2024-10-07",
+  "status": "answered",
+  "harm": ["property"],
+  "plaintiffs": "Citizens Concerned About Wolf Hollow — a group of Granbury-area residents, represented by Earthjustice",
+  "defendants": "Marathon Digital Holdings, Inc.",
+  "operator": "Marathon Digital Holdings (bitcoin mine at the Wolf Hollow site, Granbury)",
+  "summary": "A group of Granbury residents, represented by Earthjustice, sued Marathon Digital Holdings over its around-the-clock bitcoin-mining operation at the Wolf Hollow gas plant. The suit alleges the facility's cooling systems produce constant noise and low-frequency vibration that its members say cause health effects and interfere with the use of their homes. Because Texas counties generally lack noise-ordinance authority, the residents brought a private nuisance claim asking a court to step in.",
+  "whyItMatters": "It is one of the first Texas nuisance suits testing whether neighbors can force a data-center-scale facility to control its noise — a path other rural landowners are watching closely.",
+  "reliefSought": "Permanent injunction to stop the noise and vibration",
+  "sourceUrl": "https://earthjustice.org/press/2024/granbury-residents-sue-local-bitcoin-mine-over-health-threatening-noise-pollution",
+  "sourceName": "Earthjustice",
+  "lastAction": "Suit filed; later removed to federal court and remanded to state court, litigation ongoing",
+  "lastActionDate": "2024-10-07",
+  "stageNote": "Removed to federal court and remanded to state court; litigation ongoing.",
+  "dateFound": "2026-07-11"
+}

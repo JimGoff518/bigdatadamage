@@ -19,6 +19,7 @@ export const nav = [
   { label: "By Location", href: "/locations" },
   { label: "Your Rights", href: "/your-rights" },
   { label: "Legislation", href: "/legislation" },
+  { label: "Litigation", href: "/litigation" },
   { label: "Resources", href: "/resources" },
   { label: "News", href: "/news" },
   { label: "Contact", href: "/contact" },

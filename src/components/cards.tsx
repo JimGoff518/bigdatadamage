@@ -4,8 +4,14 @@ import type { Article } from "@/lib/articles";
 import type { Topic } from "@/content/topics";
 import type { Location } from "@/content/locations";
 import type { LegislationItem } from "@/lib/legislation";
+import type { LitigationItem } from "@/lib/litigation";
 import { topics } from "@/content/topics";
-import { LEGISLATION_STATUS_META } from "@/lib/legislation";
+import { LEGISLATION_STATUS_META, getLifecycle } from "@/lib/legislation";
+import {
+  LITIGATION_STATUS_META,
+  LITIGATION_CATEGORY_META,
+  getLitigationLifecycle,
+} from "@/lib/litigation";
 import { LifecycleTracker } from "@/components/LifecycleTracker";
 import { Icon } from "@/components/Icons";
 
@@ -141,7 +147,83 @@ export function LegislationCard({ item }: { item: LegislationItem }) {
       </h3>
 
       {/* The lifecycle tracer — where this item sits in the process. */}
-      <LifecycleTracker item={item} variant="card" />
+      <LifecycleTracker
+        lifecycle={getLifecycle(item)}
+        stageDates={item.stageDates}
+        stageNote={item.stageNote}
+        variant="card"
+        ariaLabel="Legislative progress"
+      />
+
+      <p className="mt-4 text-sm leading-relaxed text-fg/70">{item.summary}</p>
+
+      {item.whyItMatters && (
+        <p className="mt-3 border-l-2 border-orange/50 pl-3 text-sm leading-relaxed text-fg/60">
+          <span className="font-semibold text-fg/80">Why it matters: </span>
+          {item.whyItMatters}
+        </p>
+      )}
+
+      {item.harm && item.harm.length > 0 && (
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          {item.harm.map((h) => (
+            <HarmTag key={h} harm={h} />
+          ))}
+        </div>
+      )}
+
+      <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-orange">
+        See where it stands <Icon name="arrow" width={16} height={16} />
+      </span>
+      {item.lastAction && (
+        <span className="mt-2 text-xs text-fg-dim">
+          {item.lastAction}
+          {item.lastActionDate ? ` · ${formatDate(item.lastActionDate)}` : ""}
+        </span>
+      )}
+    </Link>
+  );
+}
+
+// A single tracked data-center lawsuit. The card links to the case's detail page
+// (which shows the full litigation lifecycle and links out to the public
+// record). Summaries are our own words and describe only what the filing
+// asserts — no case is characterized on its merits.
+export function LitigationCard({ item }: { item: LitigationItem }) {
+  const status = LITIGATION_STATUS_META[item.status];
+  const category = LITIGATION_CATEGORY_META[item.category];
+  return (
+    <Link
+      href={`/litigation/${item.slug}`}
+      className="group flex flex-col rounded-md border border-line bg-panel p-5 shadow-card transition-all hover:-translate-y-1 hover:border-orange/60"
+    >
+      <div className="flex flex-wrap items-center gap-2">
+        <span
+          className="inline-flex items-center rounded-sm px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-paper"
+          style={{ backgroundColor: status.colorVar }}
+        >
+          {status.label}
+        </span>
+        <span className="text-xs font-semibold text-fg-dim">
+          {category.label}
+          {item.county ? ` · ${item.county}` : item.jurisdiction ? ` · ${item.jurisdiction}` : ""}
+        </span>
+      </div>
+
+      <h3 className="mt-3 text-lg font-bold italic leading-snug text-fg group-hover:text-orange">
+        {item.caption}
+      </h3>
+
+      {item.court && <p className="mt-1 text-xs text-fg-dim">{item.court}</p>}
+
+      {/* The lifecycle tracer — where this case sits in the process. */}
+      <LifecycleTracker
+        lifecycle={getLitigationLifecycle(item)}
+        stageDates={item.stageDates}
+        stageNote={item.stageNote}
+        variant="card"
+        ariaLabel="Case progress"
+      />
 
       <p className="mt-4 text-sm leading-relaxed text-fg/70">{item.summary}</p>
 

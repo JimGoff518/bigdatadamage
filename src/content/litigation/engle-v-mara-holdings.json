@@ -1,0 +1,23 @@
+{
+  "category": "nuisance",
+  "caption": "Engle v. MARA Holdings, Inc.",
+  "court": "U.S. District Court, Northern District of Texas (Fort Worth Division)",
+  "docketNumber": "4:26-cv-00323 (consolidated with Adair v. Marathon Digital, 4:25-cv-00845)",
+  "jurisdiction": "U.S. federal — N.D. Tex.",
+  "county": "Hood County",
+  "filedDate": "2026-05-04",
+  "status": "filed",
+  "harm": ["property"],
+  "plaintiffs": "Nine Hood County property owners",
+  "defendants": "MARA Holdings, Inc. (formerly Marathon Digital Holdings)",
+  "operator": "Marathon Digital Holdings / MARA (Granbury bitcoin mine)",
+  "summary": "Nine property owners near Granbury sued MARA Holdings, formerly Marathon Digital, in federal court, alleging the bitcoin mine's industrial cooling fans run around the clock at volumes that carry into their homes and disrupt sleep. Their properties sit within roughly a mile of the facility, and they allege the noise interferes with the use and enjoyment of their land and has diminished their property values. The case was consolidated with an earlier, similar suit, Adair v. Marathon Digital, before the same judge.",
+  "whyItMatters": "It shows the Granbury dispute widening from a handful of neighbors into a coordinated group of landowners — and moving into federal court.",
+  "reliefSought": "Damages for private nuisance and injunctive relief",
+  "sourceUrl": "https://blockspace.media/insight/nine-texas-residents-sue-mara-expanding-granbury-bitcoin-mine-noise-fight/",
+  "sourceName": "Blockspace",
+  "lastAction": "Filed; consolidated with Adair v. Marathon Digital before Judge Reed O'Connor",
+  "lastActionDate": "2026-05-04",
+  "stageNote": "Consolidated with Adair v. Marathon Digital before Judge Reed O'Connor.",
+  "dateFound": "2026-07-11"
+}

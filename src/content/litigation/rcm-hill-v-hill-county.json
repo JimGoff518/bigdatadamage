@@ -1,0 +1,23 @@
+{
+  "category": "zoning",
+  "caption": "RCM Hill, LLC v. Hill County",
+  "court": "U.S. District Court, Western District of Texas (Waco Division)",
+  "docketNumber": "6:26-cv-00340",
+  "jurisdiction": "U.S. federal — W.D. Tex.",
+  "county": "Hill County",
+  "filedDate": "2026-05-27",
+  "status": "filed",
+  "plaintiffs": "RCM Hill, LLC — a data-center developer",
+  "defendants": "Hill County and county officials",
+  "operator": "RCM Hill, LLC (proposed ~1,235 MW data center on about 800 acres)",
+  "summary": "A data-center developer, RCM Hill, sued Hill County in federal court after the county adopted a one-year moratorium on data-center construction in May 2026. The developer, which had contracted to acquire about 800 acres for a roughly 1,235-megawatt facility, calls the moratorium unlawful and a regulatory taking of its property. The suit seeks a declaration that the moratorium is void, an injunction, and compensation under the federal and Texas takings clauses. Hill County later rescinded the moratorium and replaced it with a review process, but the developer's damages claim continues.",
+  "whyItMatters": "It is an early test of how far a Texas county can go to pause data-center development — and a reminder that these legal fights run in both directions, not only landowner against operator.",
+  "reliefSought": "Declaratory judgment voiding the moratorium, injunction, and takings compensation",
+  "sourceUrl": "https://www.klgates.com/Facing-a-Federal-Lawsuit-Hill-County-Repeals-Blanket-Pause-on-Data-Center-Construction-Adopting-New-Approval-Procedures-Instead-6-10-2026",
+  "sourceName": "K&L Gates",
+  "docketUrl": "https://www.pacermonitor.com/public/case/64865643/RCM_Hill,_LLC_v_Hill_County_et_al",
+  "lastAction": "Hill County rescinded the moratorium and adopted a review process; the developer's damages claim continues",
+  "lastActionDate": "2026-06-10",
+  "stageNote": "Hill County rescinded the moratorium (June 2026); the developer's damages claim continues.",
+  "dateFound": "2026-07-11"
+}

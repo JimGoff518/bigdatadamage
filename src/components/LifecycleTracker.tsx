@@ -1,6 +1,5 @@
-import type { CSSProperties } from "react";
-import type { LegislationItem } from "@/lib/legislation";
-import { getLifecycle, HEARING_VIDEO } from "@/lib/legislation";
+import type { CSSProperties, ReactNode } from "react";
+import type { Lifecycle } from "@/lib/legislation";
 
 // Local date formatter (kept here to avoid a circular import with cards.tsx).
 function fmtDate(iso: string): string {
@@ -9,34 +8,49 @@ function fmtDate(iso: string): string {
   return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 }
 
-// Where a bill / statute / ordinance sits in the legislative lifecycle, drawn as
-// a tracer line: each stage has its own color (a golden-hour ramp), completed
-// stages fill in, the current stage glows, a died item stops at a red marker.
-// Hovering a dot shows the date that stage was reached; a committee stage links
-// to live hearing video. Pure CSS animation (no client JS) — the fill width is
-// an inline `--fill` custom property; prefers-reduced-motion shows the resting
-// state. See globals.css.
+// Where an item sits in a lifecycle, drawn as a tracer line: each stage has its
+// own color (a golden-hour ramp), completed stages fill in, the current stage
+// glows, a died/terminal item stops at a colored marker. Hovering a dot shows
+// the date that stage was reached. Pure CSS animation (no client JS) — the fill
+// width is an inline `--fill` custom property; prefers-reduced-motion shows the
+// resting state. See globals.css.
+//
+// The component is domain-agnostic: pass a precomputed `lifecycle` (from
+// getLifecycle for bills, getLitigationLifecycle for cases) plus any stage
+// dates / note and an optional `footer` (e.g. the legislative hearing button).
 export function LifecycleTracker({
-  item,
+  lifecycle,
+  stageDates: stageDatesProp,
+  stageNote,
   variant = "card",
+  ariaLabel = "Progress",
+  footer,
 }: {
-  item: LegislationItem;
+  lifecycle: Lifecycle;
+  stageDates?: Record<string, string>;
+  stageNote?: string;
   variant?: "card" | "detail";
+  ariaLabel?: string;
+  footer?: ReactNode;
 }) {
-  const { track, currentIndex, terminal, terminalLabel } = getLifecycle(item);
+  const { track, currentIndex, terminal, terminalLabel } = lifecycle;
   const n = track.length;
   const last = Math.max(1, n - 1);
   const fillPct = (currentIndex / last) * 100;
   const detail = variant === "detail";
   const current = track[currentIndex];
-  const dates = item.stageDates ?? {};
+  const dates = stageDatesProp ?? {};
 
   const DANGER = "var(--color-danger)";
-  const curColor = terminal ? DANGER : current.color;
+  const curColor = terminal ? (lifecycle.terminalColor ?? DANGER) : current.color;
   const fillStyle: CSSProperties = {
     background: `linear-gradient(to right, ${track[0].color}, ${curColor})`,
   };
-  const inCommittee = !terminal && current.key === "committee";
+  // Halo around the current/terminal dot, tinted to match its color (overrides
+  // the CSS default so a positive "settled" reads green, not red).
+  const haloStyle: CSSProperties = {
+    boxShadow: `0 0 0 4px color-mix(in srgb, ${curColor} 25%, transparent)`,
+  };
 
   const summary = terminal
     ? `${terminalLabel} at stage ${currentIndex + 1} of ${n}, ${current.label}`
@@ -47,7 +61,7 @@ export function LifecycleTracker({
       <div
         className="lifecycle"
         role="img"
-        aria-label={`Legislative progress — ${summary}`}
+        aria-label={`${ariaLabel} — ${summary}`}
         style={{ "--fill": `${fillPct}%` } as CSSProperties}
       >
         <div className="lifecycle-inner" aria-hidden="true">
@@ -63,6 +77,7 @@ export function LifecycleTracker({
             const dotStyle = {
               left: `${(i / last) * 100}%`,
               ...(dotColor ? { "--dot": dotColor } : {}),
+              ...(isCurrent ? haloStyle : {}),
             } as CSSProperties;
             return (
               <span
@@ -80,7 +95,7 @@ export function LifecycleTracker({
       {!detail && (
         <p className="mt-2.5 text-[11px] font-semibold">
           {terminal ? (
-            <span style={{ color: DANGER }}>
+            <span style={{ color: curColor }}>
               {terminalLabel} · {current.label}
             </span>
           ) : (
@@ -88,7 +103,7 @@ export function LifecycleTracker({
               Stage {currentIndex + 1} of {n} · {current.label}
             </span>
           )}
-          {item.stageNote ? <span className="text-fg-dim"> · {item.stageNote}</span> : null}
+          {stageNote ? <span className="text-fg-dim"> · {stageNote}</span> : null}
         </p>
       )}
 
@@ -133,43 +148,9 @@ export function LifecycleTracker({
             })}
           </ol>
 
-          {item.stageNote && <p className="mt-4 text-sm italic text-fg/70">{item.stageNote}</p>}
+          {stageNote && <p className="mt-4 text-sm italic text-fg/70">{stageNote}</p>}
 
-          {inCommittee && (
-            <div className="mt-6">
-              {item.chamber === "senate" || item.chamber === "house" ? (
-                <a
-                  href={HEARING_VIDEO[item.chamber]}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-sm bg-orange px-4 py-2 text-sm font-bold text-paper transition-colors hover:bg-orange-bright"
-                >
-                  ▶ Watch the {item.chamber === "senate" ? "Senate" : "House"} hearing
-                </a>
-              ) : (
-                <p className="text-sm text-fg/70">
-                  Watch live committee testimony:{" "}
-                  <a
-                    href={HEARING_VIDEO.house}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-orange underline"
-                  >
-                    House
-                  </a>
-                  {" · "}
-                  <a
-                    href={HEARING_VIDEO.senate}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-orange underline"
-                  >
-                    Senate
-                  </a>
-                </p>
-              )}
-            </div>
-          )}
+          {footer}
         </>
       )}
     </div>

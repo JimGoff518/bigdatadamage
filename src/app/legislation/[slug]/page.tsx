@@ -8,6 +8,8 @@ import { Icon } from "@/components/Icons";
 import {
   getLegislation,
   getLegislationItem,
+  getLifecycle,
+  HEARING_VIDEO,
   LEGISLATION_STATUS_META,
   LEGISLATION_CATEGORY_META,
 } from "@/lib/legislation";
@@ -36,6 +38,47 @@ export default async function LegislationDetailPage(props: PageProps<"/legislati
 
   const status = LEGISLATION_STATUS_META[item.status];
   const category = LEGISLATION_CATEGORY_META[item.category];
+
+  // Compute the lifecycle here so the tracker stays domain-agnostic. When a
+  // bill sits in committee, offer the live hearing video as the tracker footer.
+  const lifecycle = getLifecycle(item);
+  const currentStage = lifecycle.track[lifecycle.currentIndex];
+  const inCommittee = !lifecycle.terminal && currentStage.key === "committee";
+  const hearingFooter = inCommittee ? (
+    <div className="mt-6">
+      {item.chamber === "senate" || item.chamber === "house" ? (
+        <a
+          href={HEARING_VIDEO[item.chamber]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-sm bg-orange px-4 py-2 text-sm font-bold text-paper transition-colors hover:bg-orange-bright"
+        >
+          ▶ Watch the {item.chamber === "senate" ? "Senate" : "House"} hearing
+        </a>
+      ) : (
+        <p className="text-sm text-fg/70">
+          Watch live committee testimony:{" "}
+          <a
+            href={HEARING_VIDEO.house}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-orange underline"
+          >
+            House
+          </a>
+          {" · "}
+          <a
+            href={HEARING_VIDEO.senate}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-orange underline"
+          >
+            Senate
+          </a>
+        </p>
+      )}
+    </div>
+  ) : null;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -85,7 +128,14 @@ export default async function LegislationDetailPage(props: PageProps<"/legislati
           <p className="eyebrow text-[11px] text-hazard">Where it stands</p>
           <h2 className="mt-1 text-xl font-bold text-fg">Lifecycle</h2>
           <div className="mt-7">
-            <LifecycleTracker item={item} variant="detail" />
+            <LifecycleTracker
+              lifecycle={lifecycle}
+              stageDates={item.stageDates}
+              stageNote={item.stageNote}
+              variant="detail"
+              ariaLabel="Legislative progress"
+              footer={hearingFooter}
+            />
           </div>
         </div>
 

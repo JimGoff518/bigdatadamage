@@ -1,0 +1,22 @@
+{
+  "category": "environmental",
+  "national": true,
+  "caption": "NAACP v. xAI, Inc.",
+  "court": "U.S. District Court, Northern District of Mississippi",
+  "docketNumber": "3:26-cv-00074",
+  "jurisdiction": "U.S. federal — N.D. Miss.",
+  "status": "motions",
+  "harm": ["air"],
+  "plaintiffs": "NAACP — represented by the Southern Environmental Law Center and Earthjustice",
+  "defendants": "xAI, Inc. and MZX Tech, LLC",
+  "operator": "xAI (\"Colossus\" AI data center and the gas turbines powering it, near Memphis)",
+  "summary": "The NAACP sued xAI under the Clean Air Act, alleging the company installed and ran dozens of gas turbines to power its \"Colossus\" AI data center without the air permits the law requires. The complaint says the turbines emit large volumes of smog-forming nitrogen oxides over nearby, largely Black neighborhoods already burdened by poor air quality. It asks the court to halt the turbines until they are permitted and controlled, and to impose civil penalties. The U.S. Department of Justice later moved to intervene, arguing the case implicates power supply for AI used by the military.",
+  "whyItMatters": "It is the highest-profile environmental case yet over the air pollution from powering AI data centers — a preview of the permitting and air-quality fights Texas facilities may face.",
+  "reliefSought": "Injunction to stop unpermitted operation, pollution controls, and civil penalties",
+  "sourceUrl": "https://earthjustice.org/case/xai-illegal-gas-power-plant-data-center-colossus",
+  "sourceName": "Earthjustice",
+  "lastAction": "Emergency motion for a preliminary injunction filed; DOJ moved to intervene",
+  "lastActionDate": "2026-05-06",
+  "stageNote": "The U.S. Department of Justice moved to intervene and to dismiss.",
+  "dateFound": "2026-07-11"
+}

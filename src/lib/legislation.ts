@@ -200,6 +200,7 @@ export type Lifecycle = {
   currentIndex: number; // furthest stage reached (index into track)
   terminal: boolean; // true if it died/failed here rather than advancing
   terminalLabel?: string; // e.g. "Failed", "Rejected"
+  terminalColor?: string; // color for the terminal marker (defaults to danger red)
 };
 
 // Map the coarse status onto a track index when no explicit stage is given.

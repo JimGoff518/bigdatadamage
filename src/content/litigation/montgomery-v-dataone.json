@@ -1,0 +1,19 @@
+{
+  "category": "nuisance",
+  "national": true,
+  "caption": "Montgomery v. DataOne USA",
+  "jurisdiction": "New Jersey (near Vineland)",
+  "status": "filed",
+  "harm": ["property"],
+  "plaintiffs": "Scott Montgomery, Michael Gentile, and neighboring households",
+  "defendants": "DataOne USA",
+  "operator": "DataOne USA / Nebius Group (AI data center near Vineland, New Jersey)",
+  "summary": "Neighbors of an AI data center near Vineland, New Jersey sued the operator over a constant low-frequency \"hum\" that a viral video captured carrying across surrounding farmland. The plaintiffs, who live within about a mile of the site, allege the noise from cooling and power equipment interferes with the use of their homes and, they say, has diminished their property values. Before the suit, the county health department issued a notice of violation for nighttime noise exceeding local limits.",
+  "whyItMatters": "It is one of the clearest out-of-state examples of a data-center noise nuisance suit — the same fact pattern now playing out in Texas.",
+  "reliefSought": "Class-action damages and injunctive relief to reduce the noise",
+  "sourceUrl": "https://www.govtech.com/artificial-intelligence/new-jersey-neighbors-sue-over-humming-noise-from-data-center",
+  "sourceName": "GovTech",
+  "lastAction": "County health department issued a noise notice of violation; suit filed",
+  "lastActionDate": "2026-03-10",
+  "dateFound": "2026-07-11"
+}
