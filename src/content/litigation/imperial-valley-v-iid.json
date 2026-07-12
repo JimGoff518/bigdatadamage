@@ -1,0 +1,19 @@
+{
+  "category": "water",
+  "national": true,
+  "caption": "Imperial Valley Computer Manufacturing, LLC v. Imperial Irrigation District",
+  "jurisdiction": "California — Imperial County",
+  "status": "filed",
+  "harm": ["water"],
+  "plaintiffs": "Imperial Valley Computer Manufacturing, LLC — an AI data-center developer",
+  "defendants": "Imperial Irrigation District — the regional water authority",
+  "operator": "Imperial Valley Computer Manufacturing (proposed large AI data center, Imperial County, CA)",
+  "summary": "A developer planning a large AI data center in California's Imperial Valley sued the Imperial Irrigation District after the district denied its request for Colorado River water to cool the facility. The developer, which says it leased farmland it would let go dormant to offset the demand, seeks roughly 260 million gallons a year and asks the court to order the district to provide the water. The district denied the request in May 2026.",
+  "whyItMatters": "It is a direct court fight over whether a data center can claim scarce Colorado River water — the clearest test yet of data-center water demand against existing users.",
+  "reliefSought": "Court order directing the water district to supply the requested water",
+  "sourceUrl": "https://www.kpbs.org/news/environment/2026/06/15/imperial-valley-data-center-developer-files-lawsuit-seeking-access-to-colorado-river-water",
+  "sourceName": "KPBS",
+  "lastAction": "Water district denied the water request; developer filed suit",
+  "lastActionDate": "2026-06-15",
+  "dateFound": "2026-07-11"
+}

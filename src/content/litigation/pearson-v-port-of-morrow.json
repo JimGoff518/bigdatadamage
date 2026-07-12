@@ -1,0 +1,23 @@
+{
+  "category": "water",
+  "national": true,
+  "caption": "Pearson v. Port of Morrow",
+  "court": "U.S. District Court, District of Oregon (Pendleton Division)",
+  "docketNumber": "2:24-cv-00362",
+  "jurisdiction": "U.S. federal — D. Or.",
+  "status": "discovery",
+  "harm": ["water"],
+  "plaintiffs": "Morrow and Umatilla County, Oregon residents, on behalf of a certified class",
+  "defendants": "Port of Morrow, Lamb Weston, area agricultural operations, and others; Amazon Data Services settled its share",
+  "operator": "Amazon Data Services (data centers in Morrow County since 2011)",
+  "summary": "Residents of a rural Oregon groundwater area sued the Port of Morrow and several industrial and agricultural operations, alleging that nitrate-laden wastewater — including from data centers at the port — was spread on nearby farmland and contaminated drinking-water wells above federal limits. A judge certified the case as a class action. Amazon Data Services, which has run data centers in the county since 2011, agreed in March 2026 to pay $20.5 million to settle its share without admitting liability; the case continues against the remaining defendants, with trial set for 2027.",
+  "whyItMatters": "It is the first case in which a data-center operator has paid to resolve claims that its wastewater helped contaminate neighbors' groundwater — a concrete precedent for water-harm litigation.",
+  "reliefSought": "Class-action damages for groundwater contamination",
+  "sourceUrl": "https://oregoncapitalchronicle.com/briefs/federal-judge-allows-class-action-over-eastern-oregon-water-pollution-to-move-forward/",
+  "sourceName": "Oregon Capital Chronicle",
+  "docketUrl": "https://dockets.justia.com/docket/oregon/ordce/2:2024cv00362/178407",
+  "lastAction": "Amazon Data Services settled its share for $20.5M; case continues against the remaining defendants",
+  "lastActionDate": "2026-03-31",
+  "stageNote": "Class certified; Amazon Data Services settled its share for $20.5M (March 2026); trial set for 2027 against the remaining defendants.",
+  "dateFound": "2026-07-11"
+}

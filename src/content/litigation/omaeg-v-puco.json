@@ -1,0 +1,21 @@
+{
+  "category": "utility",
+  "national": true,
+  "caption": "Ohio Manufacturers' Association Energy Group v. Public Utilities Commission of Ohio",
+  "court": "Supreme Court of Ohio",
+  "docketNumber": "2025-1458",
+  "jurisdiction": "Ohio (state supreme court appeal)",
+  "status": "appeal",
+  "plaintiffs": "Ohio Manufacturers' Association Energy Group, representing large industrial energy users",
+  "defendants": "Public Utilities Commission of Ohio, defending AEP Ohio's data-center tariff",
+  "operator": "AEP Ohio (the utility whose data-center tariff is challenged)",
+  "summary": "An Ohio industrial-energy group is asking the Ohio Supreme Court to overturn a state-approved \"data center tariff\" for the utility AEP Ohio. The tariff requires large new data centers (25 megawatts and up) to pay for at least 85% of the power capacity they reserve for 12 years, even if they use less. The challengers argue the commission's approval was unlawful and rests on speculation about future demand. The commission is defending the tariff, which it approved in 2025.",
+  "whyItMatters": "It is the first appellate test of a data-center-specific electricity tariff — the same \"who pays for the grid\" fight Texas is heading into under its own new large-load rules.",
+  "reliefSought": "Reversal of the commission's approval of the data-center tariff",
+  "sourceUrl": "https://ohiocapitaljournal.com/2025/11/13/ohio-manufacturers-association-challenges-new-utility-billing-for-data-centers/",
+  "sourceName": "Ohio Capital Journal",
+  "lastAction": "Briefing completed; awaiting oral argument",
+  "lastActionDate": "2026-03-24",
+  "stageNote": "Appeal of the utility commission's order; briefing complete, awaiting oral argument.",
+  "dateFound": "2026-07-11"
+}

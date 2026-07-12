@@ -1,0 +1,111 @@
+{
+  "name": "BDD — Litigation Radar (case leads)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [ { "field": "weeks", "triggerAtDay": [ 2 ], "triggerAtHour": 8 } ] }
+      },
+      "id": "33333333-4444-5555-6666-000000000001",
+      "name": "Schedule (weekly Tue 8am)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [ -640, 360 ]
+    },
+    {
+      "parameters": {},
+      "id": "33333333-4444-5555-6666-000000000002",
+      "name": "Run now (manual)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [ -640, 540 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Feeds aimed at data-center LITIGATION across the five tracker categories\n// (nuisance/noise, water, zoning, environmental, utility). Google News RSS is\n// the backbone; a CourtListener RECAP feed adds newly-filed FEDERAL dockets.\n// Texas-first, but national landmark filings are wanted too (flagged later).\nconst DQ = String.fromCharCode(34);\nconst DC = DQ + 'data center' + DQ;\nconst NEWS = [\n  'Texas ' + DC + ' (lawsuit OR sued OR complaint OR nuisance OR injunction)',\n  'Texas (' + DC + ' OR ' + DQ + 'bitcoin mine' + DQ + ' OR ' + DQ + 'crypto mine' + DQ + ') (noise OR nuisance) (lawsuit OR sued OR petition)',\n  DC + ' (ratepayer OR ' + DQ + 'public utility commission' + DQ + ' OR PUC OR tariff OR ' + DQ + 'cost allocation' + DQ + ' OR interconnection) (lawsuit OR appeal OR complaint OR petition)',\n  DC + ' (groundwater OR water OR well OR ' + DQ + 'water rights' + DQ + ') (lawsuit OR sued OR petition OR permit)',\n  '(' + DC + ' OR ' + DQ + 'data centers' + DQ + ') (zoning OR moratorium OR ' + DQ + 'special use' + DQ + ') (lawsuit OR sued OR takings OR appeal)',\n  DC + ' (' + DQ + 'clean air act' + DQ + ' OR TCEQ OR emissions OR permit) (lawsuit OR sued OR ' + DQ + 'citizen suit' + DQ + ' OR NAACP)'\n];\nconst feeds = NEWS.map(q => ({ json: { url: 'https://news.google.com/rss/search?q=' + encodeURIComponent(q) + '&hl=en-US&gl=US&ceid=US:en', query: q } }));\n// CourtListener RECAP (newly-filed federal dockets). Best-effort: if the feed\n// URL ever changes, the RSS node is set to continue on error, so it just yields\n// nothing and the news feeds still run.\nconst CL = [ '\"data center\" nuisance', '\"data center\" clean air act' ];\nfor (const q of CL) {\n  feeds.push({ json: { url: 'https://www.courtlistener.com/feed/search/?q=' + encodeURIComponent(q) + '&type=r&order_by=dateFiled+desc', query: 'CourtListener: ' + q } });\n}\nreturn feeds;"
+      },
+      "id": "33333333-4444-5555-6666-000000000003",
+      "name": "Build query feeds",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ -400, 360 ]
+    },
+    {
+      "parameters": { "url": "={{ $json.url }}", "options": {} },
+      "id": "33333333-4444-5555-6666-000000000004",
+      "name": "News + docket RSS",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [ -180, 360 ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect RSS articles into one numbered text block + a lookup list so the\n// filter sees all headlines at once and cites each by index (real link mapped\n// back later by sourceIndex — no URL hallucination).\nconst items = $input.all();\nconst headlines = [];\nfor (const it of items) {\n  const j = it.json || {};\n  const title = String(j.title || '').trim();\n  if (!title) continue;\n  const url = String(j.link || j.guid || '').trim();\n  const snippet = String(j.contentSnippet || j.content || '').replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').trim().slice(0, 280);\n  let source = String(j.creator || '').trim();\n  if (!source && title.includes(' - ')) source = title.split(' - ').pop().trim();\n  headlines.push({ i: headlines.length, title, snippet, url, source });\n}\nconst text = headlines.map(h => h.i + ') ' + h.title + (h.snippet ? ' \\u2014 ' + h.snippet : '')).join('\\n');\nreturn [{ json: { headlines, text } }];"
+      },
+      "id": "33333333-4444-5555-6666-000000000005",
+      "name": "Collect headlines",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 40, 360 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googlePalmApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  contents: [{ parts: [{ text:\n    \"You are screening news/docket headlines for genuine LITIGATION involving DATA CENTERS or large crypto-mining facilities: a filed lawsuit, court case, or contested agency/utility-commission proceeding. Classify each real lead by category (one of: nuisance, water, zoning, environmental, utility). IGNORE: opinion pieces, market/industry trends, general policy or legislation (bills/ordinances belong on the legislation radar), press releases, and anything that is not an actual legal proceeding. Return STRICT JSON: an array of objects with keys: caption (the case name/caption IF it appears in the headline, else empty string — DO NOT invent one), category (nuisance|water|zoning|environmental|utility), texas (true if the matter is in Texas, else false), why (ONE sentence, your own words, on why it matters to landowners), sourceIndex (the integer of the headline). If none qualify, return []. Never fabricate a caption, court, or docket number. HEADLINES:\\n\" + $('Collect headlines').first().json.text\n  }]}],\n  generationConfig: { temperature: 0, responseMimeType: \"application/json\" }\n}) }}",
+        "options": {}
+      },
+      "id": "33333333-4444-5555-6666-000000000006",
+      "name": "Gemini: filter leads",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 260, 360 ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000,
+      "credentials": { "googlePalmApi": { "id": "REPLACE_ME", "name": "Google Gemini(PaLM) Api account" } }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Turn the filtered leads into a single email digest. Maps each lead back to its\n// real source URL by sourceIndex. Writes NO tracker entries — leads only. Texas\n// leads are listed first. Category is shown so you know which section it feeds.\nconst resp = $json;\nlet text = '';\ntry { text = resp.candidates[0].content.parts[0].text || ''; } catch (e) { text = ''; }\ntext = text.trim().replace(/^```(json)?/i, '').replace(/```$/, '').trim();\nlet leads = [];\ntry { leads = JSON.parse(text); } catch (e) {\n  const m = text.match(/\\[([\\s\\S]*)\\]/);\n  if (m) { try { leads = JSON.parse(m[0]); } catch (e2) { leads = []; } }\n}\nif (!Array.isArray(leads)) leads = [];\nconst headlines = $('Collect headlines').first().json.headlines || [];\n\nleads.sort((a, b) => (b.texas === true ? 1 : 0) - (a.texas === true ? 1 : 0));\nconst rows = leads.map(l => {\n  const src = headlines[l.sourceIndex] || {};\n  const url = (src.url && /^https?:\\/\\//i.test(src.url)) ? src.url : '';\n  if (!url) return '';\n  const cat = String(l.category || 'case');\n  const scope = l.texas === true ? 'TX' : 'national';\n  const cap = l.caption ? ' <em>' + l.caption + '</em>' : '';\n  return '<li style=\"margin-bottom:12px\"><strong>[' + cat + ' \\u00b7 ' + scope + ']</strong>' + cap + ' ' + (src.title || '') + '<br><span style=\"color:#555\">' + (l.why || '') + '</span><br><a href=\"' + url + '\">' + (src.source || 'source') + ' &raquo;</a></li>';\n}).filter(Boolean);\n\nconst date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });\nlet html;\nif (rows.length === 0) {\n  html = '<h2>Litigation radar \\u2014 ' + date + '</h2><p>No new data-center litigation leads this week.</p>';\n} else {\n  html = '<h2>Litigation radar \\u2014 ' + date + '</h2><p>' + rows.length + ' possible lead(s). These are LEADS ONLY \\u2014 verify each against the actual court/agency docket before publishing. Curate a /litigation entry only from matters you can confirm: copy <code>src/content/litigation/_example.json</code>, describe only what the filing ASSERTS, cite a public sourceUrl, and never call a party liable before a court rules.</p><ul style=\"padding-left:18px\">' + rows.join('') + '</ul>';\n}\nreturn [{ json: { emailBodyHtml: html, leadCount: rows.length } }];"
+      },
+      "id": "33333333-4444-5555-6666-000000000007",
+      "name": "Build digest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 480, 360 ]
+    },
+    {
+      "parameters": {
+        "sendTo": "jim@gofflawdfw.com",
+        "subject": "=Litigation radar: {{ $json.leadCount }} lead(s)",
+        "message": "={{ $json.emailBodyHtml }}",
+        "options": { "appendAttribution": false }
+      },
+      "id": "33333333-4444-5555-6666-000000000008",
+      "name": "Email leads",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [ 700, 360 ],
+      "credentials": { "gmailOAuth2": { "id": "REPLACE_ME", "name": "Gmail account 3" } }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule (weekly Tue 8am)": { "main": [ [ { "node": "Build query feeds", "type": "main", "index": 0 } ] ] },
+    "Run now (manual)": { "main": [ [ { "node": "Build query feeds", "type": "main", "index": 0 } ] ] },
+    "Build query feeds": { "main": [ [ { "node": "News + docket RSS", "type": "main", "index": 0 } ] ] },
+    "News + docket RSS": { "main": [ [ { "node": "Collect headlines", "type": "main", "index": 0 } ] ] },
+    "Collect headlines": { "main": [ [ { "node": "Gemini: filter leads", "type": "main", "index": 0 } ] ] },
+    "Gemini: filter leads": { "main": [ [ { "node": "Build digest", "type": "main", "index": 0 } ] ] },
+    "Build digest": { "main": [ [ { "node": "Email leads", "type": "main", "index": 0 } ] ] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "meta": { "templateCredsSetupCompleted": true },
+  "tags": []
+}
