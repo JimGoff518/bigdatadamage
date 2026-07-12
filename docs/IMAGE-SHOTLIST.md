@@ -1,8 +1,15 @@
 # Image Shot List — Texas Data Center Watchdog
 
-Generate these with your AI pipeline (the Gemini/Midjourney workflow you used for the Facebook
-ads), then drop the files into this folder using the **exact filenames** below. The site is wired
-to pick them up automatically (dark gradient overlays keep headline text readable).
+> **⚠️ DEPRECATED — DO NOT AI-GENERATE THESE (policy change 2026-07-11).**
+> The site no longer uses AI-generated images. Source all imagery as **real, commercial-use-licensed
+> stock** (existing Fiverr library in `/Images`, or a Shutterstock purchase). AI images created a
+> credibility risk for a fact-based Texas site (and carried a visible generator watermark). Keep the
+> filenames below as the site's slots, but fill them with licensed photos only.
+> The prompts below are retained for reference on the intended *composition* — not for generation.
+
+Use the **exact filenames** below; drop the licensed file into `public/images/` and the site picks
+it up automatically (dark gradient overlays keep headline text readable). Optimize before committing
+(resize to the widths noted, mozjpeg q80) — see `scripts/` for the sharp workflow.
 
 ## House style (applies to every shot)
 - **Cinematic, documentary, investigative.** No smiling lawyers, no gavels, no scales of justice,
