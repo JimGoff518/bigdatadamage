@@ -6,8 +6,7 @@ import { Icon } from "@/components/Icons";
 
 export function Hero() {
   const reduce = useReducedMotion();
-  // When reduced motion is requested, render text at its final position (no fade/slide)
-  // and don't autoplay the background video.
+  // When reduced motion is requested, render text at its final position (no fade/slide).
   const reveal = (offset: { opacity: number; y: number }) =>
     reduce ? false : offset;
 
@@ -16,21 +15,7 @@ export function Hero() {
       className="relative overflow-hidden bg-night bg-cover bg-center text-paper"
       style={{ backgroundImage: "url('/images/hero-fenceline.jpg')" }}
     >
-      {/* Background video; falls back to the hero photo (poster) if it can't play.
-          Autoplay is disabled when the visitor prefers reduced motion. */}
-      <video
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        autoPlay={!reduce}
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster="/images/hero-fenceline.jpg"
-        aria-hidden
-      >
-        <source src="/videos/hero.mp4" type="video/mp4" />
-      </video>
-      {/* Darkening overlay so text stays readable over the video/photo */}
+      {/* Darkening overlay so text stays readable over the hero photo */}
       <div className="pointer-events-none absolute inset-0 bg-night/55" />
       {/* warm golden-hour wash */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-orange/15 via-transparent to-night/30" />
