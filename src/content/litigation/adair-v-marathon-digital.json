@@ -1,0 +1,23 @@
+{
+  "category": "nuisance",
+  "caption": "Adair v. Marathon Digital Holdings, Inc.",
+  "court": "U.S. District Court, Northern District of Texas (Fort Worth Division)",
+  "docketNumber": "4:25-cv-00845-O (removed from Hood County District Court, C2025338; consolidated with Engle v. MARA Holdings, 4:26-cv-00323)",
+  "jurisdiction": "U.S. federal — N.D. Tex. (removed from Texas state court)",
+  "county": "Hood County",
+  "filedDate": "2025-07-29",
+  "status": "answered",
+  "harm": ["property"],
+  "plaintiffs": "Twenty-three Hood County property owners",
+  "defendants": "Marathon Digital Holdings, Inc. and a site manager",
+  "operator": "Marathon Digital Holdings / MARA (Granbury bitcoin mine)",
+  "summary": "Twenty-three property owners near Granbury sued Marathon Digital Holdings and a site manager over the bitcoin mine, alleging its industrial cooling fans run around the clock and produce noise, vibration, and low-frequency sound that carry into their homes. The suit claims those conditions substantially interfere with the use and enjoyment of their land; the plaintiffs allege health effects and diminished property values. Originally filed in Hood County District Court, the case was removed to federal court and consolidated with a related suit, Engle v. MARA Holdings, before the same judge.",
+  "whyItMatters": "It is the largest of the Granbury nuisance suits and the one that pulled the fight into federal court — a bellwether for whether neighbors can win damages and an injunction against a data-center-scale operation.",
+  "reliefSought": "Damages and a permanent injunction to stop the noise and vibration",
+  "sourceUrl": "https://blockspace.media/insight/nine-texas-residents-sue-mara-expanding-granbury-bitcoin-mine-noise-fight/",
+  "sourceName": "Blockspace",
+  "lastAction": "Removed to federal court; consolidated with Engle v. MARA Holdings before Judge Reed O'Connor",
+  "lastActionDate": "2026-04-17",
+  "stageNote": "Removed from state court and consolidated with Engle v. MARA Holdings before Judge Reed O'Connor.",
+  "dateFound": "2026-07-12"
+}
