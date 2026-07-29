@@ -1,0 +1,13 @@
+{
+  "name": "Stargate Data Center",
+  "operator": "Stargate",
+  "county": "Taylor",
+  "status": "operating",
+  "sourceUrl": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPWDFVSHlBdlJvc3BLODgxVEtoblRveTV2Rk11Z2JxSG9MZ2pKczY2dkgyQmk4a1ZIMGVLUGl1WHVtYUd2ZnlDYXpkN0RyU0lZM1hnanI3N0xISHl1NmtZbkxmNzFJdUNBajRVQWpESjdmY3VMQzhiMFFxTkVNSUkzS3VFdEdaeXlnYk5v?oc=5",
+  "sourceName": "Time Magazine",
+  "note": "The Stargate Data Center in Abilene has faced worker safety concerns and lawsuits. (Our summary; see source.)",
+  "dateFound": "2026-07-01",
+  "city": "Abilene",
+  "lat": 32.3,
+  "lng": -99.89
+}
