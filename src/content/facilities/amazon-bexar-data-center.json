@@ -1,0 +1,13 @@
+{
+  "name": "Amazon Data Center",
+  "operator": "Amazon",
+  "county": "Bexar",
+  "status": "proposed",
+  "sourceUrl": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNMEZjZVhwcnFRVFVGRzRnckpTaDYwTngyYVJkc3dzemp0UlN5ZGRha0FwMVN2dmtraElRdHJnc3lhOHlZcFdMczV5M3EzM1lDajNYSnluTnVZVU1JalJ2LVR1R29ncDJJZDdzQ3dfakkzQ0xGM2RuRXVHNDVoWHZwLV8wMGRwR3Q2QnJ6NjZhdFdxYmpISW0xdTF4YzQ4VnpKSE9vN1FnX09QVWZfMFFKclhYVk1tZUZQ?oc=5",
+  "sourceName": "Data Center Dynamics",
+  "note": "Planning documents reveal three Amazon data centers in Texas under the codename AWS Rockfish, including one on the Southeast Side of San Antonio. (Our summary; see source.)",
+  "dateFound": "2026-07-01",
+  "city": "San Antonio",
+  "lat": 29.45,
+  "lng": -98.52
+}
