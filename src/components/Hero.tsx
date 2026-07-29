@@ -17,6 +17,8 @@ export function Hero() {
     >
       {/* Darkening overlay so text stays readable over the hero photo */}
       <div className="pointer-events-none absolute inset-0 bg-night/55" />
+      {/* Directional scrim: darkens the left text column while leaving the photo visible on the right */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-night/85 via-night/45 to-transparent" />
       {/* warm golden-hour wash */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-orange/15 via-transparent to-night/30" />
       <div className="pointer-events-none absolute inset-0 grid-texture opacity-50" />
@@ -37,13 +39,13 @@ export function Hero() {
           initial={reveal({ opacity: 0, y: 18 })}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05 }}
-          className="mt-5 max-w-3xl text-balance text-4xl font-bold leading-[1.03] sm:text-6xl"
+          className="mt-5 max-w-3xl text-balance text-4xl font-bold leading-[1.03] [text-shadow:0_2px_12px_rgba(20,15,8,0.65)] sm:text-6xl"
         >
           They&apos;re draining Texas dry.
-          <span className="block text-orange">It&apos;s your water.</span>
-          <span className="block text-orange">It&apos;s your air.</span>
-          <span className="block text-orange">It&apos;s your land.</span>
-          <span className="block text-orange">Fight to keep it.</span>
+          <span className="block text-orange-bright">It&apos;s your water.</span>
+          <span className="block text-orange-bright">It&apos;s your air.</span>
+          <span className="block text-orange-bright">It&apos;s your land.</span>
+          <span className="block text-orange-bright">Fight to keep it.</span>
         </motion.h1>
 
         <motion.p

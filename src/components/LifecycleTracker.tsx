@@ -3,7 +3,10 @@ import type { Lifecycle } from "@/lib/legislation";
 
 // Local date formatter (kept here to avoid a circular import with cards.tsx).
 function fmtDate(iso: string): string {
-  const d = new Date(iso);
+  // Anchor date-only values (YYYY-MM-DD) to local midnight; a bare parse is UTC
+  // and renders a day early in US time zones.
+  const value = /^\d{4}-\d{2}-\d{2}$/.test(iso) ? `${iso}T00:00:00` : iso;
+  const d = new Date(value);
   if (Number.isNaN(d.getTime())) return "";
   return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 }

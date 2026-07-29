@@ -19,7 +19,8 @@ export type LegislationStatus =
   | "enacted"
   | "in-effect"
   | "adopted"
-  | "failed";
+  | "failed"
+  | "repealed";
 
 export type LegislationItem = {
   slug: string;
@@ -57,6 +58,7 @@ const STATUSES: LegislationStatus[] = [
   "in-effect",
   "adopted",
   "failed",
+  "repealed",
 ];
 
 // Status -> label + the CSS color variable used for its badge. Mirrors
@@ -73,6 +75,9 @@ export const LEGISLATION_STATUS_META: Record<
   "in-effect": { label: "In effect", colorVar: "var(--color-danger)" },
   adopted: { label: "Adopted", colorVar: "var(--color-danger)" },
   failed: { label: "Failed", colorVar: "var(--color-fg-dim)" },
+  // Adopted/enacted, then undone — a repealed ordinance or statute. Shown muted
+  // like "failed" but labeled distinctly so the record stays honest.
+  repealed: { label: "Repealed", colorVar: "var(--color-fg-dim)" },
 };
 
 // Category -> label, used for section grouping and the card's category tag.
@@ -211,6 +216,7 @@ function deriveIndex(status: LegislationStatus, ordinance: boolean): number {
       case "in-committee": return 1;
       case "passed": return 2;
       case "adopted": case "enacted": case "in-effect": return 3;
+      case "repealed": return 3; // reached adoption, then was undone
       case "failed": return 1; // most die at the hearing/vote stage
       default: return 0;
     }
@@ -221,6 +227,7 @@ function deriveIndex(status: LegislationStatus, ordinance: boolean): number {
     case "passed": return 3; // cleared the legislature (both chambers)
     case "signed": return 6;
     case "enacted": case "in-effect": case "adopted": return 7;
+    case "repealed": return 7; // became law, then was repealed
     case "failed": return 1; // most bills die in committee
     default: return 0;
   }
@@ -236,11 +243,14 @@ export function getLifecycle(item: LegislationItem): Lifecycle {
       ? keys.indexOf(item.stage)
       : deriveIndex(item.status, ordinance);
 
-  const terminal = item.status === "failed";
-  return {
-    track,
-    currentIndex,
-    terminal,
-    terminalLabel: terminal ? (ordinance ? "Rejected" : "Failed") : undefined,
-  };
+  const repealed = item.status === "repealed";
+  const terminal = item.status === "failed" || repealed;
+  const terminalLabel = repealed
+    ? "Repealed"
+    : terminal
+      ? ordinance
+        ? "Rejected"
+        : "Failed"
+      : undefined;
+  return { track, currentIndex, terminal, terminalLabel };
 }

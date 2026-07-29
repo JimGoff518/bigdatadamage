@@ -1,0 +1,18 @@
+{
+  "category": "ordinance",
+  "title": "San Marcos — Citywide Zoning Ban on Data Centers",
+  "jurisdiction": "San Marcos",
+  "status": "adopted",
+  "harm": ["water", "property"],
+  "summary": "On June 16, 2026, the San Marcos City Council voted 4–3 to amend its land development code to define data centers and make them ineligible in every zoning district — effectively barring new data center construction anywhere in the city. Reporting describes it as the first outright ban of its kind by a Texas city. It takes the form of a permanent zoning-code change rather than a temporary moratorium.",
+  "whyItMatters": "The ban is being watched as a test case for how much authority Texas cities retain to block water- and power-hungry data centers. A state senator has signaled a legal challenge, arguing it functions as a de facto moratorium capped by state law; land-use experts counter that a zoning change is not a moratorium.",
+  "sourceUrl": "https://www.texastribune.org/2026/06/30/texas-san-marcos-data-center-ban-zoning-laws/",
+  "sourceName": "The Texas Tribune",
+  "lastAction": "Ban adopted by City Council (4–3)",
+  "lastActionDate": "2026-06-16",
+  "stageDates": {
+    "adopted": "2026-06-16"
+  },
+  "stageNote": "In effect; a state-law challenge has been threatened.",
+  "dateFound": "2026-07-29"
+}

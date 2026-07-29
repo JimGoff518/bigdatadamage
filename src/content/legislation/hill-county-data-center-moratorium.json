@@ -1,14 +1,18 @@
 {
   "category": "ordinance",
-  "title": "Hill County — One-Year Data Center Construction Pause",
+  "title": "Hill County — Data Center Pause, Adopted Then Repealed",
   "jurisdiction": "Hill County",
-  "status": "adopted",
+  "status": "repealed",
   "harm": ["water", "property"],
-  "summary": "Hill County approved a one-year pause on new data center construction, with county leaders citing concerns over water use, power demand, noise, and public safety.",
-  "whyItMatters": "It is among the first Texas counties to try to slow data center development — a test of how much power rural counties actually have to protect residents.",
-  "sourceUrl": "https://www.texastribune.org/2026/05/12/texas-hill-county-approves-data-center-construction-pause-ai/",
+  "summary": "Hill County adopted a one-year pause on new data center construction in May 2026, citing water use, power demand, noise, and public safety. Weeks later, on June 5, 2026, the commissioners repealed the pause after a developer, RCM Hill, LLC, sued for $100 million — arguing it held contracts to buy more than 800 acres for over $80 million and that the county had exceeded its lawful powers. In place of the blanket pause, the county adopted a checklist of requirements for data center developers, which the county judge said draws its authority from existing state statutes.",
+  "whyItMatters": "The reversal is a real-world test of how much power a rural Texas county actually has to slow data center development — and of how quickly the threat of a developer lawsuit can push a county from a broad moratorium to a narrower, statute-based review.",
+  "sourceUrl": "https://www.texastribune.org/2026/06/05/texas-hill-county-moratorium-rescinded-data-centers/",
   "sourceName": "The Texas Tribune",
-  "lastAction": "Pause approved",
-  "lastActionDate": "2026-05-12",
+  "lastAction": "Pause repealed; developer checklist adopted",
+  "lastActionDate": "2026-06-05",
+  "stageDates": {
+    "adopted": "2026-05-12"
+  },
+  "stageNote": "Adopted May 2026, repealed June 5, 2026 under a $100M developer lawsuit.",
   "dateFound": "2026-06-27"
 }

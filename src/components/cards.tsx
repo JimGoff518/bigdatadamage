@@ -16,7 +16,12 @@ import { LifecycleTracker } from "@/components/LifecycleTracker";
 import { Icon } from "@/components/Icons";
 
 export function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
+  // A bare YYYY-MM-DD is parsed as UTC midnight, which then renders as the
+  // previous day in US time zones. Anchor date-only values to local midnight so
+  // the displayed day matches the record (article dates carry a full timestamp
+  // and are left as-is).
+  const value = /^\d{4}-\d{2}-\d{2}$/.test(iso) ? `${iso}T00:00:00` : iso;
+  return new Date(value).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
