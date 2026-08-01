@@ -3,13 +3,26 @@
   "nodes": [
     {
       "parameters": {
-        "rule": { "interval": [ { "field": "weeks", "triggerAtDay": [ 4 ], "triggerAtHour": 8 } ] }
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                4
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
       },
       "id": "22222222-3333-4444-5555-000000000001",
       "name": "Schedule (weekly Thu 8am)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [ -640, 360 ]
+      "position": [
+        -640,
+        360
+      ]
     },
     {
       "parameters": {},
@@ -17,7 +30,10 @@
       "name": "Run now (manual)",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [ -640, 540 ]
+      "position": [
+        -640,
+        540
+      ]
     },
     {
       "parameters": {
@@ -27,26 +43,38 @@
       "name": "Build query feeds",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [ -400, 360 ]
+      "position": [
+        -400,
+        360
+      ]
     },
     {
-      "parameters": { "url": "={{ $json.url }}", "options": {} },
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {}
+      },
       "id": "22222222-3333-4444-5555-000000000004",
       "name": "Google News RSS",
       "type": "n8n-nodes-base.rssFeedRead",
       "typeVersion": 1.1,
-      "position": [ -180, 360 ],
+      "position": [
+        -180,
+        360
+      ],
       "onError": "continueRegularOutput"
     },
     {
       "parameters": {
-        "jsCode": "// Collect RSS articles into one numbered text block + a lookup list so the\n// filter sees all headlines at once and cites each by index (real link mapped\n// back later by sourceIndex — no URL hallucination).\nconst items = $input.all();\nconst headlines = [];\nfor (const it of items) {\n  const j = it.json || {};\n  const title = String(j.title || '').trim();\n  if (!title) continue;\n  const url = String(j.link || j.guid || '').trim();\n  const snippet = String(j.contentSnippet || j.content || '').replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').trim().slice(0, 280);\n  let source = String(j.creator || '').trim();\n  if (!source && title.includes(' - ')) source = title.split(' - ').pop().trim();\n  headlines.push({ i: headlines.length, title, snippet, url, source });\n}\nconst text = headlines.map(h => h.i + ') ' + h.title + (h.snippet ? ' \\u2014 ' + h.snippet : '')).join('\\n');\nreturn [{ json: { headlines, text } }];"
+        "jsCode": "// Collect RSS articles into one numbered text block + a lookup list so the\n// filter sees headlines at once and cites each by index (real link mapped\n// back later by sourceIndex — no URL hallucination).\n// CAP THE VOLUME: Google News returns 300+ items across the 4 queries, which\n// overflows the Gemini request body and fails the node. Dedupe by title, sort\n// newest-first, and keep only the freshest MAX_HEADLINES with short snippets.\nconst MAX_HEADLINES = 40;\nconst SNIPPET_LEN = 160;\nconst items = $input.all().slice();\nitems.sort((a, b) => {\n  const da = Date.parse((a.json && (a.json.isoDate || a.json.pubDate)) || \"\") || 0;\n  const db = Date.parse((b.json && (b.json.isoDate || b.json.pubDate)) || \"\") || 0;\n  return db - da;\n});\nconst seen = new Set();\nconst headlines = [];\nfor (const it of items) {\n  const j = it.json || {};\n  const title = String(j.title || \"\").trim();\n  if (!title) continue;\n  const key = title.toLowerCase();\n  if (seen.has(key)) continue;\n  seen.add(key);\n  const url = String(j.link || j.guid || \"\").trim();\n  const snippet = String(j.contentSnippet || j.content || \"\").replace(/<[^>]+>/g, \" \").replace(/\\s+/g, \" \").trim().slice(0, SNIPPET_LEN);\n  let source = String(j.creator || \"\").trim();\n  if (!source && title.includes(\" - \")) source = title.split(\" - \").pop().trim();\n  headlines.push({ i: headlines.length, title, snippet, url, source });\n  if (headlines.length >= MAX_HEADLINES) break;\n}\nconst text = headlines.map((h) => h.i + \") \" + h.title + (h.snippet ? \" — \" + h.snippet : \"\")).join(\"\\n\");\nreturn [{ json: { headlines, text, totalFetched: items.length, kept: headlines.length } }];"
       },
       "id": "22222222-3333-4444-5555-000000000005",
       "name": "Collect headlines",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [ 40, 360 ]
+      "position": [
+        40,
+        360
+      ]
     },
     {
       "parameters": {
@@ -63,11 +91,19 @@
       "name": "Gemini: filter leads",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [ 260, 360 ],
+      "position": [
+        260,
+        360
+      ],
       "retryOnFail": true,
       "maxTries": 3,
       "waitBetweenTries": 5000,
-      "credentials": { "googlePalmApi": { "id": "REPLACE_ME", "name": "Google Gemini(PaLM) Api account" } }
+      "credentials": {
+        "googlePalmApi": {
+          "id": "REPLACE_ME",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     },
     {
       "parameters": {
@@ -77,35 +113,122 @@
       "name": "Build digest",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [ 480, 360 ]
+      "position": [
+        480,
+        360
+      ]
     },
     {
       "parameters": {
         "sendTo": "jim@gofflawdfw.com",
         "subject": "=Legislation radar: {{ $json.leadCount }} lead(s)",
         "message": "={{ $json.emailBodyHtml }}",
-        "options": { "appendAttribution": false }
+        "options": {
+          "appendAttribution": false
+        }
       },
       "id": "22222222-3333-4444-5555-000000000008",
       "name": "Email leads",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
-      "position": [ 700, 360 ],
-      "credentials": { "gmailOAuth2": { "id": "REPLACE_ME", "name": "Gmail account 3" } }
+      "position": [
+        700,
+        360
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_ME",
+          "name": "Gmail account 3"
+        }
+      }
     }
   ],
   "pinData": {},
   "connections": {
-    "Schedule (weekly Thu 8am)": { "main": [ [ { "node": "Build query feeds", "type": "main", "index": 0 } ] ] },
-    "Run now (manual)": { "main": [ [ { "node": "Build query feeds", "type": "main", "index": 0 } ] ] },
-    "Build query feeds": { "main": [ [ { "node": "Google News RSS", "type": "main", "index": 0 } ] ] },
-    "Google News RSS": { "main": [ [ { "node": "Collect headlines", "type": "main", "index": 0 } ] ] },
-    "Collect headlines": { "main": [ [ { "node": "Gemini: filter leads", "type": "main", "index": 0 } ] ] },
-    "Gemini: filter leads": { "main": [ [ { "node": "Build digest", "type": "main", "index": 0 } ] ] },
-    "Build digest": { "main": [ [ { "node": "Email leads", "type": "main", "index": 0 } ] ] }
+    "Schedule (weekly Thu 8am)": {
+      "main": [
+        [
+          {
+            "node": "Build query feeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run now (manual)": {
+      "main": [
+        [
+          {
+            "node": "Build query feeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build query feeds": {
+      "main": [
+        [
+          {
+            "node": "Google News RSS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google News RSS": {
+      "main": [
+        [
+          {
+            "node": "Collect headlines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect headlines": {
+      "main": [
+        [
+          {
+            "node": "Gemini: filter leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini: filter leads": {
+      "main": [
+        [
+          {
+            "node": "Build digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build digest": {
+      "main": [
+        [
+          {
+            "node": "Email leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
   "active": false,
-  "settings": { "executionOrder": "v1" },
-  "meta": { "templateCredsSetupCompleted": true },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "tags": []
 }
