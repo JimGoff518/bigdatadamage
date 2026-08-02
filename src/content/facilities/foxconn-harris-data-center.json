@@ -1,0 +1,12 @@
+{
+  "name": "Foxconn Data Center",
+  "operator": "Foxconn",
+  "county": "Harris",
+  "status": "proposed",
+  "sourceUrl": "https://gov.texas.gov/business/page/recent-project-announcements",
+  "sourceName": "Office of the Governor — project announcements",
+  "note": "Proposed AI server facility expansion in Harris County. Announced $71.9 million. (Our summary; see source.)",
+  "dateFound": "2026-08-02",
+  "lat": 29.86,
+  "lng": -95.39
+}
