@@ -4,12 +4,9 @@ excerpt: "Bell County landowners are concerned about the water demands of a new 
 date: "2026-07-14"
 author: "Big Data Damage"
 harm: "water"
-location: "Temple"
----
-
-imageQuery: data center cooling towers steam
-seoTitle: Temple Data Center Water Concerns | Bell County Landowners
-seoDescription: Understand the water impact of the new Temple data center on Bell County landowners. Learn about compensation, moratoriums, and your property rights.
+location: "temple"
+seoTitle: "Temple Data Center Water Concerns | Bell County Landowners"
+seoDescription: "Understand the water impact of the new Temple data center on Bell County landowners. Learn about compensation, moratoriums, and your property rights."
 ---
 
 A significant new data center project is underway in Temple, Texas, bringing with it both economic promise and substantial concerns for local landowners, particularly regarding water resources. This facility, part of a broader trend of technological development, aims to support the growing demands of artificial intelligence and digital infrastructure. However, the scale of its operations has raised alarm bells among Bell County residents who are rightly concerned about the impact on their private wells, regional water supply, and overall property enjoyment.

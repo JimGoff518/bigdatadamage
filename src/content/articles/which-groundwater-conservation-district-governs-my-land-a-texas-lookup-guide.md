@@ -4,11 +4,8 @@ excerpt: "Texas groundwater is managed by local Groundwater Conservation Distric
 date: "2026-07-07"
 author: "Big Data Damage"
 harm: "water"
----
-
-imageQuery: texas groundwater conservation district map
-seoTitle: Find Your Texas Groundwater Conservation District | BigDataDamage.com
-seoDescription: Concerned about water rights near a data center? Use our guide to locate your Texas Groundwater Conservation District (GCD) and understand its impact on your land.
+seoTitle: "Find Your Texas Groundwater Conservation District | BigDataDamage.com"
+seoDescription: "Concerned about water rights near a data center? Use our guide to locate your Texas Groundwater Conservation District (GCD) and understand its impact on your land."
 ---
 
 In Texas, managing our precious groundwater resources is a complex task. With the increasing demand for water from growing industries like data centers, understanding who oversees the water beneath your land has become more critical than ever. Data centers, while bringing technological advancement, are often significant water users, potentially impacting local aquifers and the landowners who rely on them.
