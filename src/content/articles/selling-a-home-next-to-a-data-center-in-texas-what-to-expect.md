@@ -4,11 +4,8 @@ excerpt: "Understanding the market dynamics, disclosure requirements, and how to
 date: "2026-07-03"
 author: "Big Data Damage"
 harm: "property"
----
-
-imageQuery: suburban home near data center
-seoTitle: Selling Your Texas Home Near a Data Center - Disclosure & Market Tips
-seoDescription: Learn about buyer disclosure, market impacts, and documenting property conditions when selling a home adjacent to a Texas data center.
+seoTitle: "Selling Your Texas Home Near a Data Center - Disclosure & Market Tips"
+seoDescription: "Learn about buyer disclosure, market impacts, and documenting property conditions when selling a home adjacent to a Texas data center."
 ---
 
 Texas is experiencing a boom in data center development, transforming once-quiet rural landscapes into hubs of digital infrastructure. While these facilities promise technological advancement, they also introduce new considerations for landowners, particularly when it comes time to sell a home situated nearby. Our goal at BigDataDamage.com is not to oppose technology, but to ensure that landowners are fairly compensated and have the information they need to protect their investments.

@@ -6,11 +6,8 @@ author: "Big Data Damage"
 harm: "property"
 location: "temple"
 image: "/images/location-temple.jpg"
----
-
-imageQuery: large data center building rural texas
-seoTitle: Temple Data Center Property Rights | Bell County Landowner Guide
-seoDescription: Concerned about a data center impacting your property in Temple, Texas? Understand your landowner rights, potential harms, and how to seek fair compensation.
+seoTitle: "Temple Data Center Property Rights | Bell County Landowner Guide"
+seoDescription: "Concerned about a data center impacting your property in Temple, Texas? Understand your landowner rights, potential harms, and how to seek fair compensation."
 ---
 
 Central Texas is experiencing significant growth, and with it, a surge in data center development. Temple, situated in this dynamic corridor of Bell County, is at the forefront of this expansion, with multiple large-scale data center projects underway or planned. For many, these developments promise economic opportunity and technological advancement. However, for rural landowners, the rapid industrialization of once-quiet landscapes often brings uncompensated harms to their property.
