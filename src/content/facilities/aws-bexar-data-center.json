@@ -1,0 +1,13 @@
+{
+  "name": "AWS Data Center",
+  "operator": "AWS",
+  "county": "Bexar",
+  "status": "proposed",
+  "sourceUrl": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPNExTeE9hUW9aUnpRbXZXVFJ2ZUs5Njg4Z2ZHRFVCbFFmUDRRcEg2bnpvNWpDTGxYNUVBODl2SHFoTTdvQXgxQnp1N3ZyTHRKYnVoSU54bTJRY29JWWVIRnB6MmNhWS03Mlk4REM0cjlLNWRnaDZ2ejZiRkgwUFE0RVdoYkMyWlRRdkRTU2FjU1pWZ0oxWUxQMkYzSVRyc1k?oc=5",
+  "sourceName": "Data Center Dynamics",
+  "note": "AWS has filed plans to develop data centers in San Antonio. (Our summary; see source.)",
+  "dateFound": "2026-08-02",
+  "city": "San Antonio",
+  "lat": 29.45,
+  "lng": -98.52
+}
