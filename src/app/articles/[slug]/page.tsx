@@ -17,6 +17,7 @@ import {
   getRelatedArticles,
   readingMinutes,
   extractToc,
+  extractFaqs,
 } from "@/lib/articles";
 import { getLocation } from "@/content/locations";
 import { getTopic } from "@/content/topics";
@@ -88,6 +89,10 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
   if (topic) crumbs.push({ name: topic.name, item: `${site.url}/damage/${topic.slug}` });
   crumbs.push({ name: article.title, item: url });
 
+  // Q&A pulled from the article's FAQ section, emitted as FAQPage schema for
+  // rich results and AI-engine citation. Empty for articles without an FAQ.
+  const faqs = extractFaqs(article.content);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -98,8 +103,14 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
         datePublished: article.date,
         dateModified: article.date,
         mainEntityOfPage: url,
-        author: { "@type": "Organization", name: article.author },
-        publisher: { "@type": "Organization", name: site.name, "@id": `${site.url}/#organization` },
+        // Link author/publisher to the rich site-wide Organization entity (see
+        // layout.tsx) by @id, so each article inherits its authority signals
+        // (knowsAbout, contactPoint, LegalService sponsor) instead of a bare stub.
+        author:
+          article.author === site.name
+            ? { "@id": `${site.url}/#organization` }
+            : { "@type": "Organization", name: article.author },
+        publisher: { "@id": `${site.url}/#organization` },
         ...(article.image ? { image: `${site.url}${article.image}` } : {}),
       },
       {
@@ -111,6 +122,18 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
           item: c.item,
         })),
       },
+      ...(faqs.length
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: faqs.map((f) => ({
+                "@type": "Question",
+                name: f.question,
+                acceptedAnswer: { "@type": "Answer", text: f.answer },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 
