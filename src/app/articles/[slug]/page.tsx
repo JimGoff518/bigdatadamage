@@ -103,8 +103,14 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
         datePublished: article.date,
         dateModified: article.date,
         mainEntityOfPage: url,
-        author: { "@type": "Organization", name: article.author },
-        publisher: { "@type": "Organization", name: site.name, "@id": `${site.url}/#organization` },
+        // Link author/publisher to the rich site-wide Organization entity (see
+        // layout.tsx) by @id, so each article inherits its authority signals
+        // (knowsAbout, contactPoint, LegalService sponsor) instead of a bare stub.
+        author:
+          article.author === site.name
+            ? { "@id": `${site.url}/#organization` }
+            : { "@type": "Organization", name: article.author },
+        publisher: { "@id": `${site.url}/#organization` },
         ...(article.image ? { image: `${site.url}${article.image}` } : {}),
       },
       {
