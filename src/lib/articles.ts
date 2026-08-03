@@ -97,6 +97,63 @@ export function extractToc(content: string): TocItem[] {
   return items;
 }
 
+export type Faq = { question: string; answer: string };
+
+// Flatten inline markdown to plain text for JSON-LD answer strings.
+function mdToText(md: string): string {
+  return md
+    .replace(/\r/g, "")
+    .trim()
+    .replace(/^A[:.]\s*/i, "") // strip a leading "A:" answer marker (Gemini format)
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, "") // images
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // links -> anchor text
+    .replace(/[*_`]/g, "") // emphasis / code ticks
+    .replace(/^#{1,6}\s*/gm, "") // stray headings
+    .replace(/^>\s?/gm, "") // blockquotes
+    .replace(/^[-*]\s+/gm, "") // list bullets
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// Pull Q&A pairs out of an article's "Frequently Asked Questions" H2 section so
+// the page can emit FAQPage schema. Handles both "### Q: ..." (with a leading
+// "A:" answer) and plain "### ..." heading styles.
+export function extractFaqs(content: string): Faq[] {
+  const lines = content.split("\n");
+  let start = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^##\s+Frequently Asked Questions/i.test(lines[i].trim())) {
+      start = i + 1;
+      break;
+    }
+  }
+  if (start === -1) return [];
+
+  const faqs: Faq[] = [];
+  let question: string | null = null;
+  let answer: string[] = [];
+  const flush = () => {
+    if (question) {
+      const text = mdToText(answer.join("\n"));
+      if (text) faqs.push({ question, answer: text });
+    }
+  };
+  for (let i = start; i < lines.length; i++) {
+    const t = lines[i].trim();
+    if (/^##\s+/.test(t)) break; // next H2 ends the FAQ section
+    const h3 = t.match(/^###\s+(.*)$/);
+    if (h3) {
+      flush();
+      question = h3[1].replace(/^Q[:.]\s*/i, "").trim();
+      answer = [];
+    } else if (question) {
+      answer.push(lines[i]);
+    }
+  }
+  flush();
+  return faqs;
+}
+
 export function getRelatedArticles(article: Article, limit = 3): Article[] {
   const others = getAllArticles().filter((a) => a.slug !== article.slug);
   const scored = others

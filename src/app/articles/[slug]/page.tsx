@@ -17,6 +17,7 @@ import {
   getRelatedArticles,
   readingMinutes,
   extractToc,
+  extractFaqs,
 } from "@/lib/articles";
 import { getLocation } from "@/content/locations";
 import { getTopic } from "@/content/topics";
@@ -88,6 +89,10 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
   if (topic) crumbs.push({ name: topic.name, item: `${site.url}/damage/${topic.slug}` });
   crumbs.push({ name: article.title, item: url });
 
+  // Q&A pulled from the article's FAQ section, emitted as FAQPage schema for
+  // rich results and AI-engine citation. Empty for articles without an FAQ.
+  const faqs = extractFaqs(article.content);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -111,6 +116,18 @@ export default async function ArticlePage(props: PageProps<"/articles/[slug]">) 
           item: c.item,
         })),
       },
+      ...(faqs.length
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: faqs.map((f) => ({
+                "@type": "Question",
+                name: f.question,
+                acceptedAnswer: { "@type": "Answer", text: f.answer },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 
