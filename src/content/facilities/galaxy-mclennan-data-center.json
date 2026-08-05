@@ -1,0 +1,13 @@
+{
+  "name": "Galaxy Data Center",
+  "operator": "Galaxy",
+  "county": "McLennan",
+  "status": "proposed",
+  "sourceUrl": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQV2NNdVZfQzRqNkxKMjM0WTlOcTQtRlJrYl9xTVRCVXoySEhtSlFFVWNJamF5WDRsWllkX1hzVmF2N1dCSF9VcVYwLVRDdndQaWZxLVd2OXdZZU50UHFQRHJMQW5hU2R1SDM0a1NyTmRlU091UG1RckRVb1huZ0ZHUnVyY2dUTWZwakpzTUdDYXhPcV9QZmdHRHhDblJqbC1WSnByWVdFNFVJcFh2ajA2WENoVHQ4RUNvSTJwcnFQbw?oc=5",
+  "sourceName": "galaxy.com",
+  "note": "Galaxy acquired a 500-acre campus in McGregor, Texas, to expand its data center operations. (Our summary; see source.)",
+  "dateFound": "2026-08-05",
+  "city": "McGregor",
+  "lat": 31.55,
+  "lng": -97.2
+}
